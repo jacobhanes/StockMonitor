@@ -1,0 +1,16 @@
+#stockList {
+    margin-bottom: 25px;
+}
+#articleList {
+    margin-top: 25px;
+}
+#navTop {
+    margin-bottom: 25px;
+}
+body{
+    background-color: #191919;
+}
+#navTop{
+    background-color: #472A00;
+    color:black;
+}
