@@ -1,19 +1,19 @@
 $(document).ready(function (eventObj) {
-    console.log(eventObj);
 
     let baseUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&interval=5min&outputsize=full";
     let stockSymbolName = "&symbol="
-    let stockNames = ["AAPL", "MSFT", "AXP"];
+    let stockNames = ["AXP","AAPL"];
     let stockApiKey = "&apikey=9C5L7VDS9B25DUYZ";
     let stockData = [];
+    let stockDataMonthly= [];
+    let prevDates = [];
 
     function getMonthEndDates() {
         let currentYear = moment().format("YYYY");
         let currMonth = moment().format("MM");
         let currDayName = moment().format("dddd");
         let currDayNumber = moment().format("DD");
-        let prevDates = [];
-
+   
         if (currDayName == "Sunday") {
             currDayNumber -= 2;
         }
@@ -79,7 +79,7 @@ $(document).ready(function (eventObj) {
     }
 
     function getStockDataGlobalQuote(stockElement) {
-        let baseUrlGlobal = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&interval=5min&outputsize=full";
+        let baseUrlGlobal = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE";
         $.ajax({
             url: baseUrlGlobal + stockSymbolName + stockElement + stockApiKey,
             method: "GET"
@@ -94,6 +94,47 @@ $(document).ready(function (eventObj) {
         });
 
     }
+
+    function getStockDataMonthly(stockElement) {
+        let baseUrlMonthly = "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED";
+        $.ajax({
+            url: baseUrlMonthly + stockSymbolName + stockElement + stockApiKey,
+            method: "GET"
+        }).then(function (resObj) {
+            console.log(baseUrlMonthly + stockSymbolName + stockElement + stockApiKey);
+
+            for(let i=0;i<prevDates.length;i++){
+                stockDataMonthly.push({
+                    "symbol" : resObj["Meta Data"]["2. Symbol"],
+                    "Monthly avg price": resObj["Monthly Adjusted Time Series"][prevDates[i].month_end_date]["4. close"],
+                    "Dividend amount": resObj["Monthly Adjusted Time Series"][prevDates[i].month_end_date]["7. dividend amount"],
+                    "Month EndDate": prevDates[i].month_end_date
+                })
+
+            }
+    
+        });
+
+    }
+
+    
+    // "Meta Data": {
+    //     "1. Information": "Monthly Adjusted Prices and Volumes",
+    //     "2. Symbol": "MSFT",
+    //     "3. Last Refreshed": "2019-06-28",
+    //     "4. Time Zone": "US/Eastern"
+    //     },
+    //     "Monthly Adjusted Time Series": {
+    //     "2019-06-28": {
+    //     "1. open": "123.8500",
+    //     "2. high": "138.4000",
+    //     "3. low": "119.0100",
+    //     "4. close": "133.9600",
+    //     "5. adjusted close": "133.9600",
+    //     "6. volume": "508298497",
+    //     "7. dividend amount": "0.0000"
+    //     },
+  
 
     //Sample Response for GLOBAL_QUOTE API Call 
     // {
@@ -112,10 +153,10 @@ $(document).ready(function (eventObj) {
     // }
 
     for (let i = 0; i < stockNames.length; i++) {
-        getStockData(stockNames[i]);
         getStockDataGlobalQuote(stockNames[i]);
+        getStockDataMonthly(stockNames[i]);
     }
 
     console.log(stockData);
-
+    console.log(stockDataMonthly);
 });
