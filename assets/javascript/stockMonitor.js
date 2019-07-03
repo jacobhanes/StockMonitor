@@ -11,6 +11,7 @@ const Config = {
   };
 firebase.initializeApp(Config);
 
+// Objects
 let stockObj = {};
 stockObj.stockName = "Apple";
 stockObj.quantity = 10;
