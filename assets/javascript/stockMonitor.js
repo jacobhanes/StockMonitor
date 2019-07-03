@@ -25,6 +25,21 @@ let stockRef = firebase.database();
 stockRef.ref('/stocks').on('child_added',function(childObj, prevChildKeyObj){
     console.log(childObj.key);
     console.log(childObj.val());
+
+    let  childObjData=childObj.val();
+
+    tbRow=$("<tr>");
+    tbRow.append($("<td>").text(childObjData.stockName),
+    $("<td>").text(childObjData.price),
+    $("<td>").text(childObjData.quantity),
+    $("<td>").text(childObjData.purchaseDate),
+    $("<td>").text(0),
+    $("<td>").text(0)
+    );
+
+$("#stockTable > tbody").append(tbRow);
+
+
 });
 
 
