@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
     <!-- firebase -->
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
     <!-- bootstrap -->
@@ -15,9 +16,23 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+
+    <!-- Link to Moment.js should go here -->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+
+  <div class="contianer">
+    <canvas id="stockCharts"  width="400" height="400"></canvas>
+  </div>
+
+
 </head>
 
 <body>
+
     <div class="container">
         <nav class="nav" id="navTop">
             <a class="nav-link" href="#">StockMonitor |</a>
@@ -84,6 +99,8 @@
         </div>
     </div>
     <script src="assets/javascript/stockMonitor.js"></script>
+
+
 </body>
 
 </html>
