@@ -1,3 +1,38 @@
+
+// Initialize Firebase
+const Config = {
+    apiKey: "AIzaSyCsZ3wNbJL4YxJs49j6tBUYcPmtwTFZFNQ",
+    authDomain: "stockmonitor-37fc2.firebaseapp.com",
+    databaseURL: "https://stockmonitor-37fc2.firebaseio.com",
+    projectId: "stockmonitor-37fc2",
+    storageBucket: "",
+    messagingSenderId: "158264431131",
+    appId: "1:158264431131:web:44a1b828a85e9390"
+  };
+firebase.initializeApp(Config);
+
+let stockObj = {};
+stockObj.stockName = "Apple";
+stockObj.quantity = 10;
+stockObj.price = 10.56;
+stockObj.purchaseDate = "mm/dd/yyyy";
+stockObj.user = 1;
+
+let userObj = {};
+userObj.userName = "Sam";
+userObj.email = "name@gmail.com";
+userObj.user = 1;
+
+let stockRef = firebase.database();
+
+stockRef.ref('/stocks').on('child_added',function(childObj, prevChildKeyObj){
+    console.log(childObj.key);
+    console.log(childObj.val());
+});
+console.log(stockObj);
+stockRef.ref('/stocks').push(stockObj);
+
+
 $(document).ready(function (eventObj) {
 
     let baseUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&interval=5min&outputsize=full";
@@ -174,6 +209,10 @@ $(document).ready(function (eventObj) {
 //     },
 
 
+
+
+
+
 //Sample Response for GLOBAL_QUOTE API Call 
 // {
 //     "Global Quote": {
@@ -197,4 +236,5 @@ for (let i = 0; i < stockNames.length; i++) {
 
 // console.log(stockData);
 console.log(stockDataMonthly);
+
 });
