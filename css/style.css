@@ -14,3 +14,7 @@ body{
     background-color: #472A00;
     color:black;
 }
+.verticalLine{
+    border-right: 4px solid black;
+    height: 500px;
+}
