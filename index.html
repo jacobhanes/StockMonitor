@@ -9,8 +9,17 @@
     <title>Stock Monitor</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/style.css">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Link to Moment.js should go here -->
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+
 </head>
 
 <body>
@@ -53,7 +62,7 @@
                             <div class="col-3">
 
                                 <label for="stockId">Stock Name:</label>
-                                <input type="text" class="stockId">
+                                <input type="text" id="stockId">
                             </div>
                             <div class="col-3">
 
@@ -71,7 +80,8 @@
                                 <input type="text" id="sPurchase">
                             </div>
                         </div>
-                        <a href="#" class="btn btn-primary">Add</a>
+                        <br>
+                        <button type="button" class="btn btn-primary" id="addBtn">Add</button>
 
                     </div>
                 </div>
@@ -90,19 +100,19 @@
                         <div class="row">
                             <div class="col">
                                 <label for="stockId">Stock Name:</label>
-                                <input type="text" class="stockId">
+                                <input type="text" id="UpdatestockId" required>
                                 <div class="row">
                                     <div class="col">
 
                                         <label for="sPrice">Quantity:</label>
-                                        <input type="text" id="sPrice">
+                                        <input type="text" id="UpdatePrice">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
 
                                         <label for="sQuantity">Quantity:</label>
-                                        <input type="text" id="sQuantity">
+                                        <input type="text" id="updateQuantity">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -140,6 +150,9 @@
         </div>
     </div>
   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
     <script src="assets/javascript/stockMonitor.js"></script>
 
 </body>

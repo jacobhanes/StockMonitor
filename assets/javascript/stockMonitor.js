@@ -1,16 +1,16 @@
 
 // Initialize Firebase
-const Config = {
-    apiKey: "AIzaSyCsZ3wNbJL4YxJs49j6tBUYcPmtwTFZFNQ",
-    authDomain: "stockmonitor-37fc2.firebaseapp.com",
-    databaseURL: "https://stockmonitor-37fc2.firebaseio.com",
-    projectId: "stockmonitor-37fc2",
-    storageBucket: "",
-    messagingSenderId: "158264431131",
-    appId: "1:158264431131:web:44a1b828a85e9390"
+var firebaseConfig = {
+    apiKey: "AIzaSyAqQmRiWzcO2f_3AKXt_KnWoYzwBDFQL34",
+    authDomain: "fir-project-c0c9a.firebaseapp.com",
+    databaseURL: "https://fir-project-c0c9a.firebaseio.com",
+    projectId: "fir-project-c0c9a",
+    storageBucket: "fir-project-c0c9a.appspot.com",
+    messagingSenderId: "820221888907",
+    appId: "1:820221888907:web:f8331d7565f1bdf7"
   };
-firebase.initializeApp(Config);
 
+<<<<<<< HEAD
 // Objects
 let stockObj = {};
 stockObj.stockName = "Apple";
@@ -18,7 +18,13 @@ stockObj.quantity = 10;
 stockObj.price = 10.56;
 stockObj.purchaseDate = "mm/dd/yyyy";
 stockObj.user = 1;
+=======
+   // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
 
+>>>>>>> 481b3053ac19fdfb3720423429d9a51e0dfe7fb6
+
+let stockObj = {};
 let userObj = {};
 userObj.userName = "Sam";
 userObj.email = "name@gmail.com";
@@ -30,8 +36,7 @@ stockRef.ref('/stocks').on('child_added',function(childObj, prevChildKeyObj){
     console.log(childObj.key);
     console.log(childObj.val());
 });
-console.log(stockObj);
-stockRef.ref('/stocks').push(stockObj);
+
 
 
 $(document).ready(function (eventObj) {
@@ -153,43 +158,63 @@ $(document).ready(function (eventObj) {
 
     }
 
-    let myChart = document.getElementById("stockCharts").getContext('2d');
-    let barChart = new Chart(myChart, {
-        type: 'bar',
-        data: {
-            labels: stockNames,
-            datasets: [{
-                label: 'population1',
-                data: [1, 2, 3],
-                backgroundColor: ["red", "green"]
-            },
-            {
-                label: 'population2',
-                data: [4, 5, 6],
-                backgroundColor: ["red", "green"]
-            }
-                ,
-            {
-                label: 'population3',
-                data: [7, 8, 9],
-                backgroundColor: ["red", "green"]
-            }
-            ]
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    barPercentage: 0.5,
-                    barThickness: 6,
-                    maxBarThickness: 8,
-                    minBarLength: 0,
-                    gridLines: {
-                        offsetGridLines: true
-                    }
-                }]
-            }
-        }
+
+    $("#addBtn").click(function (eventObj) {
+        console.log(eventObj);
+        stockObj.stockName = $("#stockId").val();
+        stockObj.quantity = $("#sPrice").val();
+        stockObj.price = $("#sQuantity").val();
+        stockObj.purchaseDate = $("#sPurchase").val();
+        stockObj.user = 1;
+        console.log(stockObj);
+        stockRef.ref('/stocks').push(stockObj);
+        alert("Added the stock");
+        $("#stockId").val("");
+        $("#sPrice").val("");
+        $("#sQuantity").val("");
+        $("#sPurchase").val("");
     });
+
+
+
+
+    // let myChart = document.getElementById("stockCharts").getContext('2d');
+    // let barChart = new Chart(myChart, {
+    //     type: 'bar',
+    //     data: {
+    //         labels: stockNames,
+    //         datasets: [{
+    //             label: 'population1',
+    //             data: [1, 2, 3],
+    //             backgroundColor: ["red", "green"]
+    //         },
+    //         {
+    //             label: 'population2',
+    //             data: [4, 5, 6],
+    //             backgroundColor: ["red", "green"]
+    //         }
+    //             ,
+    //         {
+    //             label: 'population3',
+    //             data: [7, 8, 9],
+    //             backgroundColor: ["red", "green"]
+    //         }
+    //         ]
+    //     },
+    //     options: {
+    //         scales: {
+    //             xAxes: [{
+    //                 barPercentage: 0.5,
+    //                 barThickness: 6,
+    //                 maxBarThickness: 8,
+    //                 minBarLength: 0,
+    //                 gridLines: {
+    //                     offsetGridLines: true
+    //                 }
+    //             }]
+    //         }
+    //     }
+    // });
 
 
 // "Meta Data": {
