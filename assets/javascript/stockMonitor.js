@@ -2,10 +2,10 @@ $(document).ready(function (eventObj) {
 
     let baseUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&interval=5min&outputsize=full";
     let stockSymbolName = "&symbol="
-    let stockNames = ["AXP","AAPL"];
+    let stockNames = ["AXP", "AAPL", "MSFT"];
     let stockApiKey = "&apikey=9C5L7VDS9B25DUYZ";
     let stockData = [];
-    let stockDataMonthly= [];
+    let stockDataMonthly = [];
     let prevDates = [];
 
     function getMonthEndDates() {
@@ -13,7 +13,7 @@ $(document).ready(function (eventObj) {
         let currMonth = moment().format("MM");
         let currDayName = moment().format("dddd");
         let currDayNumber = moment().format("DD");
-   
+
         if (currDayName == "Sunday") {
             currDayNumber -= 2;
         }
@@ -28,7 +28,7 @@ $(document).ready(function (eventObj) {
 
         currMonth--;
 
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 6; i++) {
             let currMonthEndDay = moment(currentYear + "-" + currMonth, "YYYY-MM").daysInMonth();
             let currMonthEndName = moment(currentYear + "-" + currMonth + "-" + currMonthEndDay).format("dddd");
 
@@ -103,60 +103,98 @@ $(document).ready(function (eventObj) {
         }).then(function (resObj) {
             console.log(baseUrlMonthly + stockSymbolName + stockElement + stockApiKey);
 
-            for(let i=0;i<prevDates.length;i++){
+            for (let i = 0; i < prevDates.length; i++) {
                 stockDataMonthly.push({
-                    "symbol" : resObj["Meta Data"]["2. Symbol"],
+                    "symbol": resObj["Meta Data"]["2. Symbol"],
                     "Monthly avg price": resObj["Monthly Adjusted Time Series"][prevDates[i].month_end_date]["4. close"],
                     "Dividend amount": resObj["Monthly Adjusted Time Series"][prevDates[i].month_end_date]["7. dividend amount"],
                     "Month EndDate": prevDates[i].month_end_date
                 })
 
             }
-    
+
         });
 
     }
 
-    
-    // "Meta Data": {
-    //     "1. Information": "Monthly Adjusted Prices and Volumes",
-    //     "2. Symbol": "MSFT",
-    //     "3. Last Refreshed": "2019-06-28",
-    //     "4. Time Zone": "US/Eastern"
-    //     },
-    //     "Monthly Adjusted Time Series": {
-    //     "2019-06-28": {
-    //     "1. open": "123.8500",
-    //     "2. high": "138.4000",
-    //     "3. low": "119.0100",
-    //     "4. close": "133.9600",
-    //     "5. adjusted close": "133.9600",
-    //     "6. volume": "508298497",
-    //     "7. dividend amount": "0.0000"
-    //     },
-  
+    let myChart = document.getElementById("stockCharts").getContext('2d');
+    let barChart = new Chart(myChart, {
+        type: 'bar',
+        data: {
+            labels: stockNames,
+            datasets: [{
+                label: 'population1',
+                data: [1, 2, 3],
+                backgroundColor: ["red", "green"]
+            },
+            {
+                label: 'population2',
+                data: [4, 5, 6],
+                backgroundColor: ["red", "green"]
+            }
+                ,
+            {
+                label: 'population3',
+                data: [7, 8, 9],
+                backgroundColor: ["red", "green"]
+            }
+            ]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    barPercentage: 0.5,
+                    barThickness: 6,
+                    maxBarThickness: 8,
+                    minBarLength: 0,
+                    gridLines: {
+                        offsetGridLines: true
+                    }
+                }]
+            }
+        }
+    });
 
-    //Sample Response for GLOBAL_QUOTE API Call 
-    // {
-    //     "Global Quote": {
-    //         "01. symbol": "MSFT",
-    //         "02. open": "134.5700",
-    //         "03. high": "134.6000",
-    //         "04. low": "133.1600",
-    //         "05. price": "133.9600",
-    //         "06. volume": "30042969",
-    //         "07. latest trading day": "2019-06-28",
-    //         "08. previous close": "134.1500",
-    //         "09. change": "-0.1900",
-    //         "10. change percent": "-0.1416%"
-    //     }
-    // }
 
-    for (let i = 0; i < stockNames.length; i++) {
-        getStockDataGlobalQuote(stockNames[i]);
-        getStockDataMonthly(stockNames[i]);
-    }
+// "Meta Data": {
+//     "1. Information": "Monthly Adjusted Prices and Volumes",
+//     "2. Symbol": "MSFT",
+//     "3. Last Refreshed": "2019-06-28",
+//     "4. Time Zone": "US/Eastern"
+//     },
+//     "Monthly Adjusted Time Series": {
+//     "2019-06-28": {
+//     "1. open": "123.8500",
+//     "2. high": "138.4000",
+//     "3. low": "119.0100",
+//     "4. close": "133.9600",
+//     "5. adjusted close": "133.9600",
+//     "6. volume": "508298497",
+//     "7. dividend amount": "0.0000"
+//     },
 
-    console.log(stockData);
-    console.log(stockDataMonthly);
+
+//Sample Response for GLOBAL_QUOTE API Call 
+// {
+//     "Global Quote": {
+//         "01. symbol": "MSFT",
+//         "02. open": "134.5700",
+//         "03. high": "134.6000",
+//         "04. low": "133.1600",
+//         "05. price": "133.9600",
+//         "06. volume": "30042969",
+//         "07. latest trading day": "2019-06-28",
+//         "08. previous close": "134.1500",
+//         "09. change": "-0.1900",
+//         "10. change percent": "-0.1416%"
+//     }
+// }
+
+for (let i = 0; i < stockNames.length; i++) {
+    // getStockDataGlobalQuote(stockNames[i]);
+    getStockDataMonthly(stockNames[i]);
+}
+
+// console.log(stockData);
+console.log(stockDataMonthly);
 });
