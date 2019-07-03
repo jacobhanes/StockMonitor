@@ -10,19 +10,9 @@ var firebaseConfig = {
     appId: "1:820221888907:web:f8331d7565f1bdf7"
   };
 
-<<<<<<< HEAD
-// Objects
-let stockObj = {};
-stockObj.stockName = "Apple";
-stockObj.quantity = 10;
-stockObj.price = 10.56;
-stockObj.purchaseDate = "mm/dd/yyyy";
-stockObj.user = 1;
-=======
    // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
->>>>>>> 481b3053ac19fdfb3720423429d9a51e0dfe7fb6
 
 let stockObj = {};
 let userObj = {};
