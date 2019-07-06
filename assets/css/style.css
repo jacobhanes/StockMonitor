@@ -1,4 +1,5 @@
 #stockList {
+<<<<<<< HEAD
 	    margin-bottom: 25px;
     }
     #articleList {
@@ -14,3 +15,13 @@
 			    background-color: #472A00;
 			        color:black;
 			}
+=======
+    margin-bottom: 25px;
+}
+#articleList {
+    margin-top: 25px;
+}
+#navTop {
+    margin-bottom: 25px;
+}
+>>>>>>> 7ed36fa31ac7e14a2f5945284cac9b744e7d519d

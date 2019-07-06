@@ -2,14 +2,18 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stock Monitor</title>
+    <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- css -->
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Moment.js  -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 </head>
 
 <body  background="./assets/De Stijl.jpg">
@@ -19,6 +23,7 @@
 
                     <a class="nav-link active" href="#">Account</a>
                     <a class="nav-link" href="#">Logout</a>
+                    <a class="nav-link" href="#">About</a>
                     
                     
                   </nav>
@@ -42,6 +47,13 @@
                 </div>
                 </div>
                     <hr>
+
+   
+
+
+
+
+
         <div class="row">
             <div class="col">
                 <div class="card" id="stockList">
@@ -55,49 +67,113 @@
                                     <th scope="col">Price</th>
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Purchase Date</th>
-                                    
+                                    <th scope="col">Current Price</th>
+                                    <th scope="col">Total Value</th>
+
+
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
-                        <input type="text">
-                        <a href="#" class="btn btn-primary">Add</a>
+
+                        <div class="row">
+                            <div class="col-3">
+
+                                <label for="stockId">Stock Name:</label>
+                                <input type="text" id="stockId">
+                            </div>
+                            <div class="col-3">
+
+                                <label for="sPrice">Price of Stock:</label>
+                                <input type="text" id="sPrice">
+                            </div>
+                            <div class="col-3">
+
+                                <label for="sQuantity">Quantity:</label>
+                                <input type="text" id="sQuantity">
+                            </div>
+                            <div class="col-3">
+
+                                <label for="sPurchase">Date Purchase:</label>
+                                <input type="text" id="sPurchase">
+                            </div>
+                        </div>
+                        <br>
+                        <button type="button" class="btn btn-primary" id="addBtn">Add</button>
+
                     </div>
                 </div>
 
             </div>
 
         </div>
-    
+<hr>
         <div class="row">
             <div class="col-6">
-            <div class="card">
-                <div class="card-body"> 
-                    <h5 class="card-title">Charts</h5>
-                <hr>
+                <div class="card">
+                    <div class="card-body">
+
+                        <h2>Update Your Stocks</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col">
+                                <label for="stockId">Stock Name:</label>
+                                <input type="text" id="UpdatestockId" required>
+                                <div class="row">
+                                    <div class="col">
+
+                                        <label for="sPrice">Quantity:</label>
+                                        <input type="text" id="UpdatePrice">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+
+                                        <label for="sQuantity">Quantity:</label>
+                                        <input type="text" id="updateQuantity">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+
+                                        <label for="sPurchase">Purchase Date:</label>
+                                        <input type="text" id="sPurchase">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary">Update</a>
+                    </div>
                 </div>
             </div>
-            </div>
             <div class="col-6">
-                    <div class="card">
-                        <div class="card-body"> 
-                            <h5 class="card-title">This is where we hate ourselves</h5>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="navbar-brand">This is where we hate ourselves.</h5>
                         <hr>
-                        </div>
                     </div>
-                    </div>
+                </div>
+            </div>
         </div>
-
+<hr>
         <div class="row">
             <div class="col">
                 <div class="card" id="articleList">
-                    <h5 class="card-title">Articles</h5>
-                   <hr>
+
+                    <h5 class="navbar-brand">this is where we list articles</h5>
+                        <hr>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+<!-- chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+<!-- firebase -->
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
+<!-- javascript -->
+<script src="assets/javascript/stockMonitor.js"></script>
 
 </body>
 
