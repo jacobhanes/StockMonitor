@@ -264,17 +264,17 @@ function getNews (Response){
         // $(".artList").append(articleLink);
     }  
         // const articleTwo = Response.articles[1].title;
-        
-        
-        
-        
     })
-    
 }
-
+        
+        
 $("#searchButton").on("click", function(){
     console.log("yay");
     $(".artList").empty();
     getNews();
 })
 });
+        
+        
+    
+
