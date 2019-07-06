@@ -241,28 +241,40 @@ function getNews (Response){
     
     const name = $("#searchBar").val();
     const newsURL = 
-    "https://newsapi.org/v2/top-headlines?country=us&q=" + name + "&category=business&category=technology&pageSize=5&apiKey=4a949f08742d43659984e4ff070ed8cd";
+    "https://newsapi.org/v2/top-headlines?country=us&q=" + name + "&category=business&category=technology&pageSize=5&apiKey=2bc02802e5f74edfa7dc731b454fe6a3";
 
     $.ajax({
         url: newsURL,
         method: "GET"
     }).then(function(Response){
-        const articleOne = Response.articles[0].title;
-        const articleTwo = Response.articles[1].title;
+
+    for(let i = 0; i < Response.articles.length; i++){
+        const article = Response.articles[i].title;
+        const articleLink = Response.articles[i].url;
+        // const articleTag = $("<a>");
+        // articleTag.text(Response.articles[i].title);
+        
+        console.log(Response.articles[i]);
+        console.log(articleLink);
+        
         console.log(Response);
-        console.log(Response.articles[0].title);
-        console.log(Response.articles[1].title);
-        console.log(Response.articles[2].title);
-        console.log(Response.articles[3].title);
-        console.log(Response.articles[4].title);
-        $("#artList").html(articleOne);
-        $("#artList").append(articleTwo);
+        // console.log(articleTag);
+        
+        $(".artList").append(`<li>${article} <a href="${articleLink}">${articleLink}</a></li>`);
+        // $(".artList").append(articleLink);
+    }  
+        // const articleTwo = Response.articles[1].title;
+        
+        
+        
+        
     })
     
 }
 
 $("#searchButton").on("click", function(){
     console.log("yay");
+    $(".artList").empty();
     getNews();
 })
 });
