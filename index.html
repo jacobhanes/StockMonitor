@@ -2,27 +2,56 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stock Monitor</title>
+    <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- css -->
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Moment.js  -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 </head>
 
-<body>
+<body  background="./assets/ricardo-gomez-angel-5YM26lUicfU-unsplash.jpg">
     <div class="container">
-        <nav class="nav" id="navTop">
-            <a class="nav-link active" href="#">Account</a>
-            <a class="nav-link" href="#">Logout</a>
-            
+            <nav class="nav" id="navTop">
+            <h5 class="navbar-brand">StockMonitor</h5>
+
+                    <a class="nav-link active" href="#">Account</a>
+                    <a class="nav-link" href="#">Logout</a>
+                    
+                    
+                    
+                  </nav>
+                  <div class="row">
+                    <div class="col">
+                  <div class="card">
+                    <div class="card-body"> 
+                        <h5 class="card-title">About</h5>
+                    <img src="./assets/runner.png">
+
+                       <div class="verticalLine"></div> 
 
 
 
-        </nav>
+
+                    <hr>
+                    <span><em>"This Page is primary for showing what you would've made by investing in a certain stock on a certain year!"</em></span>
+                
+            </div>
+                    </div>
+                </div>
+                </div>
+                    <hr>
+
+   
+
+
+
 
 
         <div class="row">
@@ -31,7 +60,6 @@
 
                     <div class="card-body">
                         <h5 class="card-title">Add a stock to Monitor Changes</h5>
-
                         <table class="table table-sm table-hover" id='stockTable'>
                             <thead>
                                 <tr>
@@ -53,7 +81,7 @@
                             <div class="col-3">
 
                                 <label for="stockId">Stock Name:</label>
-                                <input type="text" class="stockId">
+                                <input type="text" id="stockId">
                             </div>
                             <div class="col-3">
 
@@ -71,7 +99,8 @@
                                 <input type="text" id="sPurchase">
                             </div>
                         </div>
-                        <a href="#" class="btn btn-primary">Add</a>
+                        <br>
+                        <button type="button" class="btn btn-primary" id="addBtn">Add</button>
 
                     </div>
                 </div>
@@ -79,7 +108,7 @@
             </div>
 
         </div>
-
+<hr>
         <div class="row">
             <div class="col-6">
                 <div class="card">
@@ -90,19 +119,19 @@
                         <div class="row">
                             <div class="col">
                                 <label for="stockId">Stock Name:</label>
-                                <input type="text" class="stockId">
+                                <input type="text" id="UpdatestockId" required>
                                 <div class="row">
                                     <div class="col">
 
                                         <label for="sPrice">Price:</label>
-                                        <input type="text" id="sPrice">
+                                        <input type="text" id="UpdatePrice">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
 
                                         <label for="sQuantity">Quantity:</label>
-                                        <input type="text" id="sQuantity">
+                                        <input type="text" id="updateQuantity">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -122,13 +151,13 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-body">
-                        <p>this is where we hate ourselves</p>
-
+                        <h5 class="navbar-brand">This is where we hate ourselves.</h5>
+                        <hr>
                     </div>
                 </div>
             </div>
         </div>
-
+<hr>
         <div class="row">
             <div class="col">
                 <div class="card">
@@ -138,7 +167,7 @@
                             <div class="col">
                                 <h3>Find Articles</h3>
                                 <p>Click to find current articles and information for your investments!</p>
-
+                                
                             </div>
                         </div>
                         <div class="row">
@@ -146,8 +175,8 @@
                                 <input type="text" id="searchBar">
                             </div>
                             <div class="col-9">
-                                
                                 <a href="#" class="btn btn-primary" id="searchButton">Search</a>
+                                
                             </div>
                         </div>
                         <div class="row">
@@ -162,9 +191,12 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="assets/javascript/stockMonitor.js"></script>
+<!-- chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+<!-- firebase -->
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
+<!-- javascript -->
+<script src="assets/javascript/stockMonitor.js"></script>
 
 </body>
 
