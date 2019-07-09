@@ -445,8 +445,238 @@ $("#searchButton").on("click", function(){
     $(".artList").empty();
     getNews();
 })
-});
-        
-        
+
+
+function hideAbout(){
+    $("#aboutInfo").hide();
+}    
+hideAbout()
+$("#aboutButton").on("click",function(){
+    $("#aboutInfo").show();
+   
     
+})
+
+
+
+
+function hideCharts (){
+  $("#threeMonths").hide();
+  $("#sixMonths").hide()  
+  $("#nineMonths").hide()  
+  $("#twelveMonths").hide()  
+}
+hideCharts();
+//showing charts
+$("select.selectpicker").change(function(){
+    var selectedMonth = $(this).children("option:selected").val();
+    console.log(selectedMonth)
+    if (selectedMonth === "0"){
+        hideCharts();
+    }
+    if (selectedMonth === "3"){
+        
+        $("#threeMonths").show();
+        $("#sixMonths").hide();
+        $("#nineMonths").hide();
+        $("#twelveMonths").hide();
+    };
+    if (selectedMonth === "6"){
+
+        $("#sixMonths").show();
+        $("#threeMonths").hide();
+        $("#nineMonths").hide();
+        $("#twelveMonths").hide();
+    };
+    if (selectedMonth === "9"){ 
+        $("#nineMonths").show();
+        $("#sixMonths").hide();
+        $("#threeMonths").hide();
+        $("#twelveMonths").hide();
+    };    
+    if (selectedMonth === "12"){
+        $("#twelveMonths").show();
+        $("#sixMonths").hide();
+        $("#nineMonths").hide();
+        $("#threeMonths").hide();
+    };
+});
+
+    var ctx = document.getElementById('threeMonths').getContext('2d');
+    var threeMonths = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March'],
+            datasets: [{
+                label: 'AXP',
+                data: [10, 19, 3],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var ctx = document.getElementById('sixMonths').getContext('2d');
+    var sixMonths = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'June', 'July'],
+            datasets: [{
+                label: 'AXP',
+                data: [10, 19, 3, 10, 14, 7],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var ctx = document.getElementById('nineMonths').getContext('2d');
+    var nineMonths = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'June', 'July', 'Augues', 'September', 'October'],
+            datasets: [{
+                label: 'AXP',
+                data: [10, 19, 3, 10, 14, 7, 12, 15, 9],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var ctx = document.getElementById('twelveMonths').getContext('2d');
+    var twelveMonths = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augues', 'September', 'October', "November", "December"],
+            datasets: [{
+                label: 'AXP',
+                data: [10, 19, 3, 10, 14, 7, 12, 15, 9, 10, 11, 6],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 206, 86, 1)',
+                
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+});
+
+
+        
 
