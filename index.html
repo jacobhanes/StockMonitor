@@ -16,53 +16,63 @@
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 </head>
 
-<body  background="./assets/De Stijl.jpg">
+<body background="./assets/ricardo-gomez-angel-5YM26lUicfU-unsplash.jpg">
     <div class="container">
-            <nav class="nav" id="navTop">
-            <h5 class="navbar-brand">StockMonitor</h5>
+        <nav class="nav" id="navTop">
+            <h5 class="navbar-brand" id="logo">StockMonitor</h5>
 
-                    <a class="nav-link active" href="#">Account</a>
-                    <a class="nav-link" href="#">Logout</a>
-                    <a class="nav-link" href="#">About</a>
-                    
-                    
-                  </nav>
-                  <div class="row">
-                    <div class="col">
-                  <div class="card">
-                    <div class="card-body"> 
+            <a class="nav-link active" href="#">Account</a>
+            <a class="nav-link" href="#">Logout</a>
+
+
+
+        </nav>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header" id="aboutButton">
+
                         <h5 class="card-title">About</h5>
-                    <img src="./assets/runner.png">
+                    </div>
+                        <div class="card-body" id="aboutInfo">
+                        
+                        <div class="row">
+                            <div class="col-3">
 
-                       <div class="verticalLine"></div> 
+                                <img id="aboutImage" src="./assets/226932e4117fec10b30aa965e7cf3a2e.jpg">
+                            </div>
+                            <div class="col-9">
+                                <p class="aboutText">Stock Monitor is a app that is all about stocks.
+                                    You can check real time data on all stocks on the market, and save them to your account. Check current articles about your stock to help make that next investments. If you are feeling daring than check out our "what if" section and see if a past investment would of been worth ir or not! Have fun and make some money!
 
-
-
-
-                    <hr>
-                    <span><em>"This Page is primary for showing what you would've made by investing in a certain stock on a certain year!"</em></span>
-                
-            </div>
+                                </p>
+                            </div>
+                            
+                            
+                            
+                            
+                            
+                            
+                        </div>
                     </div>
                 </div>
-                </div>
-                    <hr>
-
-   
-
-
-
+            </div>
+        </div>
+        <hr>
 
 
         <div class="row">
             <div class="col">
                 <div class="card" id="stockList">
+                    <div class="card-header">
 
+                        <h5 class="card-title">Portfolio</h5>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">Add a stock to Monitor Changes</h5>
                         <table class="table table-sm table-hover" id='stockTable'>
                             <thead>
                                 <tr>
+
                                     <th scope="col">Stock Name</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Quantity</th>
@@ -81,22 +91,22 @@
                             <div class="col-3">
 
                                 <label for="stockId">Stock Name:</label>
-                                <input type="text" id="stockId">
+                                <input type="text" class="stockId">
                             </div>
                             <div class="col-3">
 
                                 <label for="sPrice">Price of Stock:</label>
-                                <input type="text" id="sPrice">
+                                <input type="number" class="sPrice">
                             </div>
                             <div class="col-3">
 
                                 <label for="sQuantity">Quantity:</label>
-                                <input type="text" id="sQuantity">
+                                <input type="number" class="sQuantity">
                             </div>
                             <div class="col-3">
 
                                 <label for="sPurchase">Date Purchase:</label>
-                                <input type="text" id="sPurchase">
+                                <input type="date" class="sPurchase">
                             </div>
                         </div>
                         <br>
@@ -108,14 +118,40 @@
             </div>
 
         </div>
-<hr>
+        <hr>
         <div class="row">
-            <div class="col-6">
+            <div class="col-4">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-header">
+                            <h5 class="card-title">Graphs</h5>
+                    </div>
+                <div class="card-body">
+                        <select class="selectpicker" id="chartOptions">
+                                <option value="0">0</option>
+                                <option value="3">3</option>
+                                <option value="6">6</option>
+                                <option value="9">9</option>
+                                <option value="12">12</option>
+                              </select>
+                    <div id="chartBox">
 
-                        <h2>Update Your Stocks</h2>
-                        <hr>
+                        <canvas id="threeMonths" width="200" height="200"></canvas>
+                        <canvas id="sixMonths" width="200" height="200"></canvas>
+                        <canvas id="nineMonths" width="200" height="200"></canvas>
+                        <canvas id="twelveMonths" width="200" height="200"></canvas>
+                    </div>          
+                </div>    
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+
+                        <h5 class="card-title">Update Your Stocks</h5>
+                    </div>
+                    <div class="card-body">
+                        
+                        
                         <div class="row">
                             <div class="col">
                                 <label for="stockId">Stock Name:</label>
@@ -123,57 +159,120 @@
                                 <div class="row">
                                     <div class="col">
 
-                                        <label for="sPrice">Quantity:</label>
-                                        <input type="text" id="UpdatePrice">
+                                        <label for="sPrice">Price:</label>
+                                        <input type="number" class="UpdatePrice">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
 
                                         <label for="sQuantity">Quantity:</label>
-                                        <input type="text" id="updateQuantity">
+                                        <input type="number" class="updateQuantity">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
 
                                         <label for="sPurchase">Purchase Date:</label>
-                                        <input type="text" id="sPurchase">
+                                        <input type="date" class="sPurchase">
 
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <hr>
                         <a href="#" class="btn btn-primary">Update</a>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-4">
                 <div class="card">
+                    <div class="card-header">
+
+                        <h5 class="navbar-brand">What if?</h5>
+                    </div>
                     <div class="card-body">
-                        <h5 class="navbar-brand">This is where we hate ourselves.</h5>
+                        <p class="aboutText">Fill out the blanks to see if that stock you missed last quarter was worth being ignored!</p>
                         <hr>
+                        <strong>
+                            <p id="fairytale">I would of made/lost: </p>
+                        </strong>
+                        <div class="row">
+                            <div class="col">
+                                <label for="stockId">Stock Name:</label>
+                                <input type="text" id="UpdatestockId" required>
+                                <div class="row">
+                                    <div class="col">
+
+                                        <label for="sPrice">Price:</label>
+                                        <input type="number" class="UpdatePrice">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+
+                                        <label for="sQuantity">Quantity:</label>
+                                        <input type="number" class="updateQuantity">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+
+                                        <label for="sPurchase">Purchase Date:</label>
+                                        <input type="date" class="sPurchase">
+
+                                    </div>
+                                </div>
+                                <hr>
+                                <a href="#" class="btn btn-primary">Do Magic</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-<hr>
+        <hr>
         <div class="row">
             <div class="col">
-                <div class="card" id="articleList">
+                <div class="card">
+                    <div class="card-header">
 
-                    <h5 class="navbar-brand">this is where we list articles</h5>
-                        <hr>
+                        <h5 class="card-title">Find Articles</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                    <p class="aboutText">Click to find current articles and information for your investments!</p>
+                                    <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <input type="text" id="searchBar">
+                            </div>
+                            <div class="col-9">
+                                <a href="#" class="btn btn-primary" id="searchButton">Search</a>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <ul class="artList">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-<!-- chart.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-<!-- firebase -->
-<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
-<!-- javascript -->
-<script src="assets/javascript/stockMonitor.js"></script>
+    <!-- chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
+    <!-- javascript -->
+    <script src="assets/javascript/stockMonitor.js"></script>
 
 </body>
 
