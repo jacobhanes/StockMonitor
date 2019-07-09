@@ -7,6 +7,7 @@
 	#navTop {
 			margin-bottom: 25px;
 			border-radius: 25px; 
+			padding: 10px;
 	    }
 	    body{
 		        background-color: #191919;
@@ -19,8 +20,18 @@
 	background: #cceeff;
 	border-radius: 25px;
 }
+.card-header{
+	padding: 20px;
+	color: white;
+}
 .card {
-	background: #cceeff;
+	background: #006bb3;
 	border-radius: 25px;
 }
-
+#aboutImage {
+	width: 200px;
+	height: 150px;
+}
+.aboutText {
+	font-size: 20px
+}
