@@ -34,8 +34,8 @@
 
                         <h5 class="card-title">About</h5>
                     </div>
-                        <div class="card-body" id="aboutInfo">
-                        
+                    <div class="card-body" id="aboutInfo">
+
                         <div class="row">
                             <div class="col-3">
 
@@ -43,16 +43,19 @@
                             </div>
                             <div class="col-9">
                                 <p class="aboutText">Stock Monitor is a app that is all about stocks.
-                                    You can check real time data on all stocks on the market, and save them to your account. Check current articles about your stock to help make that next investments. If you are feeling daring than check out our "what if" section and see if a past investment would of been worth ir or not! Have fun and make some money!
+                                    You can check real time data on all stocks on the market, and save them to your
+                                    account. Check current articles about your stock to help make that next investments.
+                                    If you are feeling daring than check out our "what if" section and see if a past
+                                    investment would of been worth ir or not! Have fun and make some money!
 
                                 </p>
                             </div>
-                            
-                            
-                            
-                            
-                            
-                            
+
+
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -123,24 +126,35 @@
             <div class="col-4">
                 <div class="card">
                     <div class="card-header">
-                            <h5 class="card-title">Graphs</h5>
+                        <h5 class="card-title">Graphs</h5>
                     </div>
-                <div class="card-body">
-                        <select class="selectpicker" id="chartOptions">
-                                <option value="0">0</option>
-                                <option value="3">3</option>
-                                <option value="6">6</option>
-                                <option value="9">9</option>
-                                <option value="12">12</option>
-                              </select>
-                    <div id="chartBox">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3">
 
-                        <canvas id="threeMonths" width="200" height="200"></canvas>
-                        <canvas id="sixMonths" width="200" height="200"></canvas>
-                        <canvas id="nineMonths" width="200" height="200"></canvas>
-                        <canvas id="twelveMonths" width="200" height="200"></canvas>
-                    </div>          
-                </div>    
+                                <select class="selectpicker" id="chartOptions">
+                                    <option value="0">0</option>
+                                    <option value="2">3</option>
+                                    <option value="5">6</option>
+                                    <option value="8">9</option>
+                                    <option value="11">12</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                
+                                
+                                <input type="text" class="stockId" placeholder="Stock"></input>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="createButton">Create</button>
+                        <div id="chartBox">
+
+                            <canvas id="threeMonths" width="200" height="200"></canvas>
+                            <canvas id="sixMonths" width="200" height="200"></canvas>
+                            <canvas id="nineMonths" width="200" height="200"></canvas>
+                            <canvas id="twelveMonths" width="200" height="200"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-4">
@@ -150,8 +164,8 @@
                         <h5 class="card-title">Update Your Stocks</h5>
                     </div>
                     <div class="card-body">
-                        
-                        
+
+
                         <div class="row">
                             <div class="col">
                                 <label for="stockId">Stock Name:</label>
@@ -192,7 +206,8 @@
                         <h5 class="navbar-brand">What if?</h5>
                     </div>
                     <div class="card-body">
-                        <p class="aboutText">Fill out the blanks to see if that stock you missed last quarter was worth being ignored!</p>
+                        <p class="aboutText">Fill out the blanks to see if that stock you missed last quarter was worth
+                            being ignored!</p>
                         <hr>
                         <strong>
                             <p id="fairytale">I would of made/lost: </p>
@@ -242,8 +257,9 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                    <p class="aboutText">Click to find current articles and information for your investments!</p>
-                                    <hr>
+                                <p class="aboutText">Click to find current articles and information for your
+                                    investments!</p>
+                                <hr>
                             </div>
                         </div>
                         <div class="row">

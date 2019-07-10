@@ -40,7 +40,6 @@ stockRef.ref('/stocks').on('child_added',function(childObj, prevChildKeyObj){
    
 $("#stockTable > tbody").append(tbRow);
 
-
 });
 
 
@@ -49,13 +48,13 @@ $(document).ready(function (eventObj) {
 
     let baseUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&interval=5min&outputsize=full";
     let stockSymbolName = "&symbol="
-    let stockNames = ["AXP", "AAPL", "MSFT"];
+    let stockNames = ["MSFT"];
     let stockApiKey = "&apikey=9C5L7VDS9B25DUYZ";
     let stockData = [];
     let stockDataMonthly = [];
     let prevDates = [];
 
-    function getMonthEndDates() {
+    function getMonthEndDates(chartOptionsElement) {
         let currentYear = moment().format("YYYY");
         let currMonth = moment().format("MM");
         let currDayName = moment().format("dddd");
@@ -75,7 +74,7 @@ $(document).ready(function (eventObj) {
 
         currMonth--;
 
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < chartOptionsElement; i++) {
             let currMonthEndDay = moment(currentYear + "-" + currMonth, "YYYY-MM").daysInMonth();
             let currMonthEndName = moment(currentYear + "-" + currMonth + "-" + currMonthEndDay).format("dddd");
 
@@ -99,7 +98,8 @@ $(document).ready(function (eventObj) {
         console.log(prevDates);
     }
 
-    getMonthEndDates();
+    
+   
 
 
     function getStockData(stockElement) {
@@ -403,13 +403,14 @@ $(document).ready(function (eventObj) {
 // //     }
 // // }
 
-// for (let i = 0; i < stockNames.length; i++) {
-//     // getStockDataGlobalQuote(stockNames[i]);
-//     getStockDataMonthly(stockNames[i]);
-// }
+for (let i = 0; i < stockNames.length; i++) {
+     getStockDataGlobalQuote(stockNames[i]);
+    getStockDataMonthly(stockNames[i]);
+}
 
-// // console.log(stockData);
-// console.log(stockDataMonthly);
+ console.log(stockData);
+ console.log(stockData.symbol);
+console.log(stockDataMonthly);
 
 function getNews (Response){
     //ajax call to current api to grab news and links
@@ -452,7 +453,7 @@ function hideAbout(){
 }    
 hideAbout()
 $("#aboutButton").on("click",function(){
-    $("#aboutInfo").show();
+    $("#aboutInfo").toggle();
    
     
 })
@@ -468,33 +469,39 @@ function hideCharts (){
 }
 hideCharts();
 //showing charts
-$("select.selectpicker").change(function(){
-    var selectedMonth = $(this).children("option:selected").val();
+$("#createButton").on("click", function(){
+
+    const selectedMonth = $("#chartOptions").val();
+    const selectedStock = $(".stockId").val();
+
+    getStockDataMonthly( selectedStock);
+    getMonthEndDates(selectedMonth);
+    
     console.log(selectedMonth)
     if (selectedMonth === "0"){
         hideCharts();
     }
-    if (selectedMonth === "3"){
+    if (selectedMonth === "2"){
         
         $("#threeMonths").show();
         $("#sixMonths").hide();
         $("#nineMonths").hide();
         $("#twelveMonths").hide();
     };
-    if (selectedMonth === "6"){
+    if (selectedMonth === "5"){
 
         $("#sixMonths").show();
         $("#threeMonths").hide();
         $("#nineMonths").hide();
         $("#twelveMonths").hide();
     };
-    if (selectedMonth === "9"){ 
+    if (selectedMonth === "8"){ 
         $("#nineMonths").show();
         $("#sixMonths").hide();
         $("#threeMonths").hide();
         $("#twelveMonths").hide();
     };    
-    if (selectedMonth === "12"){
+    if (selectedMonth === "11"){
         $("#twelveMonths").show();
         $("#sixMonths").hide();
         $("#nineMonths").hide();
@@ -503,6 +510,13 @@ $("select.selectpicker").change(function(){
 });
 
     var ctx = document.getElementById('threeMonths').getContext('2d');
+    // const monthsInYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augues', 'September', 'October', "November", "December"];
+    // const label = $(".stockID").val();
+    // const stockValue = [""];
+
+
+
+
     var threeMonths = new Chart(ctx, {
         type: 'bar',
         data: {
