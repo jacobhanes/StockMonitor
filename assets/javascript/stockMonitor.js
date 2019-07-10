@@ -8,9 +8,10 @@ var firebaseConfig = {
     storageBucket: "fir-project-c0c9a.appspot.com",
     messagingSenderId: "820221888907",
     appId: "1:820221888907:web:f8331d7565f1bdf7"
-};
+  };
 
-firebase.initializeApp(firebaseConfig);
+   // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
 
 let baseUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&interval=5min&outputsize=full";
 let stockSymbolName = "&symbol="
@@ -79,10 +80,23 @@ stockRef.ref('/stocks').on('child_added', function (childObj, prevChildKeyObj) {
     console.log(childObj.val());
     console.log(prevChildKeyObj);
 
+    let  childObjData=childObj.val();
+
+    tbRow=$("<tr>");
+    tbRow.append($("<td>").text(childObjData.stockName),
+    $("<td>").text(childObjData.price),
+    $("<td>").text(childObjData.quantity),
+    $("<td>").text(childObjData.purchaseDate),
+    $("<td>").text(0),
+    $("<td>").text(0)
+    );
+
+   
+$("#stockTable > tbody").append(tbRow);
     stocksObjValues.push(childObj.val());
     stocksObjKeys.push(childObj.key);
 
-   const childObjData=childObj.val();
+//    const childObjData=childObj.val();
  
    console.log(stocksObjValues);
    console.log(stocksObjKeys);
@@ -256,278 +270,15 @@ $(document).ready(function (eventObj) {
 
 
 
-    // let myChart = document.getElementById("stockCharts").getContext('2d');
-    // let barChart = new Chart(myChart, {
-    //     type: 'bar',
-    //     data: {
-    //         labels: stockNames,
-    //         datasets: [{
-    //             label: 'population1',
-    //             data: [1, 2, 3],
-    //             backgroundColor: ["red", "green"]
-    //         },
-    //         {
-    //             label: 'population2',
-    //             data: [4, 5, 6],
-    //             backgroundColor: ["red", "green"]
-    //         }
-    //             ,
-    //         {
-    //             label: 'population3',
-    //             data: [7, 8, 9],
-    //             backgroundColor: ["red", "green"]
-    //         }
-    //         ]
-    //     },
-    //     options: {
-    //         scales: {
-    //             xAxes: [{
-    //                 barPercentage: 0.5,
-    //                 barThickness: 6,
-    //                 maxBarThickness: 8,
-    //                 minBarLength: 0,
-    //                 gridLines: {
-    //                     offsetGridLines: true
-    //                 }
-    //             }]
-    //         }
-    //     }
-    // });
-
-
-
-    // "Meta Data": {
-    //     "1. Information": "Monthly Adjusted Prices and Volumes",
-    //     "2. Symbol": "MSFT",
-    //     "3. Last Refreshed": "2019-06-28",
-    //     "4. Time Zone": "US/Eastern"
-    //     },
-    //     "Monthly Adjusted Time Series": {
-    //     "2019-06-28": {
-    //     "1. open": "123.8500",
-    //     "2. high": "138.4000",
-    //     "3. low": "119.0100",
-    //     "4. close": "133.9600",
-    //     "5. adjusted close": "133.9600",
-    //     "6. volume": "508298497",
-    //     "7. dividend amount": "0.0000"
-    //     },
-
-
-
-
-
-
-    //Sample Response for GLOBAL_QUOTE API Call 
-    // {
-    //     "Global Quote": {
-    //         "01. symbol": "MSFT",
-    //         "02. open": "134.5700",
-    //         "03. high": "134.6000",
-    //         "04. low": "133.1600",
-    //         "05. price": "133.9600",
-    //         "06. volume": "30042969",
-    //         "07. latest trading day": "2019-06-28",
-    //         "08. previous close": "134.1500",
-    //         "09. change": "-0.1900",
-    //         "10. change percent": "-0.1416%"
-    //     }
-    // }
+   
 
     for (let i = 0; i < stockNames.length; i++) {
         // getStockDataGlobalQuote(stockNames[i]);
         getStockDataMonthly(stockNames[i]);
     }
 
-    // console.log(stockData);
+     console.log(stockData);
     console.log(stockDataMonthly);
-
-// "Meta Data": {
-//    "1. Information": "Monthly Adjusted Prices and Volumes",
-//     "2. Symbol": "MSFT",
-//     "3. Last Refreshed": "2019-06-28",
-//     "4. Time Zone": "US/Eastern"
-//     },
-//     "Monthly Adjusted Time Series": {
-//     "2019-06-28": {
-//     "1. open": "123.8500",
-//     "2. high": "138.4000",
-//     "3. low": "119.0100",
-//     "4. close": "133.9600",
-//     "5. adjusted close": "133.9600",
-//     "6. volume": "508298497",
-//     "7. dividend amount": "0.0000"
-//     },
-
-
-
-
-
-
-//Sample Response for GLOBAL_QUOTE API Call 
-// {
-//     "Global Quote": {
-//         "01. symbol": "MSFT",
-//         "02. open": "134.5700",
-//         "03. high": "134.6000",
-//         "04. low": "133.1600",
-//         "05. price": "133.9600",
-//         "06. volume": "30042969",
-//         "07. latest trading day": "2019-06-28",
-//         "08. previous close": "134.1500",
-//         "09. change": "-0.1900",
-//         "10. change percent": "-0.1416%"
-//     }
-
-//     getMonthEndDates();
-
-
-//     function getStockData(stockElement) {
-//         let stockDate = moment().format("YYYY-MM-DD");
-//         let stockDateDay = moment().format("dddd");
-
-//         if (stockDateDay == "Sunday") {
-//             stockDate = moment().subtract(2, 'days').format("YYYY-MM-DD");
-//         }
-//         else if (stockDateDay == "Saturday") {
-//             stockDate = moment().subtract(1, 'days').format("YYYY-MM-DD");
-//         }
-
-//         $.ajax({
-//             url: baseUrl + stockSymbolName + stockElement + stockApiKey,
-//             method: "GET"
-//         }).then(function (resObj) {
-//             console.log(baseUrl + stockSymbolName + stockElement + stockApiKey);
-//             console.log(resObj["Meta Data"]["2. Symbol"]);
-//             console.log(resObj["Meta Data"]["3. Last Refreshed"]);
-//             console.log(resObj["Time Series (Daily)"][stockDate]["4. close"]);
-//         });
-
-//     }
-
-//     function getStockDataGlobalQuote(stockElement) {
-//         let baseUrlGlobal = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE";
-//         $.ajax({
-//             url: baseUrlGlobal + stockSymbolName + stockElement + stockApiKey,
-//             method: "GET"
-//         }).then(function (resObj) {
-//             console.log(baseUrlGlobal + stockSymbolName + stockElement + stockApiKey);
-//             stockData.push({
-//                 symbol: resObj["Global Quote"]["01. symbol"],
-//                 price: resObj["Global Quote"]["05. price"],
-//                 "latest trading day": resObj["Global Quote"]["07. latest trading day"],
-//                 "previous close": resObj["Global Quote"]["08. previous close"]
-//             })
-//         });
-
-//     }
-
-//     function getStockDataMonthly(stockElement) {
-//         let baseUrlMonthly = "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED";
-//         $.ajax({
-//             url: baseUrlMonthly + stockSymbolName + stockElement + stockApiKey,
-//             method: "GET"
-//         }).then(function (resObj) {
-//             console.log(baseUrlMonthly + stockSymbolName + stockElement + stockApiKey);
-
-//             for (let i = 0; i < prevDates.length; i++) {
-//                 stockDataMonthly.push({
-//                     "symbol": resObj["Meta Data"]["2. Symbol"],
-//                     "Monthly avg price": resObj["Monthly Adjusted Time Series"][prevDates[i].month_end_date]["4. close"],
-//                     "Dividend amount": resObj["Monthly Adjusted Time Series"][prevDates[i].month_end_date]["7. dividend amount"],
-//                     "Month EndDate": prevDates[i].month_end_date
-//                 })
-
-//             }
-
-//         });
-
-//     }
-
-//     let myChart = document.getElementById("stockCharts").getContext('2d');
-//     let barChart = new Chart(myChart, {
-//         type: 'bar',
-//         data: {
-//             labels: stockNames,
-//             datasets: [{
-//                 label: 'population1',
-//                 data: [1, 2, 3],
-//                 backgroundColor: ["red", "green"]
-//             },
-//             {
-//                 label: 'population2',
-//                 data: [4, 5, 6],
-//                 backgroundColor: ["red", "green"]
-//             }
-//                 ,
-//             {
-//                 label: 'population3',
-//                 data: [7, 8, 9],
-//                 backgroundColor: ["red", "green"]
-//             }
-//             ]
-//         },
-//         options: {
-//             scales: {
-//                 xAxes: [{
-//                     barPercentage: 0.5,
-//                     barThickness: 6,
-//                     maxBarThickness: 8,
-//                     minBarLength: 0,
-//                     gridLines: {
-//                         offsetGridLines: true
-//                     }
-//                 }]
-//             }
-//         }
-//     });
-
-
-// // "Meta Data": {
-// //     "1. Information": "Monthly Adjusted Prices and Volumes",
-// //     "2. Symbol": "MSFT",
-// //     "3. Last Refreshed": "2019-06-28",
-// //     "4. Time Zone": "US/Eastern"
-// //     },
-// //     "Monthly Adjusted Time Series": {
-// //     "2019-06-28": {
-// //     "1. open": "123.8500",
-// //     "2. high": "138.4000",
-// //     "3. low": "119.0100",
-// //     "4. close": "133.9600",
-// //     "5. adjusted close": "133.9600",
-// //     "6. volume": "508298497",
-// //     "7. dividend amount": "0.0000"
-// //     },
-
-
-
-
-
-
-// //Sample Response for GLOBAL_QUOTE API Call 
-// // {
-// //     "Global Quote": {
-// //         "01. symbol": "MSFT",
-// //         "02. open": "134.5700",
-// //         "03. high": "134.6000",
-// //         "04. low": "133.1600",
-// //         "05. price": "133.9600",
-// //         "06. volume": "30042969",
-// //         "07. latest trading day": "2019-06-28",
-// //         "08. previous close": "134.1500",
-// //         "09. change": "-0.1900",
-// //         "10. change percent": "-0.1416%"
-// //     }
-// // }
-
-// for (let i = 0; i < stockNames.length; i++) {
-//     // getStockDataGlobalQuote(stockNames[i]);
-//     getStockDataMonthly(stockNames[i]);
-// }
-
-// // console.log(stockData);
-// console.log(stockDataMonthly);
 
 function getNews (Response){
     //ajax call to current api to grab news and links
@@ -570,7 +321,7 @@ function hideAbout(){
 }    
 hideAbout()
 $("#aboutButton").on("click",function(){
-    $("#aboutInfo").show();
+    $("#aboutInfo").toggle();
    
     
 })
@@ -586,8 +337,12 @@ function hideCharts (){
 }
 hideCharts();
 //showing charts
-$("select.selectpicker").change(function(){
-    var selectedMonth = $(this).children("option:selected").val();
+$("#createButton").on("click", function(){
+    const selectedMonth = $("#chartOptions").val();
+    const selectedStock = $(".stockId").val();
+
+
+
     console.log(selectedMonth)
     if (selectedMonth === "0"){
         hideCharts();
@@ -693,7 +448,6 @@ var ctx = document.getElementById('sixMonths').getContext('2d');
     }
 });
 
-
 var ctx = document.getElementById('nineMonths').getContext('2d');
     var nineMonths = new Chart(ctx, {
         type: 'bar',
@@ -798,7 +552,6 @@ var ctx = document.getElementById('twelveMonths').getContext('2d');
 
 
 });
-
 
         
 
