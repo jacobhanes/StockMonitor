@@ -46,12 +46,7 @@
 
                                 </p>
                             </div>
-                            
-                            
-                            
-                            
-                            
-                            
+
                         </div>
                     </div>
                 </div>
@@ -80,62 +75,33 @@
                                     <th scope="col">Purchase Date</th>
                                     <th scope="col">Current Price</th>
                                     <th scope="col">Total Value</th>
-<<<<<<< HEAD
-                                    <th scope="col">Total Value</th>
-                                    <th scope="col">Total Value</th>
-
-=======
->>>>>>> 59c009580db85fa9781854e7f5f5d2f44e459939
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
-                        <form action="" name="inputForm">
+                        <form  id="stockInputForm">
                             <div class="row">
-                                <div class="col-3">
+                                <div class="form-group col-3">
                                     <label for="stockId">Stock Name:</label>
-                                    <input type="text" name="nameInput" id="stockId" required>
+                                    <input type="text" name="nameInput" id="stockId">
                                 </div>
-                                <div class="col-3">
+                                <div class="form-group col-3">
                                     <label for="sPrice">Price of Stock:</label>
-                                    <input type="number" name="priceInput" id="sPrice" required>
+                                    <input type="number" name="priceInput" id="stockPrice">
                                 </div>
-                                <div class="col-3">
+                                <div class="form-group col-3">
                                     <label for="sQuantity">Quantity:</label>
-                                    <input type="number" name="quantityInput" id="sQuantity" required>
+                                    <input type="number" name="quantityInput" id="stockQuantity">
                                 </div>
-                                <div class="col-3">
+                                <div class="form-group col-3">
                                     <label for="sPurchase">Date Purchase:</label>
-                                    <input type="date" name="purchaseInput" id="sPurchase" required>
+                                    <input type="date" name="purchaseInput" id="stockPurchase">
                                 </div>
 
-<<<<<<< HEAD
-                        <div class="row">
-                            <div class="col">
-
-                                <label for="stockId">Stock Name:</label>
-                                <input type="text" id="stockId">
-                            </div>
-                            <div class="col">
-
-                                <label for="sPrice">Price of Stock:</label>
-                                <input type="text" id="sPrice">
-                            </div>
-                            <div class="col">
-
-                                <label for="sQuantity">Quantity:</label>
-                                <input type="text" id="sQuantity">
-                            </div>
-                            <div class="col">
-
-                                <label for="sPurchase">Date Purchase:</label>
-                                <input type="text" id="sPurchase">
-=======
->>>>>>> 59c009580db85fa9781854e7f5f5d2f44e459939
                             </div>
                             <br>
-                            <input type="submit" class="btn btn-primary" value="Add" id="addBtn"></input>
+                            <input type="button" class="btn btn-primary" value="Add" id="addBtn"></input>
                         </form>
                     </div>
                 </div>
@@ -176,9 +142,6 @@
                         <h5 class="card-title">Update Your Stocks</h5>
                     </div>
                     <div class="card-body">
-                        
-                        
-
                         <div class="row">
                             <div class="col">
                                 <label for="stockId">Stock Name:</label>
