@@ -204,43 +204,7 @@ $(document).ready(function (eventObj) {
 
 
 
-    // let myChart = document.getElementById("stockCharts").getContext('2d');
-    // let barChart = new Chart(myChart, {
-    //     type: 'bar',
-    //     data: {
-    //         labels: stockNames,
-    //         datasets: [{
-    //             label: 'population1',
-    //             data: [1, 2, 3],
-    //             backgroundColor: ["red", "green"]
-    //         },
-    //         {
-    //             label: 'population2',
-    //             data: [4, 5, 6],
-    //             backgroundColor: ["red", "green"]
-    //         }
-    //             ,
-    //         {
-    //             label: 'population3',
-    //             data: [7, 8, 9],
-    //             backgroundColor: ["red", "green"]
-    //         }
-    //         ]
-    //     },
-    //     options: {
-    //         scales: {
-    //             xAxes: [{
-    //                 barPercentage: 0.5,
-    //                 barThickness: 6,
-    //                 maxBarThickness: 8,
-    //                 minBarLength: 0,
-    //                 gridLines: {
-    //                     offsetGridLines: true
-    //                 }
-    //             }]
-    //         }
-    //     }
-    // });
+    
 
 
 
