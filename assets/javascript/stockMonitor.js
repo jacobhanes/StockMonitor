@@ -36,7 +36,8 @@ stockRef.ref('/stocks').on('child_added', function (childObj, prevChildKeyObj) {
         $("<td>").text(0)
     );
 
-    $("#stockTable > tbody").append(tbRow);
+   
+$("#stockTable > tbody").append(tbRow);
 
 
 });
@@ -184,25 +185,15 @@ $(document).ready(function (eventObj) {
             $("#sPurchase").val("");
 
         }
+        console.log(stockObj);
+        stockRef.ref('/stocks').push(stockObj);
+        alert("Added the stock");
+        $("#stockId").val("");
+        $("#sPrice").val("");
+        $("#sQuantity").val("");
+        $("#sPurchase").val("");
         
     });
-
-    // form validation
-    // function validateForm() {
-    //     stockName = $("#stockId").val().trim();
-    //     quantity = $("#sPrice").val();
-    //     price = $("#sQuantity").val();
-    //     purchaseDate = $("#sPurchase").val();
-
-    //     if (stockName === ""){
-    //         alert("You need content")
-    //     }
-    //     // let x = document.forms["inputForm"]["nameInput"]["priceInput"]["quantityInput"]["purchaseInput"].value;
-    //     // if (x == "") {
-    //     //     return false;
-    //     // }
-    // }
-
 
 
     // let myChart = document.getElementById("stockCharts").getContext('2d');
@@ -244,50 +235,462 @@ $(document).ready(function (eventObj) {
     // });
 
 
-    // "Meta Data": {
-    //     "1. Information": "Monthly Adjusted Prices and Volumes",
-    //     "2. Symbol": "MSFT",
-    //     "3. Last Refreshed": "2019-06-28",
-    //     "4. Time Zone": "US/Eastern"
-    //     },
-    //     "Monthly Adjusted Time Series": {
-    //     "2019-06-28": {
-    //     "1. open": "123.8500",
-    //     "2. high": "138.4000",
-    //     "3. low": "119.0100",
-    //     "4. close": "133.9600",
-    //     "5. adjusted close": "133.9600",
-    //     "6. volume": "508298497",
-    //     "7. dividend amount": "0.0000"
-    //     },
+// "Meta Data": {
+//     "1. Information": "Monthly Adjusted Prices and Volumes",
+//     "2. Symbol": "MSFT",
+//     "3. Last Refreshed": "2019-06-28",
+//     "4. Time Zone": "US/Eastern"
+//     },
+//     "Monthly Adjusted Time Series": {
+//     "2019-06-28": {
+//     "1. open": "123.8500",
+//     "2. high": "138.4000",
+//     "3. low": "119.0100",
+//     "4. close": "133.9600",
+//     "5. adjusted close": "133.9600",
+//     "6. volume": "508298497",
+//     "7. dividend amount": "0.0000"
+//     },
 
 
 
 
 
 
-    //Sample Response for GLOBAL_QUOTE API Call 
-    // {
-    //     "Global Quote": {
-    //         "01. symbol": "MSFT",
-    //         "02. open": "134.5700",
-    //         "03. high": "134.6000",
-    //         "04. low": "133.1600",
-    //         "05. price": "133.9600",
-    //         "06. volume": "30042969",
-    //         "07. latest trading day": "2019-06-28",
-    //         "08. previous close": "134.1500",
-    //         "09. change": "-0.1900",
-    //         "10. change percent": "-0.1416%"
-    //     }
-    // }
+//Sample Response for GLOBAL_QUOTE API Call 
+// {
+//     "Global Quote": {
+//         "01. symbol": "MSFT",
+//         "02. open": "134.5700",
+//         "03. high": "134.6000",
+//         "04. low": "133.1600",
+//         "05. price": "133.9600",
+//         "06. volume": "30042969",
+//         "07. latest trading day": "2019-06-28",
+//         "08. previous close": "134.1500",
+//         "09. change": "-0.1900",
+//         "10. change percent": "-0.1416%"
+//     }
 
-    for (let i = 0; i < stockNames.length; i++) {
-        // getStockDataGlobalQuote(stockNames[i]);
-        getStockDataMonthly(stockNames[i]);
+//     getMonthEndDates();
+
+
+    function getStockData(stockElement) {
+        let stockDate = moment().format("YYYY-MM-DD");
+        let stockDateDay = moment().format("dddd");
+
+        if (stockDateDay == "Sunday") {
+            stockDate = moment().subtract(2, 'days').format("YYYY-MM-DD");
+        }
+        else if (stockDateDay == "Saturday") {
+            stockDate = moment().subtract(1, 'days').format("YYYY-MM-DD");
+        }
+
+        $.ajax({
+            url: baseUrl + stockSymbolName + stockElement + stockApiKey,
+            method: "GET"
+        }).then(function (resObj) {
+            console.log(baseUrl + stockSymbolName + stockElement + stockApiKey);
+            console.log(resObj["Meta Data"]["2. Symbol"]);
+            console.log(resObj["Meta Data"]["3. Last Refreshed"]);
+            console.log(resObj["Time Series (Daily)"][stockDate]["4. close"]);
+        });
+
     }
 
-    // console.log(stockData);
-    console.log(stockDataMonthly);
+    function getStockDataGlobalQuote(stockElement) {
+        let baseUrlGlobal = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE";
+        $.ajax({
+            url: baseUrlGlobal + stockSymbolName + stockElement + stockApiKey,
+            method: "GET"
+        }).then(function (resObj) {
+            console.log(baseUrlGlobal + stockSymbolName + stockElement + stockApiKey);
+            stockData.push({
+                symbol: resObj["Global Quote"]["01. symbol"],
+                price: resObj["Global Quote"]["05. price"],
+                "latest trading day": resObj["Global Quote"]["07. latest trading day"],
+                "previous close": resObj["Global Quote"]["08. previous close"]
+            })
+        });
+
+    }
+
+    function getStockDataMonthly(stockElement) {
+        let baseUrlMonthly = "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED";
+        $.ajax({
+            url: baseUrlMonthly + stockSymbolName + stockElement + stockApiKey,
+            method: "GET"
+        }).then(function (resObj) {
+            console.log(baseUrlMonthly + stockSymbolName + stockElement + stockApiKey);
+
+            for (let i = 0; i < prevDates.length; i++) {
+                stockDataMonthly.push({
+                    "symbol": resObj["Meta Data"]["2. Symbol"],
+                    "Monthly avg price": resObj["Monthly Adjusted Time Series"][prevDates[i].month_end_date]["4. close"],
+                    "Dividend amount": resObj["Monthly Adjusted Time Series"][prevDates[i].month_end_date]["7. dividend amount"],
+                    "Month EndDate": prevDates[i].month_end_date
+                })
+
+            }
+
+        });
+
+    }
+
+//     let myChart = document.getElementById("stockCharts").getContext('2d');
+//     let barChart = new Chart(myChart, {
+//         type: 'bar',
+//         data: {
+//             labels: stockNames,
+//             datasets: [{
+//                 label: 'population1',
+//                 data: [1, 2, 3],
+//                 backgroundColor: ["red", "green"]
+//             },
+//             {
+//                 label: 'population2',
+//                 data: [4, 5, 6],
+//                 backgroundColor: ["red", "green"]
+//             }
+//                 ,
+//             {
+//                 label: 'population3',
+//                 data: [7, 8, 9],
+//                 backgroundColor: ["red", "green"]
+//             }
+//             ]
+//         },
+//         options: {
+//             scales: {
+//                 xAxes: [{
+//                     barPercentage: 0.5,
+//                     barThickness: 6,
+//                     maxBarThickness: 8,
+//                     minBarLength: 0,
+//                     gridLines: {
+//                         offsetGridLines: true
+//                     }
+//                 }]
+//             }
+//         }
+//     });
+
+
+// // "Meta Data": {
+// //     "1. Information": "Monthly Adjusted Prices and Volumes",
+// //     "2. Symbol": "MSFT",
+// //     "3. Last Refreshed": "2019-06-28",
+// //     "4. Time Zone": "US/Eastern"
+// //     },
+// //     "Monthly Adjusted Time Series": {
+// //     "2019-06-28": {
+// //     "1. open": "123.8500",
+// //     "2. high": "138.4000",
+// //     "3. low": "119.0100",
+// //     "4. close": "133.9600",
+// //     "5. adjusted close": "133.9600",
+// //     "6. volume": "508298497",
+// //     "7. dividend amount": "0.0000"
+// //     },
+
+
+
+
+
+
+// //Sample Response for GLOBAL_QUOTE API Call 
+// // {
+// //     "Global Quote": {
+// //         "01. symbol": "MSFT",
+// //         "02. open": "134.5700",
+// //         "03. high": "134.6000",
+// //         "04. low": "133.1600",
+// //         "05. price": "133.9600",
+// //         "06. volume": "30042969",
+// //         "07. latest trading day": "2019-06-28",
+// //         "08. previous close": "134.1500",
+// //         "09. change": "-0.1900",
+// //         "10. change percent": "-0.1416%"
+// //     }
+// // }
+
+// for (let i = 0; i < stockNames.length; i++) {
+//     // getStockDataGlobalQuote(stockNames[i]);
+//     getStockDataMonthly(stockNames[i]);
+// }
+
+// // console.log(stockData);
+// console.log(stockDataMonthly);
+
+function getNews (Response){
+    //ajax call to current api to grab news and links
+    const name = $("#searchBar").val();
+    const newsURL = 
+    "https://newsapi.org/v2/top-headlines?country=us&q=" + name + "&category=business&category=technology&pageSize=5&apiKey=2bc02802e5f74edfa7dc731b454fe6a3";
+
+    $.ajax({
+        url: newsURL,
+        method: "GET"
+    }).then(function(Response){
+
+    for(let i = 0; i < Response.articles.length; i++){
+        const article = Response.articles[i].title;
+        const articleLink = Response.articles[i].url;
+        
+        console.log(Response.articles[i]);
+        console.log(articleLink);
+        
+        console.log(Response);
+        
+        $(".artList").append(`<li>${article} <a href="${articleLink}">${articleLink}</a></li>`);
+        
+    }  
+        
+    })
+}
+        
+        
+$("#searchButton").on("click", function(){
+    //this adds/ empty articles
+    console.log("yay");
+    $(".artList").empty();
+    getNews();
+})
+
+
+function hideAbout(){
+    $("#aboutInfo").hide();
+}    
+hideAbout()
+$("#aboutButton").on("click",function(){
+    $("#aboutInfo").show();
+   
+    
+})
+
+
+
+
+function hideCharts (){
+  $("#threeMonths").hide();
+  $("#sixMonths").hide()  
+  $("#nineMonths").hide()  
+  $("#twelveMonths").hide()  
+}
+hideCharts();
+//showing charts
+$("select.selectpicker").change(function(){
+    var selectedMonth = $(this).children("option:selected").val();
+    console.log(selectedMonth)
+    if (selectedMonth === "0"){
+        hideCharts();
+    }
+    if (selectedMonth === "3"){
+        
+        $("#threeMonths").show();
+        $("#sixMonths").hide();
+        $("#nineMonths").hide();
+        $("#twelveMonths").hide();
+    };
+    if (selectedMonth === "6"){
+
+        $("#sixMonths").show();
+        $("#threeMonths").hide();
+        $("#nineMonths").hide();
+        $("#twelveMonths").hide();
+    };
+    if (selectedMonth === "9"){ 
+        $("#nineMonths").show();
+        $("#sixMonths").hide();
+        $("#threeMonths").hide();
+        $("#twelveMonths").hide();
+    };    
+    if (selectedMonth === "12"){
+        $("#twelveMonths").show();
+        $("#sixMonths").hide();
+        $("#nineMonths").hide();
+        $("#threeMonths").hide();
+    };
+});
+
+    var ctx = document.getElementById('threeMonths').getContext('2d');
+    var threeMonths = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March'],
+            datasets: [{
+                label: 'AXP',
+                data: [10, 19, 3],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var ctx = document.getElementById('sixMonths').getContext('2d');
+    var sixMonths = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'June', 'July'],
+            datasets: [{
+                label: 'AXP',
+                data: [10, 19, 3, 10, 14, 7],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var ctx = document.getElementById('nineMonths').getContext('2d');
+    var nineMonths = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'June', 'July', 'Augues', 'September', 'October'],
+            datasets: [{
+                label: 'AXP',
+                data: [10, 19, 3, 10, 14, 7, 12, 15, 9],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                
+                
+                
+                
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                
+                
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var ctx = document.getElementById('twelveMonths').getContext('2d');
+    var twelveMonths = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augues', 'September', 'October', "November", "December"],
+            datasets: [{
+                label: 'AXP',
+                data: [10, 19, 3, 10, 14, 7, 12, 15, 9, 10, 11, 6],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
 
 });
+
+
+        
+
