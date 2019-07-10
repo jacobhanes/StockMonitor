@@ -39,7 +39,7 @@
 
                     </div>
 
-                        <div class="card-body" id="aboutInfo">
+                    <div class="card-body" id="aboutInfo">
 
                         <div class="row">
 
@@ -52,12 +52,15 @@
                             <div class="col-9">
 
                                 <p class="aboutText">Stock Monitor is a app that is all about stocks.
-                                    You can check real time data on all stocks on the market, and save them to your account. Check current articles about your stock to help make that next investments. If you are feeling daring than check out our "what if" section and see if a past investment would of been worth ir or not! Have fun and make some money!
+                                    You can check real time data on all stocks on the market, and save them to your
+                                    account. Check current articles about your stock to help make that next investments.
+                                    If you are feeling daring than check out our "what if" section and see if a past
+                                    investment would of been worth ir or not! Have fun and make some money!
 
                                 </p>
 
                             </div>
-                         
+
 
                         </div>
 
@@ -107,7 +110,7 @@
                             </tbody>
 
                         </table>
-                        <form  id="stockInputForm">
+                        <form id="stockInputForm">
                             <div class="row">
                                 <div class="form-group col-3">
                                     <label for="stockId">Stock Name:</label>
@@ -123,12 +126,13 @@
                                 </div>
                                 <div class="form-group col-3">
                                     <label for="sPurchase">Date Purchase:</label>
-                                    <input type="date" name="purchaseInput" id="stockPurchase">
+                                    <input type="date" min="" max="moment()" name="purchaseInput" id="stockPurchase">
                                 </div>
 
                             </div>
                             <br>
                             <input type="button" class="btn btn-primary" value="Add" id="addBtn"></input>
+                            <input type="button" class="btn btn-primary" value="Update" id="updateBtn"></input>
                         </form>
                     </div>
                 </div>
@@ -141,119 +145,43 @@
 
         <div class="row">
 
-            <div class="col-4">
+            <div class="col-6">
 
                 <div class="card">
 
                     <div class="card-header">
 
-                            <h5 class="card-title">Graphs</h5>
+                        <h5 class="card-title">Graphs</h5>
 
                     </div>
-                <div class="card-body">
-
-                    <div class="row">
-
-                        <div class="col-3">
-
-                            <select class="selectpicker" id="chartOptions">
-                                <option value="0">0</option>
-                                <option value="3">3</option>
-                                <option value="6">6</option>
-                                <option value="9">9</option>
-                                <option value="12">12</option>
-                            </select>
-                            
-                        </div>
-
-                        <div class="col-6">
-
-                            <input type="text" placeholder="stocks" class="stockId">
-
-                        </div>
-
-                    </div>
-
-                    <button type="button" class="btn btn-primary" id="createButton">Create</button>
-
-                    <div id="chartBox">
-
-                        <canvas id="threeMonths" width="200" height="200"></canvas>
-                        <canvas id="sixMonths" width="200" height="200"></canvas>
-                        <canvas id="nineMonths" width="200" height="200"></canvas>
-                        <canvas id="twelveMonths" width="200" height="200"></canvas>
-
-                    </div>  
-
-                </div>   
-
-                </div>
-
-            </div>
-
-            <div class="col-4">
-
-                <div class="card">
-
-                    <div class="card-header">
-
-                        <h5 class="card-title">Update Your Stocks</h5>
-
-                    </div>
-
                     <div class="card-body">
-                        
-                        
+
                         <div class="row">
 
                             <div class="col">
 
-                                <label for="stockId">Stock Name:</label>
-
-                                <input type="text" id="UpdatestockId" required>
-
-                                <div class="row">
-
-                                    <div class="col">
-
-                                        <label for="sPrice">Price:</label>
-
-                                        <input type="number" class="UpdatePrice">
-
-                                    </div>
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col">
-
-                                        <label for="sQuantity">Quantity:</label>
-
-                                        <input type="number" class="updateQuantity">
-
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col">
-
-                                        <label for="sPurchase">Purchase Date:</label>
-
-                                        <input type="date" class="sPurchase">
-
-                                    </div>
-
-                                </div>
+                                <select class="selectpicker" id="chartOptions">
+                                    <option value="0"></option>
+                                    <option value="3">Top 3</option>
+                                    <option value="5">Top 5</option>
+                                    <option value="10">Top 10</option>
+                                    <option value="">All</option>
+                                </select>
 
                             </div>
 
                         </div>
 
-                        <hr>
+                        <!-- <button type="button" class="btn btn-primary" id="createButton">Create</button> -->
 
-                        <a href="#" class="btn btn-primary">Update</a>
+                        <div id="chartBox">
+
+                            <canvas id="topThree" width="200" height="200"></canvas>
+                            <canvas id="topFive" width="200" height="200"></canvas>
+                            <canvas id="topTen" width="200" height="200"></canvas>
+                            <canvas id="allPie" width="200" height="200"></canvas>
+
+                        </div>
 
                     </div>
 
@@ -261,7 +189,9 @@
 
             </div>
 
-            <div class="col-4">
+            
+
+            <div class="col-6">
 
                 <div class="card">
 
@@ -273,7 +203,8 @@
 
                     <div class="card-body">
 
-                        <p class="aboutText">Fill out the blanks to see if that stock you missed last quarter was worth being ignored!</p>
+                        <p class="aboutText">Fill out the blanks to see if that stock you missed last quarter was worth
+                            being ignored!</p>
 
                         <hr>
 
@@ -289,7 +220,7 @@
 
                                 <input type="text" id="UpdatestockId" required>
 
-                               
+
                                 <div class="row">
 
                                     <div class="col">
@@ -350,8 +281,9 @@
 
                             <div class="col">
 
-                                    <p class="aboutText">Click to find current articles and information for your investments!</p>
-                                    <hr>
+                                <p class="aboutText">Click to find current articles and information for your
+                                    investments!</p>
+                                <hr>
                             </div>
 
                         </div>
