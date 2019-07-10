@@ -54,6 +54,9 @@ $(document).ready(function (eventObj) {
     let stockDataMonthly = [];
     let prevDates = [];
 
+    //To delete the all the stocks from fiebase 
+    // stockRef.ref('/stocks').remove();
+
     function getMonthEndDates() {
         let currentYear = moment().format("YYYY");
         let currMonth = moment().format("MM");
