@@ -79,8 +79,6 @@
                                     <th scope="col">Purchase Date</th>
                                     <th scope="col">Current Price</th>
                                     <th scope="col">Total Value</th>
-
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -126,13 +124,24 @@
                             <h5 class="card-title">Graphs</h5>
                     </div>
                 <div class="card-body">
-                        <select class="selectpicker" id="chartOptions">
+                    <div class="row">
+                        <div class="col-3">
+
+                            <select class="selectpicker" id="chartOptions">
                                 <option value="0">0</option>
                                 <option value="3">3</option>
                                 <option value="6">6</option>
                                 <option value="9">9</option>
                                 <option value="12">12</option>
-                              </select>
+                            </select>
+                            
+                        </div>
+                        <div class="col-6">
+                            <input type="text" placeholder="stocks" class="stockId">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="createButton">Create</button>
+
                     <div id="chartBox">
 
                         <canvas id="threeMonths" width="200" height="200"></canvas>
@@ -254,6 +263,7 @@
                                 <a href="#" class="btn btn-primary" id="searchButton">Search</a>
 
                             </div>
+                            <hr>
                         </div>
                         <div class="row">
                             <div class="col">
