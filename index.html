@@ -27,19 +27,14 @@
             <a class="nav-link active" href="#">Account</a>
             <a class="nav-link" href="#">Logout</a>
             <a class="nav-link" href="#">About</a>
-
-
-
         </nav>
 
 
         <div class="row">
             <div class="col">
                 <div class="card" id="stockList">
-
                     <div class="card-body">
                         <h5 class="card-title">Add a stock to Monitor Changes</h5>
-
                         <table class="table table-sm table-hover" id='stockTable'>
                             <thead>
                                 <tr>
@@ -49,39 +44,33 @@
                                     <th scope="col">Purchase Date</th>
                                     <th scope="col">Current Price</th>
                                     <th scope="col">Total Value</th>
-
-
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
-
-                        <div class="row">
-                            <div class="col-3">
-
-                                <label for="stockId">Stock Name:</label>
-                                <input type="text" id="stockId">
+                        <form action="" name="inputForm">
+                            <div class="row">
+                                <div class="col-3">
+                                    <label for="stockId">Stock Name:</label>
+                                    <input type="text" name="nameInput" id="stockId" required>
+                                </div>
+                                <div class="col-3">
+                                    <label for="sPrice">Price of Stock:</label>
+                                    <input type="number" name="priceInput" id="sPrice" required>
+                                </div>
+                                <div class="col-3">
+                                    <label for="sQuantity">Quantity:</label>
+                                    <input type="number" name="quantityInput" id="sQuantity" required>
+                                </div>
+                                <div class="col-3">
+                                    <label for="sPurchase">Date Purchase:</label>
+                                    <input type="date" name="purchaseInput" id="sPurchase" required>
+                                </div>
                             </div>
-                            <div class="col-3">
-
-                                <label for="sPrice">Price of Stock:</label>
-                                <input type="text" id="sPrice">
-                            </div>
-                            <div class="col-3">
-
-                                <label for="sQuantity">Quantity:</label>
-                                <input type="text" id="sQuantity">
-                            </div>
-                            <div class="col-3">
-
-                                <label for="sPurchase">Date Purchase:</label>
-                                <input type="text" id="sPurchase">
-                            </div>
-                        </div>
-                        <br>
-                        <button type="button" class="btn btn-primary" id="addBtn">Add</button>
-
+                            <br>
+                            <input type="submit" class="btn btn-primary" value="Add" id="addBtn"></input>
+                        </form>
                     </div>
                 </div>
 
@@ -93,7 +82,6 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-body">
-
                         <h2>Update Your Stocks</h2>
                         <hr>
                         <div class="row">
@@ -102,24 +90,20 @@
                                 <input type="text" id="UpdatestockId" required>
                                 <div class="row">
                                     <div class="col">
-
                                         <label for="sPrice">Quantity:</label>
-                                        <input type="text" id="UpdatePrice">
+                                        <input type="number" id="UpdatePrice" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
-
                                         <label for="sQuantity">Quantity:</label>
-                                        <input type="text" id="updateQuantity">
+                                        <input type="number" id="updateQuantity" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
-
                                         <label for="sPurchase">Purchase Date:</label>
-                                        <input type="text" id="sPurchase">
-
+                                        <input type="date" id="sPurchase" required>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +115,7 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-body">
-                        <p>this is where we hate ourselves</p>
+                        <p></p>
 
                     </div>
                 </div>
@@ -148,12 +132,12 @@
             </div>
         </div>
     </div>
-<!-- chart.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-<!-- firebase -->
-<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
-<!-- javascript -->
-<script src="assets/javascript/stockMonitor.js"></script>
+    <!-- chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
+    <!-- javascript -->
+    <script src="assets/javascript/stockMonitor.js"></script>
 
 </body>
 
