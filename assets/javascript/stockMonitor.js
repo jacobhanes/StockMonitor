@@ -13,6 +13,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let baseUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&interval=5min&outputsize=full";
+let baseUrlGlobal = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE";
 let stockSymbolName = "&symbol="
 let stockNames = ["AXP", "AAPL", "MSFT"];
 let stockApiKey = "&apikey=9C5L7VDS9B25DUYZ";
@@ -28,12 +29,10 @@ let userObj = {};
 userObj.userName = "Sam";
 userObj.email = "name@gmail.com";
 userObj.user = 1;
-
 let stockRef = firebase.database();
 
 
-function getStockDataGlobalQuote(stockElementKey, stockElement) {
-    let baseUrlGlobal = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE";
+function getStockDataGlobalQuote(stockElementKey, stockElement) {  
     $.ajax({
         url: baseUrlGlobal + stockSymbolName + stockElement.stockId + stockApiKey,
         method: "GET"
@@ -46,17 +45,14 @@ function getStockDataGlobalQuote(stockElementKey, stockElement) {
             "previous close": resObj["Global Quote"]["08. previous close"]
         })
 
-        tbRow = $("<tr>").attr({'id': stockElementKey}).append($("<td>").text(stockElement.stockId),
+       tbRow = $("<tr>").attr({'id': stockElementKey}).append($("<td>").text(stockElement.stockId),
         $("<td>").text(stockElement.stockPrice),
         $("<td>").text(stockElement.stockQuantity),
         $("<td>").text(moment.unix(stockElement.stockPurchase).format("MM/DD/YYYY")),
         $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(resObj["Global Quote"]["05. price"])),
-        $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stockElement.stockQuantity*resObj["Global Quote"]["05. price"])).append($("<button>").attr({'id': stockElementKey,class:"deleteBtn"}).css({float:"right"}).text("X"))
-
-        // Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(resObj["Global Quote"]["05. price"])
-    );
-  
-       $("#stockTable > tbody").append(tbRow);
+        $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stockElement.stockQuantity*resObj["Global Quote"]["05. price"]))
+        .append($("<button>").attr({'id': stockElementKey,class:"deleteBtn"}).css({float:"right"}).text("X")));  
+         $("#stockTable > tbody").append(tbRow);
 
         // let obj = stockData.find(obj => obj.symbol == "AAPL");
         // console.log(obj);
@@ -66,7 +62,7 @@ function getStockDataGlobalQuote(stockElementKey, stockElement) {
 
 }
 
-
+//firebase methods starts here 
 stockRef.ref("/stocks").on('child_removed',function(snapChildRemovedObj){
     console.log(snapChildRemovedObj.key);
     console.log(snapChildRemovedObj.val());
