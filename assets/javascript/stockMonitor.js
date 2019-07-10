@@ -12,8 +12,18 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+let baseUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&interval=5min&outputsize=full";
+let stockSymbolName = "&symbol="
+let stockNames = ["AXP", "AAPL", "MSFT"];
+let stockApiKey = "&apikey=9C5L7VDS9B25DUYZ";
+let stockData = [];
+let stockDataMonthly = [];
+let prevDates = [];
+
 
 let stockObj = {};
+let stocksObjValues=[];
+let stocksObjKeys=[];
 let userObj = {};
 userObj.userName = "Sam";
 userObj.email = "name@gmail.com";
@@ -21,39 +31,78 @@ userObj.user = 1;
 
 let stockRef = firebase.database();
 
+
+function getStockDataGlobalQuote(stockElementKey, stockElement) {
+    let baseUrlGlobal = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE";
+    $.ajax({
+        url: baseUrlGlobal + stockSymbolName + stockElement.stockId + stockApiKey,
+        method: "GET"
+    }).then(function (resObj) {
+        console.log(baseUrlGlobal + stockSymbolName + stockElement.stockId + stockApiKey);
+        stockData.push({
+            symbol: resObj["Global Quote"]["01. symbol"],
+            price: resObj["Global Quote"]["05. price"],
+            "latest trading day": resObj["Global Quote"]["07. latest trading day"],
+            "previous close": resObj["Global Quote"]["08. previous close"]
+        })
+
+        tbRow = $("<tr>").attr({'id': stockElementKey}).append($("<td>").text(stockElement.stockId),
+        $("<td>").text(stockElement.stockPrice),
+        $("<td>").text(stockElement.stockQuantity),
+        $("<td>").text(moment.unix(stockElement.stockPurchase).format("MM/DD/YYYY")),
+        $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(resObj["Global Quote"]["05. price"])),
+        $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stockElement.stockQuantity*resObj["Global Quote"]["05. price"])).append($("<button>").attr({'id': stockElementKey,class:"deleteBtn"}).css({float:"right"}).text("X"))
+
+        // Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(resObj["Global Quote"]["05. price"])
+    );
+  
+       $("#stockTable > tbody").append(tbRow);
+
+        // let obj = stockData.find(obj => obj.symbol == "AAPL");
+        // console.log(obj);
+      
+        console.log(stockData);
+    });
+
+}
+
+
+stockRef.ref("/stocks").on('child_removed',function(snapChildRemovedObj){
+    console.log(snapChildRemovedObj.key);
+    console.log(snapChildRemovedObj.val());
+      //Remove the element from DOM
+  $("tr").remove("#"+snapChildRemovedObj.key);
+});
+
 stockRef.ref('/stocks').on('child_added', function (childObj, prevChildKeyObj) {
     console.log(childObj.key);
     console.log(childObj.val());
+    console.log(prevChildKeyObj);
 
-    let childObjData = childObj.val();
+    stocksObjValues.push(childObj.val());
+    stocksObjKeys.push(childObj.key);
 
-    tbRow = $("<tr>");
-    tbRow.append($("<td>").text(childObjData.stockName),
-        $("<td>").text(childObjData.price),
-        $("<td>").text(childObjData.quantity),
-        $("<td>").text(childObjData.purchaseDate),
-        $("<td>").text(0),
-        $("<td>").text(0)
-    );
+   const childObjData=childObj.val();
+ 
+   console.log(stocksObjValues);
+   console.log(stocksObjKeys);
 
-   
-$("#stockTable > tbody").append(tbRow);
-
-
+   getStockDataGlobalQuote(childObj.key,childObjData);
 
 });
 
 
 
+
 $(document).ready(function (eventObj) {
 
-    let baseUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&interval=5min&outputsize=full";
-    let stockSymbolName = "&symbol="
-    let stockNames = ["AXP", "AAPL", "MSFT"];
-    let stockApiKey = "&apikey=9C5L7VDS9B25DUYZ";
-    let stockData = [];
-    let stockDataMonthly = [];
-    let prevDates = [];
+  
+
+
+    //To delete the all the stocks from fiebase 
+    // stockRef.ref('/stocks').remove();
+
+ 
 
     function getMonthEndDates() {
         let currentYear = moment().format("YYYY");
@@ -125,23 +174,7 @@ $(document).ready(function (eventObj) {
 
     }
 
-    function getStockDataGlobalQuote(stockElement) {
-        let baseUrlGlobal = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE";
-        $.ajax({
-            url: baseUrlGlobal + stockSymbolName + stockElement + stockApiKey,
-            method: "GET"
-        }).then(function (resObj) {
-            console.log(baseUrlGlobal + stockSymbolName + stockElement + stockApiKey);
-            stockData.push({
-                symbol: resObj["Global Quote"]["01. symbol"],
-                price: resObj["Global Quote"]["05. price"],
-                "latest trading day": resObj["Global Quote"]["07. latest trading day"],
-                "previous close": resObj["Global Quote"]["08. previous close"]
-            })
-        });
-
-    }
-
+  
     function getStockDataMonthly(stockElement) {
         let baseUrlMonthly = "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED";
         $.ajax({
@@ -163,25 +196,45 @@ $(document).ready(function (eventObj) {
         });
 
     }
+   
+    $(document).on('click',".deleteBtn",function(deleteBtnObj){
+        console.log(deleteBtnObj);
+        stockRef.ref("/stocks").child($(this).attr('id')).remove();
+    });
 
 
-    $("#addBtn").click(function (eventObj) {
-        console.log(eventObj);
 
+    $("#addBtn").click(function (eventAddObj) {
+        console.log(eventAddObj);
+        eventAddObj.preventDefault();
+        validInputsAdd=true;
 
-        stockObj.stockName = $("#stockId").val().trim();
-        stockObj.quantity = $("#sPrice").val();
-        stockObj.price = $("#sQuantity").val();
-        stockObj.purchaseDate = $("#sPurchase").val();
-        stockObj.user = 1;
+        $("form :input").each(function (index, element) {
+            //  console.log("index: " + index,element,"attribute:" + $(this).attr('id'),"Value: " + $(this).val().trim());
+            if ($(this).val().trim() == "") {
+                //Select element by ID
+                $("#" + $(this).attr('id')).focus();
+                validInputsAdd = false;
+                return validInputsAdd;
+            }
+        });
 
-        console.log(stockObj);
-        stockRef.ref('/stocks').push(stockObj);
-        alert("Added the stock");
-        $("#stockId").val("");
-        $("#sPrice").val("");
-        $("#sQuantity").val("");
-        $("#sPurchase").val("");
+        stockObj.stockId = $("#stockId").val().trim();
+        stockObj.stockQuantity = $("#stockQuantity").val();
+        stockObj.stockPrice = $("#stockPrice").val();
+        console.log($("#stockPurchase").val());
+        stockObj.stockPurchase = moment($("#stockPurchase").val(),"YYYY-MM-DD").format("X");
+
+        if(validInputsAdd){
+            stockRef = firebase.database();
+            console.log(stockObj);
+            stockRef.ref('/stocks').push(stockObj);
+            //Clearing the Input Field values
+            $("#stockId").val("");
+            $("#stockPrice").val("");
+            $("#stockQuantity").val("");
+            $("#stockPurchase").val("");
+        }
 
     });
 
