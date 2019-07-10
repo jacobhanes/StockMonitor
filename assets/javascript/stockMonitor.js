@@ -8,10 +8,9 @@ var firebaseConfig = {
     storageBucket: "fir-project-c0c9a.appspot.com",
     messagingSenderId: "820221888907",
     appId: "1:820221888907:web:f8331d7565f1bdf7"
-  };
+};
 
-   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 
 let stockObj = {};
@@ -22,23 +21,25 @@ userObj.user = 1;
 
 let stockRef = firebase.database();
 
-stockRef.ref('/stocks').on('child_added',function(childObj, prevChildKeyObj){
+stockRef.ref('/stocks').on('child_added', function (childObj, prevChildKeyObj) {
     console.log(childObj.key);
     console.log(childObj.val());
 
-    let  childObjData=childObj.val();
+    let childObjData = childObj.val();
 
-    tbRow=$("<tr>");
+    tbRow = $("<tr>");
     tbRow.append($("<td>").text(childObjData.stockName),
-    $("<td>").text(childObjData.price),
-    $("<td>").text(childObjData.quantity),
-    $("<td>").text(childObjData.purchaseDate),
-    $("<td>").text(0),
-    $("<td>").text(0)
+        $("<td>").text(childObjData.price),
+        $("<td>").text(childObjData.quantity),
+        $("<td>").text(childObjData.purchaseDate),
+        $("<td>").text(0),
+        $("<td>").text(0)
     );
 
    
 $("#stockTable > tbody").append(tbRow);
+
+
 
 });
 
@@ -167,11 +168,14 @@ $(document).ready(function (eventObj) {
 
     $("#addBtn").click(function (eventObj) {
         console.log(eventObj);
-        stockObj.stockName = $("#stockId").val();
+
+
+        stockObj.stockName = $("#stockId").val().trim();
         stockObj.quantity = $("#sPrice").val();
         stockObj.price = $("#sQuantity").val();
         stockObj.purchaseDate = $("#sPurchase").val();
         stockObj.user = 1;
+
         console.log(stockObj);
         stockRef.ref('/stocks').push(stockObj);
         alert("Added the stock");
@@ -179,9 +183,24 @@ $(document).ready(function (eventObj) {
         $("#sPrice").val("");
         $("#sQuantity").val("");
         $("#sPurchase").val("");
-        
+
     });
 
+    // form validation
+    // function validateForm() {
+    //     stockName = $("#stockId").val().trim();
+    //     quantity = $("#sPrice").val();
+    //     price = $("#sQuantity").val();
+    //     purchaseDate = $("#sPurchase").val();
+
+    //     if (stockName === ""){
+    //         alert("You need content")
+    //     }
+    //     // let x = document.forms["inputForm"]["nameInput"]["priceInput"]["quantityInput"]["purchaseInput"].value;
+    //     // if (x == "") {
+    //     //     return false;
+    //     // }
+    // }
 
 
 
@@ -224,8 +243,55 @@ $(document).ready(function (eventObj) {
     // });
 
 
+
+    // "Meta Data": {
+    //     "1. Information": "Monthly Adjusted Prices and Volumes",
+    //     "2. Symbol": "MSFT",
+    //     "3. Last Refreshed": "2019-06-28",
+    //     "4. Time Zone": "US/Eastern"
+    //     },
+    //     "Monthly Adjusted Time Series": {
+    //     "2019-06-28": {
+    //     "1. open": "123.8500",
+    //     "2. high": "138.4000",
+    //     "3. low": "119.0100",
+    //     "4. close": "133.9600",
+    //     "5. adjusted close": "133.9600",
+    //     "6. volume": "508298497",
+    //     "7. dividend amount": "0.0000"
+    //     },
+
+
+
+
+
+
+    //Sample Response for GLOBAL_QUOTE API Call 
+    // {
+    //     "Global Quote": {
+    //         "01. symbol": "MSFT",
+    //         "02. open": "134.5700",
+    //         "03. high": "134.6000",
+    //         "04. low": "133.1600",
+    //         "05. price": "133.9600",
+    //         "06. volume": "30042969",
+    //         "07. latest trading day": "2019-06-28",
+    //         "08. previous close": "134.1500",
+    //         "09. change": "-0.1900",
+    //         "10. change percent": "-0.1416%"
+    //     }
+    // }
+
+    for (let i = 0; i < stockNames.length; i++) {
+        // getStockDataGlobalQuote(stockNames[i]);
+        getStockDataMonthly(stockNames[i]);
+    }
+
+    // console.log(stockData);
+    console.log(stockDataMonthly);
+
 // "Meta Data": {
-//     "1. Information": "Monthly Adjusted Prices and Volumes",
+//    "1. Information": "Monthly Adjusted Prices and Volumes",
 //     "2. Symbol": "MSFT",
 //     "3. Last Refreshed": "2019-06-28",
 //     "4. Time Zone": "US/Eastern"
@@ -588,6 +654,7 @@ var ctx = document.getElementById('sixMonths').getContext('2d');
         }
     }
 });
+
 
 var ctx = document.getElementById('nineMonths').getContext('2d');
     var nineMonths = new Chart(ctx, {

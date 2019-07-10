@@ -25,7 +25,6 @@
             <a class="nav-link" href="#">Logout</a>
 
 
-
         </nav>
         <div class="row">
             <div class="col">
@@ -67,11 +66,13 @@
         <div class="row">
             <div class="col">
                 <div class="card" id="stockList">
+
                     <div class="card-header">
 
                         <h5 class="card-title">Portfolio</h5>
                     </div>
                     <div class="card-body">
+
                         <table class="table table-sm table-hover" id='stockTable'>
                             <thead>
                                 <tr>
@@ -82,39 +83,34 @@
                                     <th scope="col">Purchase Date</th>
                                     <th scope="col">Current Price</th>
                                     <th scope="col">Total Value</th>
-
-
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
+                        <form action="" name="inputForm">
+                            <div class="row">
+                                <div class="col-3">
+                                    <label for="stockId">Stock Name:</label>
+                                    <input type="text" name="nameInput" id="stockId" required>
+                                </div>
+                                <div class="col-3">
+                                    <label for="sPrice">Price of Stock:</label>
+                                    <input type="number" name="priceInput" id="sPrice" required>
+                                </div>
+                                <div class="col-3">
+                                    <label for="sQuantity">Quantity:</label>
+                                    <input type="number" name="quantityInput" id="sQuantity" required>
+                                </div>
+                                <div class="col-3">
+                                    <label for="sPurchase">Date Purchase:</label>
+                                    <input type="date" name="purchaseInput" id="sPurchase" required>
+                                </div>
 
-                        <div class="row">
-                            <div class="col-3">
-
-                                <label for="stockId">Stock Name:</label>
-                                <input type="text" class="stockId">
                             </div>
-                            <div class="col-3">
-
-                                <label for="sPrice">Price of Stock:</label>
-                                <input type="number" class="sPrice">
-                            </div>
-                            <div class="col-3">
-
-                                <label for="sQuantity">Quantity:</label>
-                                <input type="number" class="sQuantity">
-                            </div>
-                            <div class="col-3">
-
-                                <label for="sPurchase">Date Purchase:</label>
-                                <input type="date" class="sPurchase">
-                            </div>
-                        </div>
-                        <br>
-                        <button type="button" class="btn btn-primary" id="addBtn">Add</button>
-
+                            <br>
+                            <input type="submit" class="btn btn-primary" value="Add" id="addBtn"></input>
+                        </form>
                     </div>
                 </div>
 
@@ -125,6 +121,7 @@
         <div class="row">
             <div class="col-4">
                 <div class="card">
+
                     <div class="card-header">
                         <h5 class="card-title">Graphs</h5>
                     </div>
@@ -164,7 +161,8 @@
                         <h5 class="card-title">Update Your Stocks</h5>
                     </div>
                     <div class="card-body">
-
+                        
+                        
 
                         <div class="row">
                             <div class="col">
@@ -173,21 +171,25 @@
                                 <div class="row">
                                     <div class="col">
 
-                                        <label for="sPrice">Price:</label>
-                                        <input type="number" class="UpdatePrice">
+                                        <label for="sPrice">Quantity:</label>
+                                        <input type="number" id="UpdatePrice" required>
+
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
-
                                         <label for="sQuantity">Quantity:</label>
-                                        <input type="number" class="updateQuantity">
-                                    </div>
+
+                                        <input type="number" id="updateQuantity" required>
+
+                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
-
                                         <label for="sPurchase">Purchase Date:</label>
+
+                                        <input type="date" id="sPurchase" required>
+
                                         <input type="date" class="sPurchase">
 
                                     </div>
@@ -206,8 +208,8 @@
                         <h5 class="navbar-brand">What if?</h5>
                     </div>
                     <div class="card-body">
-                        <p class="aboutText">Fill out the blanks to see if that stock you missed last quarter was worth
-                            being ignored!</p>
+
+                        <p class="aboutText">Fill out the blanks to see if that stock you missed last quarter was worth being ignored!</p>
                         <hr>
                         <strong>
                             <p id="fairytale">I would of made/lost: </p>
@@ -235,6 +237,7 @@
 
                                         <label for="sPurchase">Purchase Date:</label>
                                         <input type="date" class="sPurchase">
+
 
                                     </div>
                                 </div>
