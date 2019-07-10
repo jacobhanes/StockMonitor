@@ -36,8 +36,8 @@ stockRef.ref('/stocks').on('child_added', function (childObj, prevChildKeyObj) {
         $("<td>").text(0)
     );
 
-   
-$("#stockTable > tbody").append(tbRow);
+
+    $("#stockTable > tbody").append(tbRow);
 
 
 });
@@ -175,8 +175,8 @@ $(document).ready(function (eventObj) {
         stockObj.user = 1;
 
         // input validation
-        if (stockObj.stockName === ''  || stockObj.quantity === "" || stockObj.price === "" || stockObj.purchaseDate === ""){
-        } else{
+        if (stockObj.stockName === "" || stockObj.quantity === "" || stockObj.price === "" || stockObj.purchaseDate === "") {
+        } else {
             console.log(stockObj);
             stockRef.ref('/stocks').push(stockObj);
             $("#stockId").val("");
@@ -192,7 +192,7 @@ $(document).ready(function (eventObj) {
         $("#sPrice").val("");
         $("#sQuantity").val("");
         $("#sPurchase").val("");
-        
+
     });
 
 
@@ -235,44 +235,44 @@ $(document).ready(function (eventObj) {
     // });
 
 
-// "Meta Data": {
-//     "1. Information": "Monthly Adjusted Prices and Volumes",
-//     "2. Symbol": "MSFT",
-//     "3. Last Refreshed": "2019-06-28",
-//     "4. Time Zone": "US/Eastern"
-//     },
-//     "Monthly Adjusted Time Series": {
-//     "2019-06-28": {
-//     "1. open": "123.8500",
-//     "2. high": "138.4000",
-//     "3. low": "119.0100",
-//     "4. close": "133.9600",
-//     "5. adjusted close": "133.9600",
-//     "6. volume": "508298497",
-//     "7. dividend amount": "0.0000"
-//     },
+    // "Meta Data": {
+    //     "1. Information": "Monthly Adjusted Prices and Volumes",
+    //     "2. Symbol": "MSFT",
+    //     "3. Last Refreshed": "2019-06-28",
+    //     "4. Time Zone": "US/Eastern"
+    //     },
+    //     "Monthly Adjusted Time Series": {
+    //     "2019-06-28": {
+    //     "1. open": "123.8500",
+    //     "2. high": "138.4000",
+    //     "3. low": "119.0100",
+    //     "4. close": "133.9600",
+    //     "5. adjusted close": "133.9600",
+    //     "6. volume": "508298497",
+    //     "7. dividend amount": "0.0000"
+    //     },
 
 
 
 
 
 
-//Sample Response for GLOBAL_QUOTE API Call 
-// {
-//     "Global Quote": {
-//         "01. symbol": "MSFT",
-//         "02. open": "134.5700",
-//         "03. high": "134.6000",
-//         "04. low": "133.1600",
-//         "05. price": "133.9600",
-//         "06. volume": "30042969",
-//         "07. latest trading day": "2019-06-28",
-//         "08. previous close": "134.1500",
-//         "09. change": "-0.1900",
-//         "10. change percent": "-0.1416%"
-//     }
+    //Sample Response for GLOBAL_QUOTE API Call 
+    // {
+    //     "Global Quote": {
+    //         "01. symbol": "MSFT",
+    //         "02. open": "134.5700",
+    //         "03. high": "134.6000",
+    //         "04. low": "133.1600",
+    //         "05. price": "133.9600",
+    //         "06. volume": "30042969",
+    //         "07. latest trading day": "2019-06-28",
+    //         "08. previous close": "134.1500",
+    //         "09. change": "-0.1900",
+    //         "10. change percent": "-0.1416%"
+    //     }
 
-//     getMonthEndDates();
+    //     getMonthEndDates();
 
 
     function getStockData(stockElement) {
@@ -337,181 +337,181 @@ $(document).ready(function (eventObj) {
 
     }
 
-//     let myChart = document.getElementById("stockCharts").getContext('2d');
-//     let barChart = new Chart(myChart, {
-//         type: 'bar',
-//         data: {
-//             labels: stockNames,
-//             datasets: [{
-//                 label: 'population1',
-//                 data: [1, 2, 3],
-//                 backgroundColor: ["red", "green"]
-//             },
-//             {
-//                 label: 'population2',
-//                 data: [4, 5, 6],
-//                 backgroundColor: ["red", "green"]
-//             }
-//                 ,
-//             {
-//                 label: 'population3',
-//                 data: [7, 8, 9],
-//                 backgroundColor: ["red", "green"]
-//             }
-//             ]
-//         },
-//         options: {
-//             scales: {
-//                 xAxes: [{
-//                     barPercentage: 0.5,
-//                     barThickness: 6,
-//                     maxBarThickness: 8,
-//                     minBarLength: 0,
-//                     gridLines: {
-//                         offsetGridLines: true
-//                     }
-//                 }]
-//             }
-//         }
-//     });
+    //     let myChart = document.getElementById("stockCharts").getContext('2d');
+    //     let barChart = new Chart(myChart, {
+    //         type: 'bar',
+    //         data: {
+    //             labels: stockNames,
+    //             datasets: [{
+    //                 label: 'population1',
+    //                 data: [1, 2, 3],
+    //                 backgroundColor: ["red", "green"]
+    //             },
+    //             {
+    //                 label: 'population2',
+    //                 data: [4, 5, 6],
+    //                 backgroundColor: ["red", "green"]
+    //             }
+    //                 ,
+    //             {
+    //                 label: 'population3',
+    //                 data: [7, 8, 9],
+    //                 backgroundColor: ["red", "green"]
+    //             }
+    //             ]
+    //         },
+    //         options: {
+    //             scales: {
+    //                 xAxes: [{
+    //                     barPercentage: 0.5,
+    //                     barThickness: 6,
+    //                     maxBarThickness: 8,
+    //                     minBarLength: 0,
+    //                     gridLines: {
+    //                         offsetGridLines: true
+    //                     }
+    //                 }]
+    //             }
+    //         }
+    //     });
 
 
-// // "Meta Data": {
-// //     "1. Information": "Monthly Adjusted Prices and Volumes",
-// //     "2. Symbol": "MSFT",
-// //     "3. Last Refreshed": "2019-06-28",
-// //     "4. Time Zone": "US/Eastern"
-// //     },
-// //     "Monthly Adjusted Time Series": {
-// //     "2019-06-28": {
-// //     "1. open": "123.8500",
-// //     "2. high": "138.4000",
-// //     "3. low": "119.0100",
-// //     "4. close": "133.9600",
-// //     "5. adjusted close": "133.9600",
-// //     "6. volume": "508298497",
-// //     "7. dividend amount": "0.0000"
-// //     },
-
-
-
-
-
-
-// //Sample Response for GLOBAL_QUOTE API Call 
-// // {
-// //     "Global Quote": {
-// //         "01. symbol": "MSFT",
-// //         "02. open": "134.5700",
-// //         "03. high": "134.6000",
-// //         "04. low": "133.1600",
-// //         "05. price": "133.9600",
-// //         "06. volume": "30042969",
-// //         "07. latest trading day": "2019-06-28",
-// //         "08. previous close": "134.1500",
-// //         "09. change": "-0.1900",
-// //         "10. change percent": "-0.1416%"
-// //     }
-// // }
-
-// for (let i = 0; i < stockNames.length; i++) {
-//     // getStockDataGlobalQuote(stockNames[i]);
-//     getStockDataMonthly(stockNames[i]);
-// }
-
-// // console.log(stockData);
-// console.log(stockDataMonthly);
-
-function getNews (Response){
-    //ajax call to current api to grab news and links
-    const name = $("#searchBar").val();
-    const newsURL = 
-    "https://newsapi.org/v2/top-headlines?country=us&q=" + name + "&category=business&category=technology&pageSize=5&apiKey=2bc02802e5f74edfa7dc731b454fe6a3";
-
-    $.ajax({
-        url: newsURL,
-        method: "GET"
-    }).then(function(Response){
-
-    for(let i = 0; i < Response.articles.length; i++){
-        const article = Response.articles[i].title;
-        const articleLink = Response.articles[i].url;
-        
-        console.log(Response.articles[i]);
-        console.log(articleLink);
-        
-        console.log(Response);
-        
-        $(".artList").append(`<li>${article} <a href="${articleLink}">${articleLink}</a></li>`);
-        
-    }  
-        
-    })
-}
-        
-        
-$("#searchButton").on("click", function(){
-    //this adds/ empty articles
-    console.log("yay");
-    $(".artList").empty();
-    getNews();
-})
-
-
-function hideAbout(){
-    $("#aboutInfo").hide();
-}    
-hideAbout()
-$("#aboutButton").on("click",function(){
-    $("#aboutInfo").show();
-   
-    
-})
+    // // "Meta Data": {
+    // //     "1. Information": "Monthly Adjusted Prices and Volumes",
+    // //     "2. Symbol": "MSFT",
+    // //     "3. Last Refreshed": "2019-06-28",
+    // //     "4. Time Zone": "US/Eastern"
+    // //     },
+    // //     "Monthly Adjusted Time Series": {
+    // //     "2019-06-28": {
+    // //     "1. open": "123.8500",
+    // //     "2. high": "138.4000",
+    // //     "3. low": "119.0100",
+    // //     "4. close": "133.9600",
+    // //     "5. adjusted close": "133.9600",
+    // //     "6. volume": "508298497",
+    // //     "7. dividend amount": "0.0000"
+    // //     },
 
 
 
 
-function hideCharts (){
-  $("#threeMonths").hide();
-  $("#sixMonths").hide()  
-  $("#nineMonths").hide()  
-  $("#twelveMonths").hide()  
-}
-hideCharts();
-//showing charts
-$("select.selectpicker").change(function(){
-    var selectedMonth = $(this).children("option:selected").val();
-    console.log(selectedMonth)
-    if (selectedMonth === "0"){
-        hideCharts();
+
+
+    // //Sample Response for GLOBAL_QUOTE API Call 
+    // // {
+    // //     "Global Quote": {
+    // //         "01. symbol": "MSFT",
+    // //         "02. open": "134.5700",
+    // //         "03. high": "134.6000",
+    // //         "04. low": "133.1600",
+    // //         "05. price": "133.9600",
+    // //         "06. volume": "30042969",
+    // //         "07. latest trading day": "2019-06-28",
+    // //         "08. previous close": "134.1500",
+    // //         "09. change": "-0.1900",
+    // //         "10. change percent": "-0.1416%"
+    // //     }
+    // // }
+
+    // for (let i = 0; i < stockNames.length; i++) {
+    //     // getStockDataGlobalQuote(stockNames[i]);
+    //     getStockDataMonthly(stockNames[i]);
+    // }
+
+    // // console.log(stockData);
+    // console.log(stockDataMonthly);
+
+    function getNews(Response) {
+        //ajax call to current api to grab news and links
+        const name = $("#searchBar").val();
+        const newsURL =
+            "https://newsapi.org/v2/top-headlines?country=us&q=" + name + "&category=business&category=technology&pageSize=5&apiKey=2bc02802e5f74edfa7dc731b454fe6a3";
+
+        $.ajax({
+            url: newsURL,
+            method: "GET"
+        }).then(function (Response) {
+
+            for (let i = 0; i < Response.articles.length; i++) {
+                const article = Response.articles[i].title;
+                const articleLink = Response.articles[i].url;
+
+                console.log(Response.articles[i]);
+                console.log(articleLink);
+
+                console.log(Response);
+
+                $(".artList").append(`<li>${article} <a href="${articleLink}">${articleLink}</a></li>`);
+
+            }
+
+        })
     }
-    if (selectedMonth === "3"){
-        
-        $("#threeMonths").show();
-        $("#sixMonths").hide();
-        $("#nineMonths").hide();
-        $("#twelveMonths").hide();
-    };
-    if (selectedMonth === "6"){
 
-        $("#sixMonths").show();
+
+    $("#searchButton").on("click", function () {
+        //this adds/ empty articles
+        console.log("yay");
+        $(".artList").empty();
+        getNews();
+    })
+
+
+    function hideAbout() {
+        $("#aboutInfo").hide();
+    }
+    hideAbout()
+    $("#aboutButton").on("click", function () {
+        $("#aboutInfo").show();
+
+
+    })
+
+
+
+
+    function hideCharts() {
         $("#threeMonths").hide();
-        $("#nineMonths").hide();
-        $("#twelveMonths").hide();
-    };
-    if (selectedMonth === "9"){ 
-        $("#nineMonths").show();
-        $("#sixMonths").hide();
-        $("#threeMonths").hide();
-        $("#twelveMonths").hide();
-    };    
-    if (selectedMonth === "12"){
-        $("#twelveMonths").show();
-        $("#sixMonths").hide();
-        $("#nineMonths").hide();
-        $("#threeMonths").hide();
-    };
-});
+        $("#sixMonths").hide()
+        $("#nineMonths").hide()
+        $("#twelveMonths").hide()
+    }
+    hideCharts();
+    //showing charts
+    $("select.selectpicker").change(function () {
+        var selectedMonth = $(this).children("option:selected").val();
+        console.log(selectedMonth)
+        if (selectedMonth === "0") {
+            hideCharts();
+        }
+        if (selectedMonth === "3") {
+
+            $("#threeMonths").show();
+            $("#sixMonths").hide();
+            $("#nineMonths").hide();
+            $("#twelveMonths").hide();
+        };
+        if (selectedMonth === "6") {
+
+            $("#sixMonths").show();
+            $("#threeMonths").hide();
+            $("#nineMonths").hide();
+            $("#twelveMonths").hide();
+        };
+        if (selectedMonth === "9") {
+            $("#nineMonths").show();
+            $("#sixMonths").hide();
+            $("#threeMonths").hide();
+            $("#twelveMonths").hide();
+        };
+        if (selectedMonth === "12") {
+            $("#twelveMonths").show();
+            $("#sixMonths").hide();
+            $("#nineMonths").hide();
+            $("#threeMonths").hide();
+        };
+    });
 
     var ctx = document.getElementById('threeMonths').getContext('2d');
     var threeMonths = new Chart(ctx, {
@@ -522,31 +522,31 @@ $("select.selectpicker").change(function(){
                 label: 'AXP',
                 data: [10, 19, 3],
                 backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
 
-var ctx = document.getElementById('sixMonths').getContext('2d');
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctx = document.getElementById('sixMonths').getContext('2d');
     var sixMonths = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -561,32 +561,32 @@ var ctx = document.getElementById('sixMonths').getContext('2d');
                     'rgba(75, 192, 192, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
                     'rgba(255, 159, 64, 0.2)',
-                
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
 
-var ctx = document.getElementById('nineMonths').getContext('2d');
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctx = document.getElementById('nineMonths').getContext('2d');
     var nineMonths = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -595,48 +595,48 @@ var ctx = document.getElementById('nineMonths').getContext('2d');
                 label: 'AXP',
                 data: [10, 19, 3, 10, 14, 7, 12, 15, 9],
                 backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                
-                
-                
-                
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                
-                
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
 
-var ctx = document.getElementById('twelveMonths').getContext('2d');
+
+
+
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+
+
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctx = document.getElementById('twelveMonths').getContext('2d');
     var twelveMonths = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -645,52 +645,52 @@ var ctx = document.getElementById('twelveMonths').getContext('2d');
                 label: 'AXP',
                 data: [10, 19, 3, 10, 14, 7, 12, 15, 9, 10, 11, 6],
                 backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+
+                ],
+                borderWidth: 1
             }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
         }
-    }
-});
+    });
 
 
 });
 
 
-        
+
 
