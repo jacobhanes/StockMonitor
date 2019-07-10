@@ -1,9 +1,41 @@
 #stockList {
-    margin-bottom: 25px;
+	    margin-bottom: 25px;
+    }
+    #articleList {
+	        margin-top: 25px;
+	}
+	#navTop {
+			margin-bottom: 25px;
+			border-radius: 25px; 
+			padding: 10px;
+	    }
+	    body{
+		        background-color: #191919;
+		}
+		#navTop{
+			    background-color: #cceeff;
+			        color:black;
+			}
+.card-body {
+	background: #cceeff;
+	border-radius: 25px;
 }
-#articleList {
-    margin-top: 25px;
+.card-header{
+	padding: 20px;
+	color: white;
 }
+.card {
+	background: #006bb3;
+	border-radius: 25px;
+}
+#aboutImage {
+	width: 200px;
+	height: 150px;
+}
+.aboutText {
+	font-size: 20px
+}
+
 #navTop {
     margin-bottom: 25px;
 }
@@ -16,3 +48,4 @@
   input:valid {
     border: 2px solid black;
   } */
+
