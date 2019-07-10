@@ -8,9 +8,10 @@ var firebaseConfig = {
     storageBucket: "fir-project-c0c9a.appspot.com",
     messagingSenderId: "820221888907",
     appId: "1:820221888907:web:f8331d7565f1bdf7"
-};
+  };
 
-firebase.initializeApp(firebaseConfig);
+   // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
 
 let baseUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&interval=5min&outputsize=full";
 let baseUrlGlobal = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE";
@@ -75,10 +76,23 @@ stockRef.ref('/stocks').on('child_added', function (childObj, prevChildKeyObj) {
     console.log(childObj.val());
     console.log(prevChildKeyObj);
 
+    let  childObjData=childObj.val();
+
+    tbRow=$("<tr>");
+    tbRow.append($("<td>").text(childObjData.stockName),
+    $("<td>").text(childObjData.price),
+    $("<td>").text(childObjData.quantity),
+    $("<td>").text(childObjData.purchaseDate),
+    $("<td>").text(0),
+    $("<td>").text(0)
+    );
+
+   
+$("#stockTable > tbody").append(tbRow);
     stocksObjValues.push(childObj.val());
     stocksObjKeys.push(childObj.key);
 
-   const childObjData=childObj.val();
+//    const childObjData=childObj.val();
  
    console.log(stocksObjValues);
    console.log(stocksObjKeys);
@@ -94,10 +108,12 @@ $(document).ready(function (eventObj) {
 
   
 
+
     //To delete the all the stocks from fiebase 
     // stockRef.ref('/stocks').remove();
 
  
+
     function getMonthEndDates() {
         let currentYear = moment().format("YYYY");
         let currMonth = moment().format("MM");
@@ -190,12 +206,12 @@ $(document).ready(function (eventObj) {
         });
 
     }
-
-    
+   
     $(document).on('click',".deleteBtn",function(deleteBtnObj){
         console.log(deleteBtnObj);
         stockRef.ref("/stocks").child($(this).attr('id')).remove();
     });
+
 
 
     $("#addBtn").click(function (eventAddObj) {
@@ -232,7 +248,33 @@ $(document).ready(function (eventObj) {
 
     });
 
+    // form validation
+    // function validateForm() {
+    //     stockName = $("#stockId").val().trim();
+    //     quantity = $("#sPrice").val();
+    //     price = $("#sQuantity").val();
+    //     purchaseDate = $("#sPurchase").val();
 
+    //     if (stockName === ""){
+    //         alert("You need content")
+    //     }
+    //     // let x = document.forms["inputForm"]["nameInput"]["priceInput"]["quantityInput"]["purchaseInput"].value;
+    //     // if (x == "") {
+    //     //     return false;
+    //     // }
+    // }
+
+
+
+   
+
+    for (let i = 0; i < stockNames.length; i++) {
+        // getStockDataGlobalQuote(stockNames[i]);
+        getStockDataMonthly(stockNames[i]);
+    }
+
+     console.log(stockData);
+    console.log(stockDataMonthly);
 
 function getNews (Response){
     //ajax call to current api to grab news and links
@@ -275,7 +317,7 @@ function hideAbout(){
 }    
 hideAbout()
 $("#aboutButton").on("click",function(){
-    $("#aboutInfo").show();
+    $("#aboutInfo").toggle();
    
     
 })
@@ -291,8 +333,12 @@ function hideCharts (){
 }
 hideCharts();
 //showing charts
-$("select.selectpicker").change(function(){
-    var selectedMonth = $(this).children("option:selected").val();
+$("#createButton").on("click", function(){
+    const selectedMonth = $("#chartOptions").val();
+    const selectedStock = $(".stockId").val();
+
+
+
     console.log(selectedMonth)
     if (selectedMonth === "0"){
         hideCharts();
@@ -398,7 +444,6 @@ var ctx = document.getElementById('sixMonths').getContext('2d');
     }
 });
 
-
 var ctx = document.getElementById('nineMonths').getContext('2d');
     var nineMonths = new Chart(ctx, {
         type: 'bar',
@@ -503,7 +548,6 @@ var ctx = document.getElementById('twelveMonths').getContext('2d');
 
 
 });
-
 
         
 
