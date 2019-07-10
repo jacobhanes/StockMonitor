@@ -28,49 +28,66 @@
 
         </nav>
         <div class="row">
+
             <div class="col">
+
                 <div class="card">
+
                     <div class="card-header" id="aboutButton">
 
                         <h5 class="card-title">About</h5>
+
                     </div>
+
                         <div class="card-body" id="aboutInfo">
-                        
+
                         <div class="row">
+
                             <div class="col-3">
 
                                 <img id="aboutImage" src="./assets/226932e4117fec10b30aa965e7cf3a2e.jpg">
+
                             </div>
+
                             <div class="col-9">
+
                                 <p class="aboutText">Stock Monitor is a app that is all about stocks.
                                     You can check real time data on all stocks on the market, and save them to your account. Check current articles about your stock to help make that next investments. If you are feeling daring than check out our "what if" section and see if a past investment would of been worth ir or not! Have fun and make some money!
 
                                 </p>
+
                             </div>
-                            
-                            
-                            
-                            
-                            
-                            
+                         
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
         <hr>
 
-
         <div class="row">
+
             <div class="col">
+
                 <div class="card" id="stockList">
+
                     <div class="card-header">
 
                         <h5 class="card-title">Portfolio</h5>
+
                     </div>
+
                     <div class="card-body">
+
                         <table class="table table-sm table-hover" id='stockTable'>
+
                             <thead>
+
                                 <tr>
 
                                     <th scope="col">Stock Name</th>
@@ -79,35 +96,56 @@
                                     <th scope="col">Purchase Date</th>
                                     <th scope="col">Current Price</th>
                                     <th scope="col">Total Value</th>
+
                                 </tr>
+
                             </thead>
+
                             <tbody>
+
                             </tbody>
+
                         </table>
 
                         <div class="row">
+
                             <div class="col-3">
 
                                 <label for="stockId">Stock Name:</label>
+
                                 <input type="text" class="stockId">
+
                             </div>
+
                             <div class="col-3">
 
+
                                 <label for="sPrice">Price of Stock:</label>
+
                                 <input type="number" class="sPrice">
+
                             </div>
+
                             <div class="col-3">
 
                                 <label for="sQuantity">Quantity:</label>
+
                                 <input type="number" class="sQuantity">
+
                             </div>
+
                             <div class="col-3">
 
                                 <label for="sPurchase">Date Purchase:</label>
+
                                 <input type="date" class="sPurchase">
+
                             </div>
+
                         </div>
+
                         <br>
+
                         <button type="button" class="btn btn-primary" id="addBtn">Add</button>
 
                     </div>
@@ -116,15 +154,24 @@
             </div>
 
         </div>
+
         <hr>
+
         <div class="row">
+
             <div class="col-4">
+
                 <div class="card">
+
                     <div class="card-header">
+
                             <h5 class="card-title">Graphs</h5>
+
                     </div>
                 <div class="card-body">
+
                     <div class="row">
+
                         <div class="col-3">
 
                             <select class="selectpicker" id="chartOptions">
@@ -136,10 +183,15 @@
                             </select>
                             
                         </div>
+
                         <div class="col-6">
+
                             <input type="text" placeholder="stocks" class="stockId">
+
                         </div>
+
                     </div>
+
                     <button type="button" class="btn btn-primary" id="createButton">Create</button>
 
                     <div id="chartBox">
@@ -148,126 +200,214 @@
                         <canvas id="sixMonths" width="200" height="200"></canvas>
                         <canvas id="nineMonths" width="200" height="200"></canvas>
                         <canvas id="twelveMonths" width="200" height="200"></canvas>
-                    </div>          
-                </div>    
+
+                    </div>  
+
+                </div>   
+
                 </div>
+
             </div>
+
             <div class="col-4">
+
                 <div class="card">
+
                     <div class="card-header">
 
                         <h5 class="card-title">Update Your Stocks</h5>
+
                     </div>
+
                     <div class="card-body">
                         
                         
                         <div class="row">
+
                             <div class="col">
+
                                 <label for="stockId">Stock Name:</label>
+
                                 <input type="text" id="UpdatestockId" required>
+
                                 <div class="row">
+
                                     <div class="col">
 
                                         <label for="sPrice">Price:</label>
+
                                         <input type="number" class="UpdatePrice">
+
                                     </div>
                                 </div>
+
                                 <div class="row">
+
                                     <div class="col">
 
                                         <label for="sQuantity">Quantity:</label>
+
                                         <input type="number" class="updateQuantity">
+
                                     </div>
+
                                 </div>
+
                                 <div class="row">
+
                                     <div class="col">
 
                                         <label for="sPurchase">Purchase Date:</label>
+
                                         <input type="date" class="sPurchase">
 
                                     </div>
+
                                 </div>
+
                             </div>
+
                         </div>
+
                         <hr>
+
                         <a href="#" class="btn btn-primary">Update</a>
+
                     </div>
+
                 </div>
+
             </div>
+
             <div class="col-4">
+
                 <div class="card">
+
                     <div class="card-header">
 
                         <h5 class="navbar-brand">What if?</h5>
+
                     </div>
+
                     <div class="card-body">
+
                         <p class="aboutText">Fill out the blanks to see if that stock you missed last quarter was worth being ignored!</p>
+
                         <hr>
+
                         <strong>
                             <p id="fairytale">I would of made/lost: </p>
                         </strong>
+
                         <div class="row">
+
                             <div class="col">
+
                                 <label for="stockId">Stock Name:</label>
+
                                 <input type="text" id="UpdatestockId" required>
+
                                 <div class="row">
+
                                     <div class="col">
 
                                         <label for="sPrice">Price:</label>
+
                                         <input type="number" class="UpdatePrice">
+
                                     </div>
+
                                 </div>
                                 <div class="row">
+
                                     <div class="col">
 
                                         <label for="sQuantity">Quantity:</label>
+
                                         <input type="number" class="updateQuantity">
+
                                     </div>
+
                                 </div>
+
                                 <div class="row">
+
                                     <div class="col">
 
                                         <label for="sPurchase">Purchase Date:</label>
+
                                         <input type="date" class="sPurchase">
 
                                     </div>
+
                                 </div>
+
                                 <hr>
+
                                 <a href="#" class="btn btn-primary">Do Magic</a>
+
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
         <hr>
+
         <div class="row">
+
             <div class="col">
+
                 <div class="card">
+
                     <div class="card-header">
 
                         <h5 class="card-title">Find Articles</h5>
+
                     </div>
+
                     <div class="card-body">
+
                         <div class="row">
+
                             <div class="col">
+
                                     <p class="aboutText">Click to find current articles and information for your investments!</p>
                                     <hr>
                             </div>
+
                         </div>
+
                         <div class="row">
+
                             <div class="col-3">
+
                                 <input type="text" id="searchBar">
+
                             </div>
+
                             <div class="col-9">
+
                                 <a href="#" class="btn btn-primary" id="searchButton">Search</a>
 
                             </div>
+
                             <hr>
+
                         </div>
+
                         <div class="row">
+
                             <div class="col">
+
                                 <ul class="artList">
+                                    
 
                                 </ul>
                             </div>
