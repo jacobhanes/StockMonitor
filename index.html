@@ -58,6 +58,7 @@
 
                             </div>
                          
+
                         </div>
 
                     </div>
@@ -106,48 +107,29 @@
                             </tbody>
 
                         </table>
-
-                        <div class="row">
-
-                            <div class="col-3">
-
-                                <label for="stockId">Stock Name:</label>
-
-                                <input type="text" class="stockId">
-
-                            </div>
-
-                            <div class="col-3">
-
-
-                                <label for="sPrice">Price of Stock:</label>
-
-                                <input type="number" class="sPrice">
-
-                            </div>
-
-                            <div class="col-3">
-
-                                <label for="sQuantity">Quantity:</label>
-
-                                <input type="number" class="sQuantity">
+                        <form  id="stockInputForm">
+                            <div class="row">
+                                <div class="form-group col-3">
+                                    <label for="stockId">Stock Name:</label>
+                                    <input type="text" name="nameInput" id="stockId">
+                                </div>
+                                <div class="form-group col-3">
+                                    <label for="sPrice">Price of Stock:</label>
+                                    <input type="number" name="priceInput" id="stockPrice">
+                                </div>
+                                <div class="form-group col-3">
+                                    <label for="sQuantity">Quantity:</label>
+                                    <input type="number" name="quantityInput" id="stockQuantity">
+                                </div>
+                                <div class="form-group col-3">
+                                    <label for="sPurchase">Date Purchase:</label>
+                                    <input type="date" name="purchaseInput" id="stockPurchase">
+                                </div>
 
                             </div>
-
-                            <div class="col-3">
-
-                                <label for="sPurchase">Date Purchase:</label>
-
-                                <input type="date" class="sPurchase">
-
-                            </div>
-
-                        </div>
-
-                        <br>
-
-                        <button type="button" class="btn btn-primary" id="addBtn">Add</button>
-
+                            <br>
+                            <input type="button" class="btn btn-primary" value="Add" id="addBtn"></input>
+                        </form>
                     </div>
                 </div>
 
