@@ -78,6 +78,42 @@ function getMonthEndDates() {
     }
 }
 
+function stockDoughnut() {
+    console.log(stocksObjValues);
+    let stockNames=[];
+    let stockNamesData=[];
+    for(let i=0;i<stocksObjValues.length;i++){
+        stockNames.push(stocksObjValues[i].stockId);
+        stockNamesData.push(stocksObjValues[i].totalValue);
+    }
+   console.log(stockNames,stockNamesData);
+    var ctx = document.getElementById('allPie').getContext('2d');
+    var allPie = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: stockNames,
+            datasets: [{
+                label: "All",
+                data: stockNamesData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 99, 132, 1)',
+                ]
+            }],
+        }
+
+    });
+
+}
+
 
 function getStockDataGlobalQuote(stockElementKey, stockElement, codeVal) {
     $.ajax({
@@ -88,7 +124,7 @@ function getStockDataGlobalQuote(stockElementKey, stockElement, codeVal) {
         if (codeVal == "Add") {
             console.log(baseUrlGlobal + stockSymbolName + stockElement.stockId + stockApiKey);
             stockElement.price = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(resObj["Global Quote"]["05. price"]);
-            stockElement.totalValue = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stockElement.stockQuantity * resObj["Global Quote"]["05. price"]);
+            stockElement.totalValue = stockElement.stockQuantity * resObj["Global Quote"]["05. price"];
             console.log("Inside the Add");
             console.log(stockElement);
             stocksObjValues.push(stockElement);
@@ -107,11 +143,12 @@ function getStockDataGlobalQuote(stockElementKey, stockElement, codeVal) {
                 $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stockElement.stockQuantity * resObj["Global Quote"]["05. price"]))
                     .append($("<button>").attr({ 'id': stockElementKey, class: "deleteBtn" }).css({ float: "right" }).text("X")));
             $("#stockTable > tbody").append(tbRow);
+            stockDoughnut();
         }
         else {
             const snapChangedObjIndex = stocksObjKeys.indexOf(stockElementKey);
             stockElement.price = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(resObj["Global Quote"]["05. price"]);
-            stockElement.totalValue = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stockElement.stockQuantity * resObj["Global Quote"]["05. price"]);
+            stockElement.totalValue = stockElement.stockQuantity * resObj["Global Quote"]["05. price"];
             console.log("Inside the Update");
             console.log(stockElement);
             console.log(snapChangedObjIndex);
@@ -127,6 +164,7 @@ function getStockDataGlobalQuote(stockElementKey, stockElement, codeVal) {
             //replace the content of above row html to the exisitng tr row
             const tRow2 = $("#" + stockElementKey);
             tRow2.html($(tbRow).html());
+            stockDoughnut();
         }
         console.log(stocksObjKeys, stocksObjValues);
     });
@@ -166,56 +204,6 @@ $(document).ready(function (eventObj) {
 
     $("#stockPurchase").attr({ max: moment().format("YYYY-MM-DD") });
 
-
-    function stockDoughnut() {
-        console.log(stocksObjValues);
-        console.log(stockData);
-        let stockNames = [];
-        let stockTotalValues = [];
-
-        for (let i = 0; i < stocksObjValues.length; i++) {
-            console.log(stocksObjValues.length);
-            console.log(stocksObjValues[i].stockId);
-            console.log(stocksObjValues[i].stockPrice);
-            console.log(stocksObjValues[i].stockQuantity);
-            console.log("Inside for loop" + i);
-            stockNames.push(stocksObjValues[i].stockId);
-            for (let j = 0; j < stockData.length; j++) {
-                console.log("Insider loop 2");
-                console.log(stockData[j]);
-                if (stockData[j].symbol == stocksObjValues[i].stockId.toUpperCase()) {
-                    console.log("found");
-                    stockTotalValues.push(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stocksObjValues[i].stockQuantity * stockData[j].price));
-                }
-            }
-            console.log(stockNames, stockTotalValues);
-        }
-
-        var ctx = document.getElementById('allPie').getContext('2d');
-        var allPie = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: stockNames,
-                datasets: [{
-                    label: "All",
-                    data: stockTotalValues,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                    ],
-                }],
-            }
-            // options: options
-        });
-    }
 
     function getStockData(stockElement) {
         let stockDate = moment().format("YYYY-MM-DD");
@@ -412,75 +400,47 @@ $(document).ready(function (eventObj) {
     })
 
 
-function hideAbout(){
-    $("#aboutInfo").hide();
-}    
-hideAbout()
-$("#aboutButton").on("click",function(){
-    $("#aboutInfo").toggle();
-   
-    
-})
-
-function hideCharts (){
-  $("#topThree").hide();
-  $("#topFive").hide();  
-  $("#topTen").hide();  
-  $("#allPie").hide();  
-}
-hideCharts();
-//showing tcharts
-$("select.selectpicker").change(function(){
-    const selectedMonth = $(this).children("option:selected").val();
-    // const selectedStock = $(".stockId").val();
-
-    console.log(selectedMonth)
-    if (selectedMonth === "0"){
-        hideCharts();
+    function hideAbout() {
+        $("#aboutInfo").hide();
     }
-    
-    if (selectedMonth === ""){
-        
-        $("#allPie").show();
-        
-    };
-});
+    hideAbout()
+    $("#aboutButton").on("click", function () {
+        $("#aboutInfo").toggle();
 
 
-var ctx = document.getElementById('allPie').getContext('2d');
-var allPie = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: stockNames,
-        datasets: [{
-            label: "All",
-            data: [10, 5, 7, 10, 12, 1, 15, 17, 12, 1],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-            ],
-        }],
-    }
-    // options: options
-});
+    })
 
+    //showing tcharts
+    // $("select.selectpicker").change(function () {
+    //     const selectedStockCount = $(this).children("option:selected").val();
+    //     console.log(selectedStockCount);
 
-var empty = true;
-$('input[type="text"]').each(function(){
-   if($(this).val()!=""){
-       empty = false;
-      
-      return false;
-    }
- });
+    //     var ctx = document.getElementById('allPie').getContext('2d');
+    //     var allPie = new Chart(ctx, {
+    //         type: 'doughnut',
+    //         data: {
+    //             labels: stockNames,
+    //             datasets: [{
+    //                 label: "All",
+    //                 data: [10, 5, 7, 10, 12, 1, 15, 17, 12, 1],
+    //                 backgroundColor: [
+    //                     'rgba(255, 99, 132, 0.2)',
+    //                     'rgba(54, 162, 235, 0.2)',
+    //                     'rgba(255, 206, 86, 0.2)',
+    //                     'rgba(255, 99, 132, 0.2)',
+    //                     'rgba(54, 162, 235, 0.2)',
+    //                     'rgba(255, 206, 86, 0.2)',
+    //                     'rgba(255, 99, 132, 0.2)',
+    //                     'rgba(54, 162, 235, 0.2)',
+    //                     'rgba(255, 206, 86, 0.2)',
+    //                     'rgba(255, 99, 132, 0.2)',
+    //                 ],
+    //             }],
+    //         }
+
+    //     });
+
+    // });
 
 
 });

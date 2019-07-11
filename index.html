@@ -128,51 +128,24 @@
 
         <hr>
 <!-- Start of graph box -->
-        <div class="row">
-
-            <div class="col-lg-6, col-md, col-sm">
-
-                <div class="card">
-
-                    <div class="card-header">
-
-                        <h5 class="card-title">Graphs</h5>
-
-                    </div>
-                    <div class="card-body">
-
-                        <div class="row">
-
-                            <div class="col">
-
-                                <select class="selectpicker" id="chartOptions">
-                                    <option value="0"></option>
-                                    <option value="3">Top 3</option>
-                                    <option value="5">Top 5</option>
-                                    <option value="10">Top 10</option>
-                                    <option value="">All</option>
-                                </select>
-
-                            </div>
-
-                        </div>
-
-                        <!-- <button type="button" class="btn btn-primary" id="createButton">Create</button> -->
-
-                        <div id="chartBox">
-                            <canvas id="topThree" width="200" height="200"></canvas>
-                            <canvas id="topFive" width="200" height="200"></canvas>
-                            <canvas id="topTen" width="200" height="200"></canvas>
-                            <canvas id="allPie" width="200" height="200"></canvas>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+<div class="row">
+    <div class="col-lg-6, col-md, col-sm">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Graphs</h5>
             </div>
-<!-- end of graph box -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div id="chartBox">
+                            <canvas id="allPie" width="200" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of graph box -->
 
 <!-- start of what if card -->
             <div class="col-lg-6, col-md, col-sm">
