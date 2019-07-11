@@ -21,16 +21,24 @@ let stockApiKey = "&apikey=9C5L7VDS9B25DUYZ";
 let stockData = [];
 let stockDataMonthly = [];
 let prevDates = [];
-
-
 let stockObj = {};
 let stocksObjValues=[];
 let stocksObjKeys=[];
 let userObj = {};
+let stockUpdateObj={};
 userObj.userName = "Sam";
 userObj.email = "name@gmail.com";
 userObj.user = 1;
 let stockRef = firebase.database();
+
+
+function clearElements(){
+    //Clearing the Input Field values
+    $("#stockId").val("");
+    $("#stockPrice").val("");
+    $("#stockQuantity").val("");
+    $("#stockPurchase").val("");
+}
 
 function getMonthEndDates() {
     let currentYear = moment().format("YYYY");
@@ -77,7 +85,7 @@ function getMonthEndDates() {
 }
 
 
-function getStockDataGlobalQuote(stockElementKey, stockElement) {  
+function getStockDataGlobalQuote(stockElementKey, stockElement,codeVal) {  
     $.ajax({
         url: baseUrlGlobal + stockSymbolName + stockElement.stockId + stockApiKey,
         method: "GET"
@@ -89,19 +97,32 @@ function getStockDataGlobalQuote(stockElementKey, stockElement) {
             "latest trading day": resObj["Global Quote"]["07. latest trading day"],
             "previous close": resObj["Global Quote"]["08. previous close"]
         })
-
-       tbRow = $("<tr>").attr({'id': stockElementKey}).append($("<td>").text(stockElement.stockId),
-        $("<td>").text(stockElement.stockPrice),
+       if(codeVal=="Add"){
+        tbRow = $("<tr>").attr({'id': stockElementKey}).append($("<td>").text(stockElement.stockId),
+        $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stockElement.stockPrice)),
         $("<td>").text(stockElement.stockQuantity),
         $("<td>").text(moment.unix(stockElement.stockPurchase).format("MM/DD/YYYY")),
         $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(resObj["Global Quote"]["05. price"])),
         $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stockElement.stockQuantity*resObj["Global Quote"]["05. price"]))
         .append($("<button>").attr({'id': stockElementKey,class:"deleteBtn"}).css({float:"right"}).text("X")));  
          $("#stockTable > tbody").append(tbRow);
-
-        // let obj = stockData.find(obj => obj.symbol == "AAPL");
-        // console.log(obj);
         console.log(stockData);
+       }
+       else
+       {
+        tbRow = $("<tr>").attr({'id': stockElementKey}).append($("<td>").text(stockElement.stockId),
+        $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stockElement.stockPrice)),
+        $("<td>").text(stockElement.stockQuantity),
+        $("<td>").text(moment.unix(stockElement.stockPurchase).format("MM/DD/YYYY")),
+        $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(resObj["Global Quote"]["05. price"])),
+        $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stockElement.stockQuantity*resObj["Global Quote"]["05. price"]))
+        .append($("<button>").attr({'id': stockElementKey,class:"deleteBtn"}).css({float:"right"}).text("X")));  
+        //replace the content of above row html to the exisitng tr row
+        const tRow2 = $("#" + stockElementKey);
+        tRow2.html($(tbRow).html());
+       }
+    
+
     });
 
 }
@@ -110,27 +131,52 @@ function getStockDataGlobalQuote(stockElementKey, stockElement) {
 stockRef.ref("/stocks").on('child_removed',function(snapChildRemovedObj){
     console.log(snapChildRemovedObj.key);
     console.log(snapChildRemovedObj.val());
+    const snapRemovedObjIndex = stocksObjKeys.indexOf(snapChildRemovedObj.key);
+        //The splice() method changes the contents of an array by removing or replacing existing elements and/or adding new elements
+        //Remove 1 element from an index 
+        stocksObjKeys.splice(snapRemovedObjIndex, 1);
+        stocksObjValues.splice(snapRemovedObjIndex, 1);
       //Remove the element from DOM
+      console.log(stocksObjKeys,stocksObjValues);
   $("tr").remove("#"+snapChildRemovedObj.key);
 });
 
-stockRef.ref('/stocks').on('child_added', function (childObj, prevChildKeyObj) {
-    console.log(childObj.key);
-    console.log(childObj.val());
+stockRef.ref('/stocks').on('child_added', function (snapChildAddedObj, prevChildKeyObj) {
+    console.log(snapChildAddedObj.key);
+    console.log(snapChildAddedObj.val());
     console.log(prevChildKeyObj);
-    stocksObjValues.push(childObj.val());
-    stocksObjKeys.push(childObj.key);
-   console.log(stocksObjValues);
-   console.log(stocksObjKeys);
-   getStockDataGlobalQuote(childObj.key,childObj.val());
+    stocksObjValues.push(snapChildAddedObj.val());
+    stocksObjKeys.push(snapChildAddedObj.key);
+   console.log(stocksObjKeys,stocksObjValues);
+   //call api function for the stock from fire base 
+   getStockDataGlobalQuote(snapChildAddedObj.key,snapChildAddedObj.val(),'Add');
+});
+
+stockRef.ref('/stocks').on('child_changed',function(snapChangedObj){
+
+    let snapChangedValueObj = {};
+    let snapChangedKeyObj={};
+    snapChangedValueObj = snapChangedObj.val();
+    snapChangedKeyObj=snapChangedObj.key;
+
+    const snapChangedObjIndex = stocksObjKeys.indexOf(snapChangedKeyObj);
+    console.log("Inside the child_changed function Start");
+    console.log(snapChangedKeyObj);
+    console.log(snapChangedValueObj);
+    console.log(stockUpdateObj);
+    //Remove 1 element from index and insert new element..it is like element replace
+    stocksObjValues.splice(snapChangedObjIndex,1,snapChangedValueObj);
+    console.log(stocksObjValues);
+     //call api function for the stock from fire base 
+   getStockDataGlobalQuote(snapChangedKeyObj,snapChangedValueObj,'Update');
+
 });
 
 
+//firebase methods Ends here 
+
 $(document).ready(function (eventObj) {
 
-    //To delete the all the stocks from fiebase 
-    // stockRef.ref('/stocks').remove();
-    //Setting the stockPurchase maximum date to today 
     $("#stockPurchase").attr({max:moment().format("YYYY-MM-DD")});
 
     getMonthEndDates();
@@ -186,6 +232,78 @@ $(document).ready(function (eventObj) {
         stockRef.ref("/stocks").child($(this).attr('id')).remove();
     });
 
+// Update stock button starts here 
+$("#updateBtn").click(function(eventUpdateObj){
+    eventUpdateObj.preventDefault();
+     let foundChild=false;
+     let stockIdKey="";
+     stockUpdateObj={};
+     let validInputsUpdate=true;
+     let  stockRef = firebase.database();
+
+     stockUpdateObj.stockId = $("#stockId").val().trim();
+
+    if (stockUpdateObj.stockId == "") {
+        validInputsUpdate = false;
+        $("#stockId").focus();
+    }
+    else if (stockUpdateObj.stockId != "") {
+        validInputsUpdate = true;
+        console.log(validInputsUpdate);
+    }
+
+    console.log(stockUpdateObj);
+
+    $("form :input").each(function (index, element) {
+        // console.log("index: " + index, element, "attribute:" + $(this).attr('id'), "Value: " + $(this).val().trim());
+        if ($(this).val().trim() != "") {
+            //Select element by ID
+            const element = $(this).attr('id');
+            stockUpdateObj[element] = $(this).val().trim();
+
+        }
+    });
+
+    if(stockUpdateObj.stockPurchase){
+        console.log("inside the  stockPurchase date update ");
+        stockUpdateObj.stockPurchase = moment($("#stockPurchase").val(),"YYYY-MM-DD").format("X");
+    }
+    
+    console.log(stockUpdateObj);
+
+    if (validInputsUpdate) {
+        stockRef.ref("/stocks").once('value')
+            .then(function (snapReadonceObj) {
+                snapReadonceObj.forEach(function (childSnapObj) {
+                    let stockUpdateObjlocal = {};
+                    stockUpdateObjlocal = childSnapObj.val();
+                    if (stockUpdateObjlocal.stockId == $("#stockId").val().trim()) {
+                        foundChild = true;
+                        stockIdKey = childSnapObj.key;
+                        console.log(foundChild, stockIdKey);
+                    }
+                });
+
+                if (foundChild) {
+                    if (Object.keys(stockUpdateObj).length == 1) {
+                        alert("Update atleast one input element fields");
+                    }
+                    else {
+                        //Firebase method to update the child object 
+                        stockRef.ref("/stocks").child(stockIdKey).update(stockUpdateObj);
+                        //call clearElements() method to clear the DOM 
+                        clearElements();
+                    }
+                }
+                else {
+                    alert("Enter valid stockId to Update!!");
+                }
+            });
+    }
+
+});
+
+// Update stock button Ends here 
 
     $("#addBtn").click(function (eventAddObj) {
         console.log(eventAddObj);
@@ -212,14 +330,13 @@ $(document).ready(function (eventObj) {
             stockRef = firebase.database();
             console.log(stockObj);
             stockRef.ref('/stocks').push(stockObj);
-            //Clearing the Input Field values
-            $("#stockId").val("");
-            $("#stockPrice").val("");
-            $("#stockQuantity").val("");
-            $("#stockPurchase").val("");
+             //call clearElements() method to clear the DOM 
+             clearElements();
         }
 
     });
+
+
 
 
 function getNews (Response){
