@@ -72,4 +72,15 @@ li {
   input:valid {
     border: 2px solid black;
   } */
+body {
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+.deleteBtn {
+	color: red;
+	border-radius: 50%;
+	background-color: #e6ffff;
+
+}
+
 
