@@ -85,6 +85,9 @@ function getMonthEndDates() {
 }
 
 
+
+
+
 function getStockDataGlobalQuote(stockElementKey, stockElement,codeVal) {  
     $.ajax({
         url: baseUrlGlobal + stockSymbolName + stockElement.stockId + stockApiKey,
@@ -97,6 +100,7 @@ function getStockDataGlobalQuote(stockElementKey, stockElement,codeVal) {
             "latest trading day": resObj["Global Quote"]["07. latest trading day"],
             "previous close": resObj["Global Quote"]["08. previous close"]
         })
+        
        if(codeVal=="Add"){
         tbRow = $("<tr>").attr({'id': stockElementKey}).append($("<td>").text(stockElement.stockId),
         $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stockElement.stockPrice)),
@@ -107,9 +111,7 @@ function getStockDataGlobalQuote(stockElementKey, stockElement,codeVal) {
         .append($("<button>").attr({'id': stockElementKey,class:"deleteBtn"}).css({float:"right"}).text("X")));  
          $("#stockTable > tbody").append(tbRow);
         console.log(stockData);
-        console.log(stockData[0]);
-        console.log(stockData[0].price);
-
+        stockDoughnut();
        }
        else
        {
@@ -124,8 +126,6 @@ function getStockDataGlobalQuote(stockElementKey, stockElement,codeVal) {
         const tRow2 = $("#" + stockElementKey);
         tRow2.html($(tbRow).html());
        }
-    
-
     });
 
 }
@@ -185,6 +185,56 @@ $(document).ready(function (eventObj) {
     $("#stockPurchase").attr({max:moment().format("YYYY-MM-DD")});
 
     getMonthEndDates();
+
+    function stockDoughnut(){
+        console.log(stocksObjValues) ;
+          console.log(stockData);
+           let stockNames=[];
+           let stockTotalValues=[];
+       
+           for(let i=0;i<stocksObjValues.length;i++){
+               console.log(stocksObjValues.length);
+               console.log(stocksObjValues[i].stockId);
+               console.log(stocksObjValues[i].stockPrice);
+               console.log(stocksObjValues[i].stockQuantity);
+               console.log("Inside for loop" + i);
+             stockNames.push(stocksObjValues[i].stockId);
+            for(let j=0;j<stockData.length;j++){
+                console.log("Insider loop 2");
+                console.log(stockData[j]);
+                if(stockData[j].symbol==stocksObjValues[i].stockId.toUpperCase()){
+                    console.log("found");
+                    stockTotalValues.push(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stocksObjValues[i].stockQuantity*stockData[j].price));
+                }
+            }   
+             console.log(stockNames,stockTotalValues);
+           }
+       
+           var ctx = document.getElementById('allPie').getContext('2d');
+       var allPie = new Chart(ctx, {
+           type: 'doughnut',
+           data: {
+               labels: stockNames,
+               datasets: [{
+                   label: "All",
+                   data: stockTotalValues,
+                   backgroundColor: [
+                       'rgba(255, 99, 132, 0.2)',
+                       'rgba(54, 162, 235, 0.2)',
+                       'rgba(255, 206, 86, 0.2)',
+                       'rgba(255, 99, 132, 0.2)',
+                       'rgba(54, 162, 235, 0.2)',
+                       'rgba(255, 206, 86, 0.2)',
+                       'rgba(255, 99, 132, 0.2)',
+                       'rgba(54, 162, 235, 0.2)',
+                       'rgba(255, 206, 86, 0.2)',
+                       'rgba(255, 99, 132, 0.2)',
+                   ],
+               }],
+           }
+           // options: options
+       });
+         }
 
     function getStockData(stockElement) {
         let stockDate = moment().format("YYYY-MM-DD");
@@ -377,6 +427,9 @@ $("#searchButton").on("click", function(){
     $(".artList").empty();
     getNews();
 })
+
+
+
 
 
 function hideAbout(){
