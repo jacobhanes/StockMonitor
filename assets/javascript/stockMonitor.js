@@ -11,9 +11,10 @@ var firebaseConfig = {
   };
 
    // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 let baseUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&interval=5min&outputsize=full";
+let baseUrlGlobal = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE";
 let stockSymbolName = "&symbol="
 let stockNames = ["AXP", "AAPL", "MSFT"];
 let stockApiKey = "&apikey=9C5L7VDS9B25DUYZ";
@@ -29,12 +30,54 @@ let userObj = {};
 userObj.userName = "Sam";
 userObj.email = "name@gmail.com";
 userObj.user = 1;
-
 let stockRef = firebase.database();
 
+function getMonthEndDates() {
+    let currentYear = moment().format("YYYY");
+    let currMonth = moment().format("MM");
+    let currDayName = moment().format("dddd");
+    let currDayNumber = moment().format("DD");
 
-function getStockDataGlobalQuote(stockElementKey, stockElement) {
-    let baseUrlGlobal = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE";
+    if (currDayName == "Sunday") {
+        currDayNumber -= 2;
+    }
+    else if (currDayName == "Saturday") {
+        currDayNumber -= 1;
+    }
+
+    prevDates.push({
+        month_end_date: moment(currentYear + "-" + currMonth + "-" + currDayNumber).format("YYYY-MM-DD"),
+        month_end_day: moment(currentYear + "-" + currMonth + "-" + currDayNumber).format("dddd")
+    });
+
+    currMonth--;
+
+    for (let i = 0; i < 6; i++) {
+        let currMonthEndDay = moment(currentYear + "-" + currMonth, "YYYY-MM").daysInMonth();
+        let currMonthEndName = moment(currentYear + "-" + currMonth + "-" + currMonthEndDay).format("dddd");
+
+        if (currMonthEndName == "Sunday") {
+            currMonthEndDay -= 2;
+        }
+        else if (currMonthEndName == "Saturday") {
+            currMonthEndDay -= 1;
+        }
+
+        prevDates.push({
+            month_end_date: moment(currentYear + "-" + currMonth + "-" + currMonthEndDay).format("YYYY-MM-DD"),
+            month_end_day: moment(currentYear + "-" + currMonth + "-" + currMonthEndDay).format("dddd")
+        });
+        currMonth--;
+        if (currMonth <= 0) {
+            currMonth = 12;
+            --currentYear;
+        }
+    }
+    console.log(prevDates);
+}
+
+
+function getStockDataGlobalQuote(stockElementKey, stockElement) {  
     $.ajax({
         url: baseUrlGlobal + stockSymbolName + stockElement.stockId + stockApiKey,
         method: "GET"
@@ -47,27 +90,23 @@ function getStockDataGlobalQuote(stockElementKey, stockElement) {
             "previous close": resObj["Global Quote"]["08. previous close"]
         })
 
-        tbRow = $("<tr>").attr({'id': stockElementKey}).append($("<td>").text(stockElement.stockId),
+       tbRow = $("<tr>").attr({'id': stockElementKey}).append($("<td>").text(stockElement.stockId),
         $("<td>").text(stockElement.stockPrice),
         $("<td>").text(stockElement.stockQuantity),
         $("<td>").text(moment.unix(stockElement.stockPurchase).format("MM/DD/YYYY")),
         $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(resObj["Global Quote"]["05. price"])),
-        $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stockElement.stockQuantity*resObj["Global Quote"]["05. price"])).append($("<button>").attr({'id': stockElementKey,class:"deleteBtn"}).css({float:"right"}).text("X"))
-
-        // Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(resObj["Global Quote"]["05. price"])
-    );
-  
-       $("#stockTable > tbody").append(tbRow);
+        $("<td>").text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(stockElement.stockQuantity*resObj["Global Quote"]["05. price"]))
+        .append($("<button>").attr({'id': stockElementKey,class:"deleteBtn"}).css({float:"right"}).text("X")));  
+         $("#stockTable > tbody").append(tbRow);
 
         // let obj = stockData.find(obj => obj.symbol == "AAPL");
         // console.log(obj);
-      
         console.log(stockData);
     });
 
 }
 
-
+//firebase methods starts here 
 stockRef.ref("/stocks").on('child_removed',function(snapChildRemovedObj){
     console.log(snapChildRemovedObj.key);
     console.log(snapChildRemovedObj.val());
@@ -79,91 +118,22 @@ stockRef.ref('/stocks').on('child_added', function (childObj, prevChildKeyObj) {
     console.log(childObj.key);
     console.log(childObj.val());
     console.log(prevChildKeyObj);
-
-    let  childObjData=childObj.val();
-
-    tbRow=$("<tr>");
-    tbRow.append($("<td>").text(childObjData.stockName),
-    $("<td>").text(childObjData.price),
-    $("<td>").text(childObjData.quantity),
-    $("<td>").text(childObjData.purchaseDate),
-    $("<td>").text(0),
-    $("<td>").text(0)
-    );
-
-   
-$("#stockTable > tbody").append(tbRow);
     stocksObjValues.push(childObj.val());
     stocksObjKeys.push(childObj.key);
-
-//    const childObjData=childObj.val();
- 
    console.log(stocksObjValues);
    console.log(stocksObjKeys);
-
-   getStockDataGlobalQuote(childObj.key,childObjData);
-
+   getStockDataGlobalQuote(childObj.key,childObj.val());
 });
-
-
 
 
 $(document).ready(function (eventObj) {
 
-  
-
-
     //To delete the all the stocks from fiebase 
     // stockRef.ref('/stocks').remove();
-
- 
-
-    function getMonthEndDates() {
-        let currentYear = moment().format("YYYY");
-        let currMonth = moment().format("MM");
-        let currDayName = moment().format("dddd");
-        let currDayNumber = moment().format("DD");
-
-        if (currDayName == "Sunday") {
-            currDayNumber -= 2;
-        }
-        else if (currDayName == "Saturday") {
-            currDayNumber -= 1;
-        }
-
-        prevDates.push({
-            month_end_date: moment(currentYear + "-" + currMonth + "-" + currDayNumber).format("YYYY-MM-DD"),
-            month_end_day: moment(currentYear + "-" + currMonth + "-" + currDayNumber).format("dddd")
-        });
-
-        currMonth--;
-
-        for (let i = 0; i < 6; i++) {
-            let currMonthEndDay = moment(currentYear + "-" + currMonth, "YYYY-MM").daysInMonth();
-            let currMonthEndName = moment(currentYear + "-" + currMonth + "-" + currMonthEndDay).format("dddd");
-
-            if (currMonthEndName == "Sunday") {
-                currMonthEndDay -= 2;
-            }
-            else if (currMonthEndName == "Saturday") {
-                currMonthEndDay -= 1;
-            }
-
-            prevDates.push({
-                month_end_date: moment(currentYear + "-" + currMonth + "-" + currMonthEndDay).format("YYYY-MM-DD"),
-                month_end_day: moment(currentYear + "-" + currMonth + "-" + currMonthEndDay).format("dddd")
-            });
-            currMonth--;
-            if (currMonth <= 0) {
-                currMonth = 12;
-                --currentYear;
-            }
-        }
-        console.log(prevDates);
-    }
+    //Setting the stockPurchase maximum date to today 
+    $("#stockPurchase").attr({max:moment().format("YYYY-MM-DD")});
 
     getMonthEndDates();
-
 
     function getStockData(stockElement) {
         let stockDate = moment().format("YYYY-MM-DD");
@@ -217,7 +187,6 @@ $(document).ready(function (eventObj) {
     });
 
 
-
     $("#addBtn").click(function (eventAddObj) {
         console.log(eventAddObj);
         eventAddObj.preventDefault();
@@ -252,33 +221,6 @@ $(document).ready(function (eventObj) {
 
     });
 
-    // form validation
-    // function validateForm() {
-    //     stockName = $("#stockId").val().trim();
-    //     quantity = $("#sPrice").val();
-    //     price = $("#sQuantity").val();
-    //     purchaseDate = $("#sPurchase").val();
-
-    //     if (stockName === ""){
-    //         alert("You need content")
-    //     }
-    //     // let x = document.forms["inputForm"]["nameInput"]["priceInput"]["quantityInput"]["purchaseInput"].value;
-    //     // if (x == "") {
-    //     //     return false;
-    //     // }
-    // }
-
-
-
-   
-
-    for (let i = 0; i < stockNames.length; i++) {
-        // getStockDataGlobalQuote(stockNames[i]);
-        getStockDataMonthly(stockNames[i]);
-    }
-
-     console.log(stockData);
-    console.log(stockDataMonthly);
 
 function getNews (Response){
     //ajax call to current api to grab news and links
@@ -306,8 +248,7 @@ function getNews (Response){
         
     })
 }
-        
-        
+             
 $("#searchButton").on("click", function(){
     //this adds/ empty articles
     console.log("yay");
@@ -326,9 +267,6 @@ $("#aboutButton").on("click",function(){
     
 })
 
-
-
-
 function hideCharts (){
   $("#topThree").hide();
   $("#topFive").hide()  
@@ -340,8 +278,6 @@ hideCharts();
 $("select.selectpicker").change(function(){
     const selectedMonth = $(this).children("option:selected").val();
     // const selectedStock = $(".stockId").val();
-
-
 
     console.log(selectedMonth)
     if (selectedMonth === "0"){
@@ -472,58 +408,14 @@ var allPie = new Chart(ctx, {
 });
 
 
-
-// var ctx = document.getElementById('twelveMonths').getContext('2d');
-//     var twelveMonths = new Chart(ctx, {
-//         type: 'bar',
-//         data: {
-//             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augues', 'September', 'October', "November", "December"],
-//             datasets: [{
-//                 label: 'AXP',
-//                 data: [10, 19, 3, 10, 14, 7, 12, 15, 9, 10, 11, 6],
-//                 backgroundColor: [
-//                 'rgba(255, 99, 132, 0.2)',
-//                 'rgba(54, 162, 235, 0.2)',
-//                 'rgba(255, 206, 86, 0.2)',
-//                 'rgba(75, 192, 192, 0.2)',
-//                 'rgba(153, 102, 255, 0.2)',
-//                 'rgba(255, 159, 64, 0.2)',
-//                 'rgba(255, 99, 132, 0.2)',
-//                 'rgba(54, 162, 235, 0.2)',
-//                 'rgba(255, 206, 86, 0.2)',
-//                 'rgba(75, 192, 192, 0.2)',
-//                 'rgba(153, 102, 255, 0.2)',
-//                 'rgba(255, 159, 64, 0.2)',
-                
-//             ],
-//             borderColor: [
-//                 'rgba(255, 99, 132, 1)',
-//                 'rgba(54, 162, 235, 1)',
-//                 'rgba(255, 206, 86, 1)',
-//                 'rgba(75, 192, 192, 1)',
-//                 'rgba(153, 102, 255, 1)',
-//                 'rgba(255, 159, 64, 1)',
-//                 'rgba(255, 99, 132, 1)',
-//                 'rgba(54, 162, 235, 1)',
-//                 'rgba(255, 206, 86, 1)',
-//                 'rgba(75, 192, 192, 1)',
-//                 'rgba(153, 102, 255, 1)',
-//                 'rgba(255, 159, 64, 1)',
-                
-//             ],
-//             borderWidth: 1
-//         }]
-//     },
-//     options: {
-//         scales: {
-//             yAxes: [{
-//                 ticks: {
-//                     beginAtZero: true
-//                 }
-//             }]
-//         }
-//     }
-// });
+var empty = true;
+$('input[type="text"]').each(function(){
+   if($(this).val()!=""){
+       empty = false;
+      
+      return false;
+    }
+ });
 
 
 });

@@ -20,7 +20,6 @@
     <div class="container">
         <nav class="nav" id="navTop">
             <h5 class="navbar-brand" id="logo">StockMonitor</h5>
-
             <a class="nav-link active" href="#">Account</a>
             <a class="nav-link" href="#">Logout</a>
 
@@ -38,18 +37,17 @@
                         <h5 class="card-title">About</h5>
 
                     </div>
-
                     <div class="card-body" id="aboutInfo">
 
                         <div class="row">
 
-                            <div class="col-3">
+                            <div class="col-lg-3, col-md, col-sm">
 
                                 <img id="aboutImage" src="./assets/226932e4117fec10b30aa965e7cf3a2e.jpg">
 
                             </div>
 
-                            <div class="col-9">
+                            <div class="col-lg-9, col-md, col-sm">
 
                                 <p class="aboutText">Stock Monitor is a app that is all about stocks.
                                     You can check real time data on all stocks on the market, and save them to your
@@ -74,61 +72,48 @@
 
         <hr>
 
+<!-- This is portfolio row section Code Start  -->
         <div class="row">
-
             <div class="col">
-
                 <div class="card" id="stockList">
-
                     <div class="card-header">
-
                         <h5 class="card-title">Portfolio</h5>
-
                     </div>
-
                     <div class="card-body">
-
                         <table class="table table-sm table-hover" id='stockTable'>
-
                             <thead>
-
                                 <tr>
-
                                     <th scope="col">Stock Name</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Purchase Date</th>
                                     <th scope="col">Current Price</th>
                                     <th scope="col">Total Value</th>
-
+                                    <th scope="col">%change</th>
+                                    
                                 </tr>
-
                             </thead>
-
                             <tbody>
-
                             </tbody>
-
                         </table>
                         <form id="stockInputForm">
                             <div class="row">
-                                <div class="form-group col-3">
+                                <div class="form-group col-lg-3, col-sm, col-md">
                                     <label for="stockId">Stock Name:</label>
-                                    <input type="text" name="nameInput" id="stockId">
+                                    <input type="text" name="stockIdname" style="text-transform: uppercase" id="stockId">
                                 </div>
-                                <div class="form-group col-3">
-                                    <label for="sPrice">Price of Stock:</label>
-                                    <input type="number" name="priceInput" id="stockPrice">
+                                <div class="form-group col-3, col-sm, col-md">
+                                    <label for="stockPrice">Price of Stock:</label>
+                                    <input type="number" name="stockPricename" id="stockPrice">
                                 </div>
-                                <div class="form-group col-3">
-                                    <label for="sQuantity">Quantity:</label>
-                                    <input type="number" name="quantityInput" id="stockQuantity">
+                                <div class="form-group col-3, col-sm, col-md">
+                                    <label for="stockQuantity">Quantity:</label>
+                                    <input type="number" name="stockQuantityname" id="stockQuantity">
                                 </div>
-                                <div class="form-group col-3">
-                                    <label for="sPurchase">Date Purchase:</label>
-                                    <input type="date"   name="purchaseInput" id="stockPurchase">
+                                <div class="form-group col-3, col-sm, col-md">
+                                    <label for="stockPurchase">Date Purchase:</label>
+                                    <input type="date" min="" max="" id="stockPurchase">
                                 </div>
-
                             </div>
                             <br>
                             <input type="button" class="btn btn-primary" value="Add" id="addBtn"></input>
@@ -136,16 +121,16 @@
                         </form>
                     </div>
                 </div>
-
             </div>
-
         </div>
+        <!-- This is portfolio row section Code End -->
+
 
         <hr>
-
+<!-- Start of graph box -->
         <div class="row">
 
-            <div class="col-6">
+            <div class="col-lg-6, col-md, col-sm">
 
                 <div class="card">
 
@@ -188,24 +173,21 @@
                 </div>
 
             </div>
+<!-- end of graph box -->
 
-            
-
-            <div class="col-6">
+<!-- start of what if card -->
+            <div class="col-lg-6, col-md, col-sm">
 
                 <div class="card">
 
                     <div class="card-header">
-
                         <h5 class="navbar-brand">What if?</h5>
-
                     </div>
 
                     <div class="card-body">
 
                         <p class="aboutText">Fill out the blanks to see if that stock you missed last quarter was worth
                             being ignored!</p>
-
                         <hr>
 
                         <strong>
@@ -222,7 +204,6 @@
 
 
                                 <div class="row">
-
                                     <div class="col">
 
                                         <label for="sQuantity">Quantity:</label>
@@ -230,7 +211,6 @@
                                         <input type="number" class="updateQuantity">
 
                                     </div>
-
                                 </div>
 
                                 <div class="row">
@@ -258,11 +238,11 @@
                 </div>
 
             </div>
-
+<!-- end of what if card -->
         </div>
 
         <hr>
-
+<!-- start of article card -->
         <div class="row">
 
             <div class="col">
@@ -280,7 +260,6 @@
                         <div class="row">
 
                             <div class="col">
-
                                 <p class="aboutText">Click to find current articles and information for your
                                     investments!</p>
                                 <hr>
@@ -290,13 +269,13 @@
 
                         <div class="row">
 
-                            <div class="col-3">
+                            <div class="col-lg-4, col-md-4, col-sm">
 
                                 <input type="text" id="searchBar">
 
                             </div>
 
-                            <div class="col-9">
+                            <div class="col-8, col-md-8, col-sm">
 
                                 <a href="#" class="btn btn-primary" id="searchButton">Search</a>
 
@@ -320,6 +299,7 @@
                 </div>
             </div>
         </div>
+        <!-- end of article card -->
     </div>
     <!-- chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
