@@ -10,7 +10,8 @@
 			padding: 10px;
 	    }
 	    body{
-		        background-color: #191919;
+				background-color: #191919;
+				padding: 10px;
 		}
 		#navTop{
 			    background-color: #cceeff;
@@ -19,9 +20,11 @@
 .card-body {
 	background: #cceeff;
 	border-radius: 25px;
+	padding: 20px;
 }
 .card-header{
 	padding: 20px;
+	font-size: 30px;
 	color: white;
 }
 .card {
@@ -29,11 +32,13 @@
 	border-radius: 25px;
 }
 #aboutImage {
-	width: 200px;
-	height: 150px;
+	width: 300px;
+	height: 200px;
+	border-radius: 25px;
 }
 .aboutText {
-	font-size: 20px
+	font-size: 20px;
+	padding: 20px;
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -44,6 +49,25 @@
     margin-bottom: 25px;
 }
 
+.artList {
+	margin: 10px;
+}
+
+input {
+	margin: 10px;
+}
+
+#chartOption {
+	padding: 10px;
+}
+
+li {
+	margin: 10px;
+}
+
+#aboutButton {
+	cursor: pointer;
+}
 /* input validation */
 /* input:invalid {
     border: 2px dashed red;
