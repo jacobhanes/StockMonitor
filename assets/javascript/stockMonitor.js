@@ -15,7 +15,7 @@ firebase.initializeApp(firebaseConfig);
 let baseUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&interval=5min&outputsize=full";
 let baseUrlGlobal = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE";
 let stockSymbolName = "&symbol="
-let stockApiKey = "&apikey=VT479283HRD9511X";
+let stockApiKey = "&apikey=";
 let stockData = [];
 let stockDataMonthly = [];
 let prevDates = [];
@@ -28,7 +28,7 @@ let stockRef = firebase.database();
 let creatKeysList=[];
 let creatKeysListFlat=[];
 let createKeys=["VT479283HRD9511X","9C5L7VDS9B25DUYZ","FJPWPV1DDCA9J3QK","VT479283HRD9511X"];
-let countApiCall=0;
+let countApiCall=1;
 
 function createKeysListfn(){
     // The fill() method fills (modifies) all the elements of an array from a start index (default zero) to an end 
@@ -133,15 +133,30 @@ function stockDoughnut() {
 
 }
 
-
 function getStockDataGlobalQuote(stockElementKey, stockElement, codeVal) {
     $.ajax({
-        url: baseUrlGlobal + stockSymbolName + stockElement.stockId + stockApiKey,
+        url: baseUrlGlobal + stockSymbolName + stockElement.stockId + stockApiKey + creatKeysListFlat[countApiCall],
         method: "GET"
     }).then(function (resObj) {
         
+        stockRef.ref("/countApiCall").on("value", function(snapValueObj){
+            if(snapValueObj.val()){
+              countApiCall=snapValueObj.val().countApiCalls;
+              console.log("countApiCall value Before : " + countApiCall);
+            }
+            else {
+              console.log(countApiCall);
+            }
+          });
+          countApiCall++;
+          if(countApiCall >=18)
+          {
+            countApiCall=0;
+          }
+          stockRef.ref("/countApiCall").set({ "countApiCalls" : countApiCall })
+
         if (codeVal == "Add") {
-            console.log(baseUrlGlobal + stockSymbolName + stockElement.stockId + stockApiKey);
+            console.log(baseUrlGlobal + stockSymbolName + stockElement.stockId + stockApiKey +  creatKeysListFlat[countApiCall]);
             stockElement.price = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(resObj["Global Quote"]["05. price"]);
             stockElement.totalValue = stockElement.stockQuantity * resObj["Global Quote"]["05. price"];
             console.log("Inside the Add");
@@ -186,14 +201,23 @@ function getStockDataGlobalQuote(stockElementKey, stockElement, codeVal) {
             stockDoughnut();
         }
         console.log(stocksObjKeys, stocksObjValues);
-        countApiCall++;
-        console.log("countApiCall value: " + countApiCall);
     });
 
 }
 
 
 //firebase methods starts here 
+
+stockRef.ref("/countApiCall").once("value", function(snapReadonceObj){
+    if(snapReadonceObj.val()){
+      countApiCall=snapReadonceObj.val().countApiCalls;
+      console.log("countApiCall value Before : " + countApiCall);
+    }
+    else {
+      console.log(countApiCall);
+    }
+  });
+
 stockRef.ref("/stocks").on('child_removed', function (snapChildRemovedObj) {
     const snapRemovedObjIndex = stocksObjKeys.indexOf(snapChildRemovedObj.key);
     //The splice() method changes the contents of an array by removing or replacing existing elements and/or adding new elements
@@ -215,7 +239,7 @@ stockRef.ref('/stocks').on('child_added', function (snapChildAddedObj, prevChild
 stockRef.ref('/stocks').on('child_changed', function (snapChangedObj) {
     //call api function for the stock from fire base 
     getStockDataGlobalQuote(snapChangedObj.key, snapChangedObj.val(), 'Update');
-
+  
 });
 
 
