@@ -41,13 +41,13 @@
 
                         <div class="row">
 
-                            <div class="col-3">
+                            <div class="col-lg-4, col-md, col-sm">
 
                                 <img id="aboutImage" src="./assets/226932e4117fec10b30aa965e7cf3a2e.jpg">
 
                             </div>
 
-                            <div class="col-9">
+                            <div class="col-lg-8, col-md, col-sm">
 
                                 <p class="aboutText">Stock Monitor is a app that is all about stocks.
                                     You can check real time data on all stocks on the market, and save them to your
@@ -89,6 +89,8 @@
                                     <th scope="col">Purchase Date</th>
                                     <th scope="col">Current Price</th>
                                     <th scope="col">Total Value</th>
+                                    
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,19 +98,19 @@
                         </table>
                         <form id="stockInputForm">
                             <div class="row">
-                                <div class="form-group col-3">
+                                <div class="form-group col-lg-3, col-sm, col-md">
                                     <label for="stockId">Stock Name:</label>
-                                    <input type="text" name="stockIdname" id="stockId" style="text-transform: uppercase">
+                                    <input type="text" name="stockIdname" id="stockId">
                                 </div>
-                                <div class="form-group col-3">
+                                <div class="form-group col-3, col-sm, col-md">
                                     <label for="stockPrice">Price of Stock:</label>
                                     <input type="number" name="stockPricename" id="stockPrice">
                                 </div>
-                                <div class="form-group col-3">
+                                <div class="form-group col-3, col-sm, col-md">
                                     <label for="stockQuantity">Quantity:</label>
                                     <input type="number" name="stockQuantityname" id="stockQuantity">
                                 </div>
-                                <div class="form-group col-3">
+                                <div class="form-group col-3, col-sm, col-md">
                                     <label for="stockPurchase">Date Purchase:</label>
                                     <input type="date" min="" max="" id="stockPurchase">
                                 </div>
@@ -125,63 +127,33 @@
 
 
         <hr>
-
-        <div class="row">
-
-            <div class="col-6">
-
-                <div class="card">
-
-                    <div class="card-header">
-
-                        <h5 class="card-title">Graphs</h5>
-
-                    </div>
-                    <div class="card-body">
-
-                        <div class="row">
-
-                            <div class="col">
-
-                                <select class="selectpicker" id="chartOptions">
-                                    <option value="0"></option>
-                                    <option value="3">Top 3</option>
-                                    <option value="5">Top 5</option>
-                                    <option value="10">Top 10</option>
-                                    <option value="">All</option>
-                                </select>
-
-                            </div>
-
-                        </div>
-
-                        <!-- <button type="button" class="btn btn-primary" id="createButton">Create</button> -->
-
-                        <div id="chartBox">
-
-                            <canvas id="topThree" width="200" height="200"></canvas>
-                            <canvas id="topFive" width="200" height="200"></canvas>
-                            <canvas id="topTen" width="200" height="200"></canvas>
-                            <canvas id="allPie" width="200" height="200"></canvas>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+<!-- Start of graph box -->
+<div class="row">
+    <div class="col-lg-6, col-md, col-sm">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Graphs</h5>
             </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div id="chartBox">
+                            <canvas id="allPie" width="200" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of graph box -->
 
-
-
-            <div class="col-6">
+<!-- start of what if card -->
+            <div class="col-lg-6, col-md, col-sm">
 
                 <div class="card">
 
                     <div class="card-header">
-
                         <h5 class="navbar-brand">What if?</h5>
-
                     </div>
 
                     <div class="card-body">
@@ -204,7 +176,6 @@
 
 
                                 <div class="row">
-
                                     <div class="col">
 
                                         <label for="sQuantity">Quantity:</label>
@@ -212,7 +183,6 @@
                                         <input type="number" class="updateQuantity">
 
                                     </div>
-
                                 </div>
 
                                 <div class="row">
@@ -240,11 +210,11 @@
                 </div>
 
             </div>
-
+<!-- end of what if card -->
         </div>
 
         <hr>
-
+<!-- start of article card -->
         <div class="row">
 
             <div class="col">
@@ -271,13 +241,13 @@
 
                         <div class="row">
 
-                            <div class="col-3">
+                            <div class="col-lg-4, col-md-4, col-sm">
 
                                 <input type="text" id="searchBar">
 
                             </div>
 
-                            <div class="col-9">
+                            <div class="col-8, col-md-8, col-sm">
 
                                 <a href="#" class="btn btn-primary" id="searchButton">Search</a>
 
@@ -301,6 +271,7 @@
                 </div>
             </div>
         </div>
+        <!-- end of article card -->
     </div>
     <!-- chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
