@@ -17,7 +17,7 @@ let baseUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&inte
 let baseUrlGlobal = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE";
 let stockSymbolName = "&symbol="
 let stockNames = ["AXP", "AAPL", "MSFT"];
-let stockApiKey = "&apikey=9C5L7VDS9B25DUYZ";
+let stockApiKey = "&apikey=VT479283HRD9511X";
 let stockData = [];
 let stockDataMonthly = [];
 let prevDates = [];
@@ -107,6 +107,9 @@ function getStockDataGlobalQuote(stockElementKey, stockElement,codeVal) {
         .append($("<button>").attr({'id': stockElementKey,class:"deleteBtn"}).css({float:"right"}).text("X")));  
          $("#stockTable > tbody").append(tbRow);
         console.log(stockData);
+        console.log(stockData[0]);
+        console.log(stockData[0].price);
+
        }
        else
        {
@@ -127,6 +130,7 @@ function getStockDataGlobalQuote(stockElementKey, stockElement,codeVal) {
 
 }
 
+
 //firebase methods starts here 
 stockRef.ref("/stocks").on('child_removed',function(snapChildRemovedObj){
     console.log(snapChildRemovedObj.key);
@@ -145,6 +149,7 @@ stockRef.ref('/stocks').on('child_added', function (snapChildAddedObj, prevChild
     console.log(snapChildAddedObj.key);
     console.log(snapChildAddedObj.val());
     console.log(prevChildKeyObj);
+    
     stocksObjValues.push(snapChildAddedObj.val());
     stocksObjKeys.push(snapChildAddedObj.key);
    console.log(stocksObjKeys,stocksObjValues);
