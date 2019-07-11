@@ -429,7 +429,7 @@ function hideCharts (){
   $("#allPie").hide();  
 }
 hideCharts();
-//showing charts
+//showing tcharts
 $("select.selectpicker").change(function(){
     const selectedMonth = $(this).children("option:selected").val();
     // const selectedStock = $(".stockId").val();
@@ -438,104 +438,13 @@ $("select.selectpicker").change(function(){
     if (selectedMonth === "0"){
         hideCharts();
     }
-    if (selectedMonth === "3"){
-        
-        $("#topThree").show();
-        $("#topFive").hide();
-        $("#topTen").hide();
-        $("#allPie").hide();
-    };
-    if (selectedMonth === "5"){
-
-        $("#topFive").show();
-        $("#topThree").hide();
-        $("#topTen").hide();
-        $("#allPie").hide();
-    };
-    if (selectedMonth === "10"){ 
-        $("#topTen").show();
-        $("#topFive").hide();
-        $("#topThree").hide();
-        $("#allPie").hide();
-    };    
+    
     if (selectedMonth === ""){
         
         $("#allPie").show();
-        $("#topFive").hide();
-        $("#topTen").hide();
-        $("#topThree").hide();
+        
     };
 });
-
-
-
-var ctx = document.getElementById('topThree').getContext('2d');
-var topThree = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: stockNames,
-        datasets: [{
-            label: "Top Three",
-            data: [10, 5, 7],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)'
-            ],
-        }],
-    }
-    // options: options
-});
-
-
-
-
-var ctx = document.getElementById('topFive').getContext('2d');
-var topFive = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: stockNames,
-        datasets: [{
-            label: "Top Five",
-            data: [10, 5, 7, 10, 12],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-            ],
-        }],
-    }
-    // options: options
-});
-
-var ctx = document.getElementById('topTen').getContext('2d');
-var topTen = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: stockNames,
-        datasets: [{
-            label: "Top Ten",
-            data: [10, 5, 7, 10, 12, 1, 15, 17, 12, 1],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-            ],
-        }],
-    }
-    // options: options
-});
-
-
 
 
 var ctx = document.getElementById('allPie').getContext('2d');
