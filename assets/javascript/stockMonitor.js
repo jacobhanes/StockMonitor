@@ -16,7 +16,7 @@ let baseUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&inte
 let baseUrlGlobal = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE";
 let stockSymbolName = "&symbol="
 let stockNames = ["AXP", "AAPL", "MSFT"];
-let stockApiKey = "&apikey=9C5L7VDS9B25DUYZ";
+let stockApiKey = "&apikey=VT479283HRD9511X";
 let stockData = [];
 let stockDataMonthly = [];
 let prevDates = [];
@@ -132,6 +132,7 @@ function getStockDataGlobalQuote(stockElementKey, stockElement, codeVal) {
     });
 
 }
+
 
 //firebase methods starts here 
 stockRef.ref("/stocks").on('child_removed', function (snapChildRemovedObj) {
@@ -411,237 +412,76 @@ $(document).ready(function (eventObj) {
     })
 
 
+function hideAbout(){
+    $("#aboutInfo").hide();
+}    
+hideAbout()
+$("#aboutButton").on("click",function(){
+    $("#aboutInfo").toggle();
+   
+    
+})
 
+function hideCharts (){
+  $("#topThree").hide();
+  $("#topFive").hide();  
+  $("#topTen").hide();  
+  $("#allPie").hide();  
+}
+hideCharts();
+//showing tcharts
+$("select.selectpicker").change(function(){
+    const selectedMonth = $(this).children("option:selected").val();
+    // const selectedStock = $(".stockId").val();
 
-
-    function hideAbout() {
-        $("#aboutInfo").hide();
+    console.log(selectedMonth)
+    if (selectedMonth === "0"){
+        hideCharts();
     }
-    hideAbout()
-    $("#aboutButton").on("click", function () {
-        $("#aboutInfo").toggle();
+    
+    if (selectedMonth === ""){
+        
+        $("#allPie").show();
+        
+    };
+});
 
 
-    })
-
-    function hideCharts() {
-        $("#threeMonths").hide();
-        $("#sixMonths").hide()
-        $("#nineMonths").hide()
-        $("#twelveMonths").hide()
+var ctx = document.getElementById('allPie').getContext('2d');
+var allPie = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: stockNames,
+        datasets: [{
+            label: "All",
+            data: [10, 5, 7, 10, 12, 1, 15, 17, 12, 1],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+            ],
+        }],
     }
-    hideCharts();
-    //showing charts
-    $("select.selectpicker").change(function () {
-        const selectedMonth = $(this).children("option:selected").val();
-        // const selectedStock = $(".stockId").val();
-
-        console.log(selectedMonth)
-        if (selectedMonth === "0") {
-            hideCharts();
-        }
-        if (selectedMonth === "3") {
-
-            $("#topThree").show();
-            $("#topFive").hide();
-            $("#topTen").hide();
-            $("#allPie").hide();
-        };
-        if (selectedMonth === "5") {
-
-            $("#topFive").show();
-            $("#topThree").hide();
-            $("#topTen").hide();
-            $("#allPie").hide();
-        };
-        if (selectedMonth === "10") {
-            $("#topTen").show();
-            $("#topFive").hide();
-            $("#topThree").hide();
-            $("#allPie").hide();
-        };
-        if (selectedMonth === "") {
-            $("#allPie").show();
-            $("#topFive").hide();
-            $("#topTen").hide();
-            $("#topThree").hide();
-        };
-    });
-
-    var ctx = document.getElementById('threeMonths').getContext('2d');
-    var threeMonths = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['January', 'February', 'March'],
-            datasets: [{
-                label: 'AXP',
-                data: [10, 19, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-
-    var ctx = document.getElementById('sixMonths').getContext('2d');
-    var sixMonths = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'June', 'July'],
-            datasets: [{
-                label: 'AXP',
-                data: [10, 19, 3, 10, 14, 7],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-
-    var ctx = document.getElementById('nineMonths').getContext('2d');
-    var nineMonths = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'June', 'July', 'Augues', 'September', 'October'],
-            datasets: [{
-                label: 'AXP',
-                data: [10, 19, 3, 10, 14, 7, 12, 15, 9],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
+    // options: options
+});
 
 
+var empty = true;
+$('input[type="text"]').each(function(){
+   if($(this).val()!=""){
+       empty = false;
+      
+      return false;
+    }
+ });
 
-
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-
-
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-
-    var ctx = document.getElementById('twelveMonths').getContext('2d');
-    var twelveMonths = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augues', 'September', 'October', "November", "December"],
-            datasets: [{
-                label: 'AXP',
-                data: [10, 19, 3, 10, 14, 7, 12, 15, 9, 10, 11, 6],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
 
 });
 
