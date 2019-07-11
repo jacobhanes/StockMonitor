@@ -429,9 +429,6 @@ $("#searchButton").on("click", function(){
 })
 
 
-
-
-
 function hideAbout(){
     $("#aboutInfo").hide();
 }    
@@ -444,9 +441,9 @@ $("#aboutButton").on("click",function(){
 
 function hideCharts (){
   $("#topThree").hide();
-  $("#topFive").hide()  
-  $("#topTen").hide()  
-  $("#allPie").hide()  
+  $("#topFive").hide();  
+  $("#topTen").hide();  
+  $("#allPie").hide();  
 }
 hideCharts();
 //showing charts
@@ -479,6 +476,7 @@ $("select.selectpicker").change(function(){
         $("#allPie").hide();
     };    
     if (selectedMonth === ""){
+        
         $("#allPie").show();
         $("#topFive").hide();
         $("#topTen").hide();

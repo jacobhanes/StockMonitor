@@ -20,7 +20,7 @@
 .card-body {
 	background: #cceeff;
 	border-radius: 25px;
-	padding: 10px;
+	padding: 20px;
 }
 .card-header{
 	padding: 20px;
@@ -32,8 +32,8 @@
 	border-radius: 25px;
 }
 #aboutImage {
-	width: 200px;
-	height: 150px;
+	width: 300px;
+	height: 200px;
 	border-radius: 25px;
 }
 .aboutText {
@@ -61,6 +61,9 @@ li {
 	margin: 10px;
 }
 
+#aboutButton {
+	cursor: pointer;
+}
 /* input validation */
 /* input:invalid {
     border: 2px dashed red;
