@@ -77,8 +77,22 @@ li {
     border: 2px solid black;
   } */
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e3b89bed0f12380f87feb20ce281c77af198eb65
 =======
+=======
+body {
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+.deleteBtn {
+	color: red;
+	border-radius: 50%;
+	background-color: #e6ffff;
+
+}
+
+>>>>>>> 7711b26be32576c466a550f9512dbda84269122c
 
 >>>>>>> 59c009580db85fa9781854e7f5f5d2f44e459939

@@ -26,20 +26,16 @@
 
         </nav>
         <div class="row">
-
             <div class="col">
-
                 <div class="card">
-
                     <div class="card-header" id="aboutButton">
 
                         <h5 class="card-title">About</h5>
 
                     </div>
+
                     <div class="card-body" id="aboutInfo">
-
                         <div class="row">
-
                             <div class="col-lg-4, col-md, col-sm">
 
                                 <img id="aboutImage" src="./assets/226932e4117fec10b30aa965e7cf3a2e.jpg">
@@ -53,71 +49,82 @@
                                     account. Check current articles about your stock to help make that next investments.
                                     If you are feeling daring than check out our "what if" section and see if a past
                                     investment would of been worth ir or not! Have fun and make some money!
-
                                 </p>
 
                             </div>
-
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
 
         <hr>
 
-<!-- This is portfolio row section Code Start  -->
+        <!-- This is portfolio row section Code Start  -->
         <div class="row">
             <div class="col">
                 <div class="card" id="stockList">
                     <div class="card-header">
+                        
                         <h5 class="card-title">Portfolio</h5>
+                        
                     </div>
                     <div class="card-body">
-                        <table class="table table-sm table-hover" id='stockTable'>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Stock Name</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Purchase Date</th>
-                                    <th scope="col">Current Price</th>
-                                    <th scope="col">Total Value</th>
-                                    
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                        <form id="stockInputForm">
-                            <div class="row">
-                                <div class="form-group col-lg-3, col-sm, col-md">
-                                    <label for="stockId">Stock Name:</label>
-                                    <input type="text" name="stockIdname" id="stockId">
-                                </div>
-                                <div class="form-group col-3, col-sm, col-md">
+                        <div class="row">
+                            <div class="col">
+
+                                <table class="table table-sm table-hover" id='stockTable'>
+                                    <thead>
+                                        
+                                        <tr>
+                                            <th scope="col">Stock Name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Purchase Date</th>
+                                            <th scope="col">Current Price</th>
+                                            <th scope="col">Total Value</th>
+                                        </tr>
+                                        
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                            <form id="stockInputForm">
+                                <div class="row">
+                                    <div class="form-group col-lg-3, col-sm, col-md">
+                                        
+                                        <label for="stockId">Stock Name:</label>
+                                        <input type="text" name="stockIdname" id="stockId">
+                                        
+                                    </div>
+                                    <div class="form-group col-3, col-sm, col-md">
+                                        
                                     <label for="stockPrice">Price of Stock:</label>
                                     <input type="number" name="stockPricename" id="stockPrice">
+
                                 </div>
                                 <div class="form-group col-3, col-sm, col-md">
+
                                     <label for="stockQuantity">Quantity:</label>
                                     <input type="number" name="stockQuantityname" id="stockQuantity">
+
                                 </div>
                                 <div class="form-group col-3, col-sm, col-md">
+
                                     <label for="stockPurchase">Date Purchase:</label>
                                     <input type="date" min="" max="" id="stockPurchase">
+
                                 </div>
                             </div>
                             <br>
                         </form>
+
                         <input type="button" class="btn btn-primary" value="Add" id="addBtn"></input>
                         <input type="button" class="btn btn-primary" value="Update" id="updateBtn"></input>
+
                     </div>
                 </div>
             </div>
@@ -126,125 +133,99 @@
 
 
         <hr>
-<!-- Start of graph box -->
-<div class="row">
-    <div class="col-lg-6, col-md, col-sm">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">Graphs</h5>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <div id="chartBox">
-                            <canvas id="allPie" width="200" height="200"></canvas>
+        <!-- Start of graph box -->
+        <div class="row">
+            <div class="col-lg-6, col-md, col-sm">
+                <div class="card">
+                    <div class="card-header">
+
+                        <h5 class="card-title">Graphs</h5>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <div id="chartBox">
+
+                                    <canvas id="allPie" width="200" height="200"></canvas>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- end of graph box -->
+            <!-- end of graph box -->
 
-<!-- start of what if card -->
+            <!-- start of what if card -->
             <div class="col-lg-6, col-md, col-sm">
-
                 <div class="card">
-
                     <div class="card-header">
-                        <h5 class="navbar-brand">What if?</h5>
-                    </div>
 
+                        <h5 class="navbar-brand">Historical Stock Data</h5>
+
+                    </div>
                     <div class="card-body">
-                        <p class="aboutText">Fill out the blanks to see if that stock you missed last quarter was worth
-                            being ignored!</p>
+
+                        <p class="aboutText">Choose your stocks</p>
+
                         <hr>
 
-                        <strong>
-                            <p id="fairytale">I would of made/lost: </p>
-                        </strong>
-
                         <div class="row">
-
                             <div class="col">
 
                                 <label for="stockId">Stock Name:</label>
-
                                 <input type="text" id="UpdatestockId" required>
-
-
+                                
                                 <div class="row">
                                     <div class="col">
-
-                                        <label for="sQuantity">Quantity:</label>
-
+                                        
+                                        <label for="sQuantity">Number of Months:</label>
                                         <input type="number" class="updateQuantity">
 
                                     </div>
                                 </div>
 
-                                <div class="row">
-
-                                    <div class="col">
-
-                                        <label for="sPurchase">Purchase Date:</label>
-
-                                        <input type="date" class="sPurchase">
-
-                                    </div>
-
-                                </div>
-
                                 <hr>
 
-                                <a href="#" class="btn btn-primary">Do Magic</a>
-
+                                <a href="#" class="btn btn-primary">Go</a>
+                               
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-<!-- end of what if card -->
+
+            <!-- end of what if card -->
         </div>
 
         <hr>
-<!-- start of article card -->
+        <!-- start of article card -->
         <div class="row">
-
             <div class="col">
-
                 <div class="card">
-
                     <div class="card-header">
 
                         <h5 class="card-title">Find Articles</h5>
 
                     </div>
-
+                    
                     <div class="card-body">
-
                         <div class="row">
-
                             <div class="col">
+
                                 <p class="aboutText">Click to find current articles and information for your
                                     investments!</p>
                                 <hr>
+
                             </div>
-
                         </div>
-
                         <div class="row">
-
                             <div class="col-lg-4, col-md-4, col-sm">
 
                                 <input type="text" id="searchBar">
 
                             </div>
-
                             <div class="col-8, col-md-8, col-sm">
 
                                 <a href="#" class="btn btn-primary" id="searchButton">Search</a>
@@ -254,13 +235,9 @@
                             <hr>
 
                         </div>
-
                         <div class="row">
-
                             <div class="col">
-
                                 <ul class="artList">
-
 
                                 </ul>
                             </div>
