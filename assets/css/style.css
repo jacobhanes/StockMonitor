@@ -1,22 +1,28 @@
 #stockList {
-	    margin-bottom: 25px;
-    }
-    #articleList {
-	        margin-top: 25px;
-	}
-	#navTop {
-			margin-bottom: 25px;
-			border-radius: 25px; 
-			padding: 10px;
-	    }
-	    body{
-				background-color: #191919;
-				padding: 10px;
-		}
-		#navTop{
-			    background-color: #cceeff;
-			        color:black;
-			}
+	margin-bottom: 25px;
+}
+
+#articleList {
+	margin-top: 25px;
+}
+
+#navTop {
+	margin-bottom: 25px;
+	border-radius: 25px; 
+	padding: 10px;
+	
+}
+
+body{
+	background-color: #191919;
+	padding: 10px;
+}
+
+#navTop{
+	background-color: #cceeff;
+	color:black;
+}
+
 .card-body {
 	background: #cceeff;
 	border-radius: 25px;
@@ -37,7 +43,7 @@
 	border-radius: 25px;
 }
 .aboutText {
-	font-size: 20px;
+	font-size: 25px;
 	padding: 20px;
 }
 <<<<<<< HEAD
@@ -93,6 +99,13 @@ body {
 
 }
 
+<<<<<<< HEAD
 >>>>>>> 7711b26be32576c466a550f9512dbda84269122c
 
 >>>>>>> 59c009580db85fa9781854e7f5f5d2f44e459939
+=======
+#odeText {
+	padding: 20px;
+}
+	
+>>>>>>> 0ea9da343546c33c1e391cb17a4a7d7649ce4fe6
