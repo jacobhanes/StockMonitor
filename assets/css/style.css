@@ -1,22 +1,28 @@
 #stockList {
-	    margin-bottom: 25px;
-    }
-    #articleList {
-	        margin-top: 25px;
-	}
-	#navTop {
-			margin-bottom: 25px;
-			border-radius: 25px; 
-			padding: 10px;
-	    }
-	    body{
-				background-color: #191919;
-				padding: 10px;
-		}
-		#navTop{
-			    background-color: #cceeff;
-			        color:black;
-			}
+	margin-bottom: 25px;
+}
+
+#articleList {
+	margin-top: 25px;
+}
+
+#navTop {
+	margin-bottom: 25px;
+	border-radius: 25px; 
+	padding: 10px;
+	
+}
+
+body{
+	background-color: #191919;
+	padding: 10px;
+}
+
+#navTop{
+	background-color: #cceeff;
+	color:black;
+}
+
 .card-body {
 	background: #cceeff;
 	border-radius: 25px;
@@ -37,7 +43,7 @@
 	border-radius: 25px;
 }
 .aboutText {
-	font-size: 20px;
+	font-size: 25px;
 	padding: 20px;
 }
 
@@ -72,4 +78,18 @@ li {
   input:valid {
     border: 2px solid black;
   } */
+body {
+	font-family: 'Roboto Condensed', sans-serif;
+}
 
+.deleteBtn {
+	color: red;
+	border-radius: 50%;
+	background-color: #e6ffff;
+
+}
+
+#odeText {
+	padding: 20px;
+}
+	
