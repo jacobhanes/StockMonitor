@@ -25,24 +25,24 @@ let stocksObjKeys = [];
 let userObj = {};
 let stockUpdateObj = {};
 let stockRef = firebase.database();
-let creatKeysList=[];
-let creatKeysListFlat=[];
-let createKeys=["VT479283HRD9511X","9C5L7VDS9B25DUYZ","FJPWPV1DDCA9J3QK","YXIQMDMCNYDARZH7"];
-let countApiCall=1;
+let creatKeysList = [];
+let creatKeysListFlat = [];
+let createKeys = ["VT479283HRD9511X", "9C5L7VDS9B25DUYZ", "FJPWPV1DDCA9J3QK", "YXIQMDMCNYDARZH7"];
+let countApiCall = 1;
 
-function createKeysListfn(){
+function createKeysListfn() {
     // The fill() method fills (modifies) all the elements of an array from a start index (default zero) to an end 
     // index (default array length) with a static value. It returns the modified array.
-   for(let i=0;i<createKeys.length;i++){
-    const temp= new Array(4);
-    temp.fill(createKeys[i]);
-    creatKeysList.push(temp);
-   }
-   //The flat() method creates a new array with all sub-array elements concatenated into it recursively up to the specified depth.
-   //The depth level specifying how deep a nested array structure should be flattened. Defaults to 1.
-   //The flat method removes empty slots in arrays
-   creatKeysListFlat=creatKeysList.flat(Infinity);
-   console.log(creatKeysListFlat);
+    for (let i = 0; i < createKeys.length; i++) {
+        const temp = new Array(4);
+        temp.fill(createKeys[i]);
+        creatKeysList.push(temp);
+    }
+    //The flat() method creates a new array with all sub-array elements concatenated into it recursively up to the specified depth.
+    //The depth level specifying how deep a nested array structure should be flattened. Defaults to 1.
+    //The flat method removes empty slots in arrays
+    creatKeysListFlat = creatKeysList.flat(Infinity);
+    console.log(creatKeysListFlat);
 }
 
 function clearElements() {
@@ -150,25 +150,24 @@ function getStockDataGlobalQuote(stockElementKey, stockElement, codeVal) {
         url: baseUrlGlobal + stockSymbolName + stockElement.stockId + stockApiKey + creatKeysListFlat[countApiCall],
         method: "GET"
     }).then(function (resObj) {
-        
-        stockRef.ref("/countApiCall").on("value", function(snapValueObj){
-            if(snapValueObj.val()){
-              countApiCall=snapValueObj.val().countApiCalls;
-              console.log("countApiCall value Before : " + countApiCall);
+
+        stockRef.ref("/countApiCall").on("value", function (snapValueObj) {
+            if (snapValueObj.val()) {
+                countApiCall = snapValueObj.val().countApiCalls;
+                console.log("countApiCall value Before : " + countApiCall);
             }
             else {
-              console.log(countApiCall);
+                console.log(countApiCall);
             }
-          });
-          countApiCall++;
-          if(countApiCall >=14)
-          {
-            countApiCall=0;
-          }
-          stockRef.ref("/countApiCall").set({ "countApiCalls" : countApiCall })
+        });
+        countApiCall++;
+        if (countApiCall >= 14) {
+            countApiCall = 0;
+        }
+        stockRef.ref("/countApiCall").set({ "countApiCalls": countApiCall })
 
         if (codeVal == "Add") {
-            console.log(baseUrlGlobal + stockSymbolName + stockElement.stockId + stockApiKey +  creatKeysListFlat[countApiCall]);
+            console.log(baseUrlGlobal + stockSymbolName + stockElement.stockId + stockApiKey + creatKeysListFlat[countApiCall]);
             stockElement.price = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(resObj["Global Quote"]["05. price"]);
             stockElement.totalValue = stockElement.stockQuantity * resObj["Global Quote"]["05. price"];
             console.log("Inside the Add");
@@ -220,15 +219,15 @@ function getStockDataGlobalQuote(stockElementKey, stockElement, codeVal) {
 
 //firebase methods starts here 
 
-stockRef.ref("/countApiCall").once("value", function(snapReadonceObj){
-    if(snapReadonceObj.val()){
-      countApiCall=snapReadonceObj.val().countApiCalls;
-      console.log("countApiCall value Before : " + countApiCall);
+stockRef.ref("/countApiCall").once("value", function (snapReadonceObj) {
+    if (snapReadonceObj.val()) {
+        countApiCall = snapReadonceObj.val().countApiCalls;
+        console.log("countApiCall value Before : " + countApiCall);
     }
     else {
-      console.log(countApiCall);
+        console.log(countApiCall);
     }
-  });
+});
 
 stockRef.ref("/stocks").on('child_removed', function (snapChildRemovedObj) {
     const snapRemovedObjIndex = stocksObjKeys.indexOf(snapChildRemovedObj.key);
@@ -251,7 +250,7 @@ stockRef.ref('/stocks').on('child_added', function (snapChildAddedObj, prevChild
 stockRef.ref('/stocks').on('child_changed', function (snapChangedObj) {
     //call api function for the stock from fire base 
     getStockDataGlobalQuote(snapChangedObj.key, snapChangedObj.val(), 'Update');
-  
+
 });
 
 
@@ -286,14 +285,25 @@ $(document).ready(function (eventObj) {
     }
 
 
-    function getStockDataMonthly(stockElement) {
+    function getStockDataMonthly(stockElement, selectMonths) {
         let baseUrlMonthly = "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED";
         $.ajax({
-            url: baseUrlMonthly + stockSymbolName + stockElement + stockApiKey,
+            url: baseUrlMonthly + stockSymbolName + stockElement + stockApiKey + creatKeysListFlat[countApiCall],
             method: "GET"
         }).then(function (resObj) {
-            console.log(baseUrlMonthly + stockSymbolName + stockElement + stockApiKey);
-
+            console.log(baseUrlMonthly + stockSymbolName + stockElement + stockApiKey + creatKeysListFlat[countApiCall]);
+            console.log(resObj);
+            const stockDataMonthlyChart = resObj["Monthly Adjusted Time Series"];
+            console.log(stockDataMonthlyChart);
+            const stockDataMonthlyChartKeysTemp = [];
+            const stockDataMonthlyChartValuesTemp = [];
+            let stockDataMonthlyChartKeys = Object.keys(stockDataMonthlyChart);
+            let stockDataMonthlyChartValues = Object.values(stockDataMonthlyChart);
+            for (let i = 0; i < selectMonths; i++) {
+                stockDataMonthlyChartKeysTemp.push(stockDataMonthlyChartKeys[i]);
+                stockDataMonthlyChartValuesTemp.push(stockDataMonthlyChartValues[i]["4. close"]);
+            }
+            console.log(stockDataMonthlyChartKeysTemp, stockDataMonthlyChartValuesTemp);
             for (let i = 0; i < prevDates.length; i++) {
                 stockDataMonthly.push({
                     "symbol": resObj["Meta Data"]["2. Symbol"],
@@ -301,8 +311,29 @@ $(document).ready(function (eventObj) {
                     "Dividend amount": resObj["Monthly Adjusted Time Series"][prevDates[i].month_end_date]["7. dividend amount"],
                     "Month EndDate": prevDates[i].month_end_date
                 })
-
             }
+
+            var ctx = document.getElementById('allLine').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: stockDataMonthlyChartKeysTemp,
+                    datasets: [{
+                        label: stockElement,
+                        backgroundColor: 'rgb(77, 166, 255)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: stockDataMonthlyChartValuesTemp
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+
+
 
         });
 
@@ -311,6 +342,19 @@ $(document).ready(function (eventObj) {
     $(document).on('click', ".deleteBtn", function (deleteBtnObj) {
         console.log(deleteBtnObj);
         stockRef.ref("/stocks").child($(this).attr('id')).remove();
+    });
+
+
+    $("#goBtn").click(function (eventgoObj) {
+        console.log(eventgoObj);
+        let updateMonths = $("#updateMonths").val();
+        let UpdatestockId = $("#UpdatestockId").val();
+        console.log(updateMonths, UpdatestockId);
+        getStockDataMonthly(UpdatestockId, updateMonths);
+        //clear elements 
+        $("#updateMonths").val("");
+        $("#UpdatestockId").val("");
+
     });
 
     // Update stock button starts here 
