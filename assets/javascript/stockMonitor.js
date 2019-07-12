@@ -27,14 +27,14 @@ let stockUpdateObj = {};
 let stockRef = firebase.database();
 let creatKeysList=[];
 let creatKeysListFlat=[];
-let createKeys=["VT479283HRD9511X","9C5L7VDS9B25DUYZ","FJPWPV1DDCA9J3QK","VT479283HRD9511X"];
+let createKeys=["VT479283HRD9511X","9C5L7VDS9B25DUYZ","FJPWPV1DDCA9J3QK","YXIQMDMCNYDARZH7"];
 let countApiCall=1;
 
 function createKeysListfn(){
     // The fill() method fills (modifies) all the elements of an array from a start index (default zero) to an end 
     // index (default array length) with a static value. It returns the modified array.
    for(let i=0;i<createKeys.length;i++){
-    const temp= new Array(5);
+    const temp= new Array(4);
     temp.fill(createKeys[i]);
     creatKeysList.push(temp);
    }
@@ -149,7 +149,7 @@ function getStockDataGlobalQuote(stockElementKey, stockElement, codeVal) {
             }
           });
           countApiCall++;
-          if(countApiCall >=18)
+          if(countApiCall >=14)
           {
             countApiCall=0;
           }
